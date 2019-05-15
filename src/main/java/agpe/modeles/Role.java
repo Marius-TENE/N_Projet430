@@ -23,7 +23,7 @@ public class Role {
 	@NotNull
 	private String nomRole;
 
-	@OneToMany(mappedBy = "roles",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
 	private Collection<Utilisateur> utilisateurs;
 	
 	public Role() {

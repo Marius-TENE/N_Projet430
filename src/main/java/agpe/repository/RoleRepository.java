@@ -7,7 +7,8 @@ import org.springframework.data.repository.query.Param;
 import agpe.modeles.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Integer>{
-	  @Query("select r.nomRole from roles_utilisateur ur, Role r where ur.matricule=:m and r.idRole=ur.idRole") 
-	  public String retournerRoleUtilisateur(@Param("m")String matricule);
-	 
+	/*
+	 * @Query("select r.nomRole from roles_utilisateur ur, Role r where ur.matricule=:m and r.idRole=ur.idRole"
+	 * ) public String retournerRoleUtilisateur(@Param("m")String matricule);
+	 */
 }

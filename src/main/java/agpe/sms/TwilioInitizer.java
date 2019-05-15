@@ -1,6 +1,5 @@
 package agpe.sms;
 
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +13,12 @@ public class TwilioInitizer {
 	
 	@Autowired
 	public TwilioInitizer(TwilioConfiguration twilioConfiguration) {
-		super();
 		this.twilioConfiguration = twilioConfiguration;
 		Twilio.init(
 				twilioConfiguration.getAccountSid(),
 				twilioConfiguration.getAutToken()
-				);
+		);
+		LOGGER.info("Twilio a été initialisé..... avec le compte sid {}",twilioConfiguration.getAccountSid());;
 	}
 	
 }

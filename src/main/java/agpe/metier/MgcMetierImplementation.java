@@ -58,7 +58,7 @@ public class MgcMetierImplementation implements AgpeMetier{
 
 	@Override
 	public Role RetournerRoleUtilisateur(String login) {
-		return utr.retournerRole(utr.getOne(login).getMatricule());
+		return null;
 	}
 
 	@Override
