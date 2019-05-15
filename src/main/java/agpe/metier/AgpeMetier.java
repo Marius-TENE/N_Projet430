@@ -1,12 +1,11 @@
 package agpe.metier;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-
 import agpe.modeles.Piece;
-import agpe.modeles.Role;
 import agpe.modeles.Utilisateur;
+import agpe.sms.SmsRequest;
 
 public interface AgpeMetier{
 	public Utilisateur enregistrerUTilisateur(Utilisateur u);
@@ -16,10 +15,9 @@ public interface AgpeMetier{
 	public Optional<Utilisateur> chercherUtilisateurAvecLogin(String login);
 	public Utilisateur recupererCompte(String login,String email);
 	public boolean chercherUtilisateur(String login);
-	public Role RetournerRoleUtilisateur(String login);
 	public void enregistrerPiece(Utilisateur utilisateur,Piece piece);
-	public void supprimerPiece(Utilisateur utilisateur,Piece piece);
-	public Role modifierRole(Utilisateur utilisateur,Role role);
-	public Role ajouterRole(Role role);
+	public void supprimerPiece(Piece piece);
+	public void envoyerSms(SmsRequest smsRequest);
+	public void envoyerSmsGroup(ArrayList<Utilisateur> users,String message);
 	
 }

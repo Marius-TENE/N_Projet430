@@ -18,7 +18,7 @@ public class Piece {
 	private Long idPiece;
 	
 	@NotNull
-	private String nomRole;
+	private String nomPiece;
 	
 	@NotNull
 	private Date date_ajout;
@@ -38,46 +38,61 @@ public class Piece {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Piece(@NotNull String nomRole, @NotNull Date date_ajout, @NotNull String adresse, Categorie categorie) {
+
+	public Piece(@NotNull String nomPiece, @NotNull Date date_ajout, @NotNull String adresse, Categorie categorie,
+			Utilisateur utilisateur) {
 		super();
-		this.nomRole = nomRole;
+		this.nomPiece = nomPiece;
 		this.date_ajout = date_ajout;
 		this.adresse = adresse;
 		this.categorie = categorie;
+		this.utilisateur = utilisateur;
 	}
+
 	public Long getIdPiece() {
 		return idPiece;
 	}
+
 	public void setIdPiece(Long idPiece) {
 		this.idPiece = idPiece;
 	}
-	public String getNomRole() {
-		return nomRole;
+
+	public String getNomPiece() {
+		return nomPiece;
 	}
-	public void setNomRole(String nomRole) {
-		this.nomRole = nomRole;
+
+	public void setNomPiece(String nomPiece) {
+		this.nomPiece = nomPiece;
 	}
+
 	public Date getDate_ajout() {
 		return date_ajout;
 	}
+
 	public void setDate_ajout(Date date_ajout) {
 		this.date_ajout = date_ajout;
 	}
+
 	public String getAdresse() {
 		return adresse;
 	}
+
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
+
 	public Categorie getCategorie() {
 		return categorie;
 	}
+
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
+
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
+
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}

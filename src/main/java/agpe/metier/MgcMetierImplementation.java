@@ -1,5 +1,6 @@
 package agpe.metier;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import agpe.modeles.Piece;
-import agpe.modeles.Role;
 import agpe.modeles.Utilisateur;
-import agpe.repository.RoleRepository;
+import agpe.repository.PieceRepository;
 import agpe.repository.UtilisateurRepository;
+import agpe.sms.SmsRequest;
 
 @Service
 @Transactional
@@ -18,8 +19,12 @@ public class MgcMetierImplementation implements AgpeMetier{
 	
 	@Autowired
 	private UtilisateurRepository utr;
+	
 	@Autowired
-	private RoleRepository ror;
+	PieceRepository pir;
+	
+	@Autowired
+	private agpe.sms.Service service;
 
 	@Override
 	public Utilisateur enregistrerUTilisateur(Utilisateur u) {
@@ -57,30 +62,33 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public Role RetournerRoleUtilisateur(String login) {
-		return null;
-	}
-
-	@Override
 	public void enregistrerPiece(Utilisateur utilisateur, Piece piece) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void supprimerPiece(Utilisateur utilisateur, Piece piece) {
-		// TODO Auto-generated method stub
+	public void supprimerPiece(Piece piece) {
+		pir.delete(piece);
 	}
 
 	@Override
-	public Role modifierRole(Utilisateur utilisateur, Role role) {
-		// TODO Auto-generated method stub
-		return null;
+	public void envoyerSms(SmsRequest smsRequest) {
+		service.envoyerSms(smsRequest);
 	}
 
 	@Override
-	public Role ajouterRole(Role role) {
-		return ror.save(role);
+	public void envoyerSmsGroup(ArrayList<Utilisateur> users, String message) {
+		int nbre_user= users.size();
+		for(int i=0;i<nbre_user;i++) {
+			SmsRequest smsRequest = new SmsRequest(users.get(i).getTel(), message);
+			try {
+				envoyerSms(smsRequest);
+			} catch (Exception e) {
+				//une erreur lors de l'envoi
+			}
+			
+		}
 	}
 
 }

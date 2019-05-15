@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import agpe.metier.AgpeMetier;
-import agpe.modeles.Role;
 import agpe.sms.Service;
 import agpe.sms.SmsRequest;
 
@@ -26,13 +25,7 @@ public class AgpeApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Role r = new Role("Enseignant");
-		Role r1 = new Role("Sspe");
-		Role r2 = new Role("Admin");
-		agpeMetier.ajouterRole(r);
-		agpeMetier.ajouterRole(r1);
-		agpeMetier.ajouterRole(r2);
-			
+		
 		/*
 		 * Utilisateur user = new
 		 * Utilisateur("15y511","TENE MBA","Marius Firmin","tefuncowm@gmail.com",
