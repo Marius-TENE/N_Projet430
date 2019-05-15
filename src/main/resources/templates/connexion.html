@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmls:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout">
+<head>
+<meta charset="UTF-8">
+<title><h1>Page de connexion</h1></title>
+</head>
+<body>
+	<form th:action="@{/incription}" method="post">
+		<p>Remplissez avec vos informations de connexion</p>
+		<label>Login</label><br>
+		<input type="text" name="id"/><class th:text="${id}"></class><br>
+		<label>password</label><br>
+		<input type="password" name="password"><class th:text="${password}"></class><br>
+		<button type="submit">connexion</button>
+	</form>
+</body>
+</html>
