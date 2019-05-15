@@ -22,6 +22,7 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Autowired
 	private UtilisateurRepository utr;
 	
+	@Autowired
 	private MailSenderImplementation mls;
 	
 	@Autowired
@@ -97,7 +98,12 @@ public class MgcMetierImplementation implements AgpeMetier{
 
 	@Override
 	public void envoyerMail(MailRequest mailRequest) {
-		mls.envoyerMail(mailRequest);
+		try {
+			mls.envoyerMail(mailRequest);
+		} catch (Exception e) {
+			System.out.print("Une erreur : "+e.getMessage()); 
+		}
+	
 	}
 
 	@Override
