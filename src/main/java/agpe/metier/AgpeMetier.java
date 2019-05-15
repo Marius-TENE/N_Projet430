@@ -3,6 +3,7 @@ package agpe.metier;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import agpe.mail.MailRequest;
 import agpe.modeles.Piece;
 import agpe.modeles.Utilisateur;
 import agpe.sms.SmsRequest;
@@ -19,5 +20,7 @@ public interface AgpeMetier{
 	public void supprimerPiece(Piece piece);
 	public void envoyerSms(SmsRequest smsRequest);
 	public void envoyerSmsGroup(ArrayList<Utilisateur> users,String message);
+	public void envoyerMail(MailRequest mailRequest);
+	public void envoyerMailGroup(ArrayList<Utilisateur> users,String message,String objet);
 	
 }

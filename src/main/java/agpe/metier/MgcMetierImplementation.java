@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import agpe.mail.MailRequest;
+import agpe.mail.MailSenderImplementation;
 import agpe.modeles.Piece;
 import agpe.modeles.Utilisateur;
 import agpe.repository.PieceRepository;
@@ -19,6 +21,8 @@ public class MgcMetierImplementation implements AgpeMetier{
 	
 	@Autowired
 	private UtilisateurRepository utr;
+	
+	private MailSenderImplementation mls;
 	
 	@Autowired
 	PieceRepository pir;
@@ -88,6 +92,20 @@ public class MgcMetierImplementation implements AgpeMetier{
 				//une erreur lors de l'envoi
 			}
 			
+		}
+	}
+
+	@Override
+	public void envoyerMail(MailRequest mailRequest) {
+		mls.envoyerMail(mailRequest);
+	}
+
+	@Override
+	public void envoyerMailGroup(ArrayList<Utilisateur> users, String message, String objet) {
+		int nbre_user = users.size();
+		for(int i=0;i<nbre_user;i++) {
+			MailRequest mailRequest = new MailRequest(users.get(i).getEmail(),message,objet);
+			mls.envoyerMail(mailRequest);
 		}
 	}
 
