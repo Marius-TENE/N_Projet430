@@ -25,7 +25,7 @@ public class DBFileStorageService {
     public Piece storeFile(MultipartFile file,Utilisateur user,Categorie categorie) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-       // System.out.print("Nom : "  + fileName+"\n\n");
+        System.out.print("Nom : "  + fileName+"\n\n");
         try {
             // Check if the file's name contains invalid characters
             if(fileName.contains("..")) {
