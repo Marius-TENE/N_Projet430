@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import agpe.portfolio.modele.Piece;
+
 @Entity
 public class Categorie {
 	

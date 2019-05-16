@@ -1,16 +1,20 @@
 package agpe.metier;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import agpe.mail.MailRequest;
 import agpe.mail.MailSenderImplementation;
-import agpe.modeles.Piece;
+import agpe.modeles.Categorie;
 import agpe.modeles.Utilisateur;
+import agpe.portfolio.modele.Piece;
+import agpe.portfolio.service.DBFileStorageService;
 import agpe.repository.PieceRepository;
 import agpe.repository.UtilisateurRepository;
 import agpe.sms.SmsRequest;
@@ -24,6 +28,9 @@ public class MgcMetierImplementation implements AgpeMetier{
 	
 	@Autowired
 	private MailSenderImplementation mls;
+	
+	@Autowired
+	private DBFileStorageService dbfserv;
 	
 	@Autowired
 	PieceRepository pir;
@@ -67,12 +74,6 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public void enregistrerPiece(Utilisateur utilisateur, Piece piece) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void supprimerPiece(Piece piece) {
 		pir.delete(piece);
 	}
@@ -113,6 +114,36 @@ public class MgcMetierImplementation implements AgpeMetier{
 			MailRequest mailRequest = new MailRequest(users.get(i).getEmail(),message,objet);
 			mls.envoyerMail(mailRequest);
 		}
+	}
+
+	@Override
+	public Piece enregistrerPiece(MultipartFile file, Utilisateur user, Categorie categorie) {
+		return dbfserv.storeFile(file, user, categorie);
+	}
+
+	@Override
+	public Piece chercherPiece(String idPiece) {
+		return dbfserv.getFile(idPiece);
+	}
+
+	@Override
+	public Collection<Piece> chercherPieceUtilisateurAvecCategorie(String matricule, int idCategorie) {
+		return dbfserv.chercherPieceUtilisateurAvecCategorie(matricule, idCategorie);
+	}
+
+	@Override
+	public void deletePiece(Piece piece) {
+		dbfserv.deletePiece(piece);
+	}
+
+	@Override
+	public int nbrePiecesUtilisateurCategorie(String matricule, int idCategorie) {
+		return dbfserv.nbrePiecesUtilisateurCategorie(matricule, idCategorie);
+	}
+
+	@Override
+	public int nbrePieceUtilisateur(String matricule) {
+		return dbfserv.nbrePIeceUtilisateur(matricule);
 	}
 
 }
