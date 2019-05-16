@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import agpe.portfolio.modele.Piece;
 
 
-public interface PieceRepository extends JpaRepository<Piece, String>{
+public interface PieceRepository extends JpaRepository<Piece, Long>{
 	
 	@Query("select p from Piece p,Utilisateur u,Categorie c where p.categorie=:cat and p.utilisateur=:mat order by p.date_ajout asc")
 	public Collection<Piece> chercherPieceUtilisateurAvecCategorie(@Param("mat")String matricule,@Param("cat")int idCategorie);

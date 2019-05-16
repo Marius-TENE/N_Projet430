@@ -21,9 +21,8 @@ import agpe.modeles.Utilisateur;
 public class Piece {
 	
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid",strategy = "uuid2")
-	private String idPiece;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idPiece;
 	
 	@NotNull
 	private Date date_ajout;
@@ -50,7 +49,7 @@ public class Piece {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Piece(String idPiece, @NotNull Date date_ajout, @NotNull String nomPiece, @NotNull String extensionPiece,
+	public Piece(Long idPiece, @NotNull Date date_ajout, @NotNull String nomPiece, @NotNull String extensionPiece,
 			byte[] data, Categorie categorie, Utilisateur utilisateur) {
 		super();
 		this.idPiece = idPiece;
@@ -81,11 +80,11 @@ public class Piece {
 		this.data = data;
 	}
 
-	public String getIdPiece() {
+	public Long getIdPiece() {
 		return idPiece;
 	}
 
-	public void setIdPiece(String idPiece) {
+	public void setIdPiece(Long idPiece) {
 		this.idPiece = idPiece;
 	}
 

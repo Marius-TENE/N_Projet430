@@ -12,9 +12,12 @@ import org.springframework.web.multipart.MultipartFile;
 import agpe.mail.MailRequest;
 import agpe.mail.MailSenderImplementation;
 import agpe.modeles.Categorie;
+import agpe.modeles.Departement;
 import agpe.modeles.Utilisateur;
 import agpe.portfolio.modele.Piece;
 import agpe.portfolio.service.DBFileStorageService;
+import agpe.repository.CategorieRepository;
+import agpe.repository.DepartementRepository;
 import agpe.repository.PieceRepository;
 import agpe.repository.UtilisateurRepository;
 import agpe.sms.SmsRequest;
@@ -31,6 +34,12 @@ public class MgcMetierImplementation implements AgpeMetier{
 	
 	@Autowired
 	private DBFileStorageService dbfserv;
+	
+	@Autowired
+	private CategorieRepository catr;
+	
+	@Autowired
+	private DepartementRepository departementRepository;
 	
 	@Autowired
 	PieceRepository pir;
@@ -122,7 +131,7 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public Piece chercherPiece(String idPiece) {
+	public Piece chercherPiece(Long idPiece) {
 		return dbfserv.getFile(idPiece);
 	}
 
@@ -144,6 +153,21 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public int nbrePieceUtilisateur(String matricule) {
 		return dbfserv.nbrePIeceUtilisateur(matricule);
+	}
+
+	@Override
+	public void enregistrerCategorie(Categorie categorie) {
+		catr.save(categorie);
+	}
+
+	@Override
+	public void enregistrerDepartement(Departement depart) {
+		departementRepository.save(depart);
+	}
+
+	@Override
+	public Optional<Categorie> retournerCategorie(int idCategorie) {
+		return catr.findById(idCategorie);
 	}
 
 }

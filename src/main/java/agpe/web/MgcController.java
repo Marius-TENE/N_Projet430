@@ -13,7 +13,7 @@ public class MgcController {
 	@Autowired
 	private AgpeMetier mgcMetier;
 	
-	@RequestMapping(value = {"/","/connexion"},method = RequestMethod.GET)
+	@RequestMapping(value = {"/connexion"},method = RequestMethod.GET)
 	public String index() {
 		return "pages/connexion";
 	}

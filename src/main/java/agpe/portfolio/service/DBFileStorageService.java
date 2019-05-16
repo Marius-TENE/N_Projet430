@@ -25,14 +25,14 @@ public class DBFileStorageService {
     public Piece storeFile(MultipartFile file,Utilisateur user,Categorie categorie) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
+       // System.out.print("Nom : "  + fileName+"\n\n");
         try {
             // Check if the file's name contains invalid characters
             if(fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            Piece dbFile = new Piece(new Date(), file.getName(),file.getContentType(),file.getBytes(), categorie, user);
+            Piece dbFile = new Piece(new Date(), fileName,file.getContentType(),file.getBytes(), categorie, user);
 
             return dbFileRepository.save(dbFile);
         } catch (IOException ex) {
@@ -40,7 +40,7 @@ public class DBFileStorageService {
         }
     }
 
-    public Piece getFile(String fileId) {
+    public Piece getFile(Long fileId) {
         return dbFileRepository.findById(fileId)
                 .orElseThrow(() -> new MyFileNotFoundException("File not found with id " + fileId));
     }

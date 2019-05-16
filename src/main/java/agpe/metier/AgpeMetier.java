@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import agpe.mail.MailRequest;
 import agpe.modeles.Categorie;
+import agpe.modeles.Departement;
 import agpe.modeles.Utilisateur;
 import agpe.portfolio.modele.Piece;
 import agpe.sms.SmsRequest;
@@ -26,11 +27,14 @@ public interface AgpeMetier{
 	public void envoyerMail(MailRequest mailRequest);
 	public void envoyerMailGroup(ArrayList<Utilisateur> users,String message,String objet);
     public Piece enregistrerPiece(MultipartFile file,Utilisateur user,Categorie categorie);
-    public Piece chercherPiece(String idPiece);
+    public Piece chercherPiece(Long idPiece);
     public Collection<Piece> chercherPieceUtilisateurAvecCategorie(String matricule,int idCategorie);
     public void deletePiece(Piece piece);
     public int nbrePiecesUtilisateurCategorie(String matricule,int idCategorie);
     public int nbrePieceUtilisateur(String matricule);
+    public void enregistrerCategorie(Categorie categorie);
+    public void enregistrerDepartement(Departement depart);
+    public Optional<Categorie> retournerCategorie(int idCategorie);
     
 	
 }

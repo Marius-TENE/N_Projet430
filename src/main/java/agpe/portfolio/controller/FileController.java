@@ -2,6 +2,7 @@ package agpe.portfolio.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -37,10 +38,12 @@ public class FileController {
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
     	
-        Piece dbFile = agpeMetier.enregistrerPiece(file,new Utilisateur(),new Categorie());
+    	Optional<Categorie> cat = agpeMetier.retournerCategorie(1);
+		Optional<Utilisateur> ut = agpeMetier.chercherUtilisateurAvecLogin("15Y511");
+        Piece dbFile = agpeMetier.enregistrerPiece(file,ut.get(),cat.get());
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
+                .path("/telechargement/")
                 .path(dbFile.getNomPiece())
                 .toUriString();
 
@@ -56,8 +59,8 @@ public class FileController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/downloadFile/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String idPiece) {
+    @GetMapping("/telechargement/{nomPiece}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long idPiece) {
         // Load file from database
         Piece dbFile = agpeMetier.chercherPiece(idPiece);
 
