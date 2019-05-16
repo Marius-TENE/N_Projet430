@@ -170,4 +170,9 @@ public class MgcMetierImplementation implements AgpeMetier{
 		return catr.findById(idCategorie);
 	}
 
+	@Override
+	public String chercherNomPiece(Long fileId) {
+		return dbfserv.chercherNomPiece(fileId);
+	}
+
 }

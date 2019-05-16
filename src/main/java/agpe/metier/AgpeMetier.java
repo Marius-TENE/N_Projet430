@@ -35,6 +35,7 @@ public interface AgpeMetier{
     public void enregistrerCategorie(Categorie categorie);
     public void enregistrerDepartement(Departement depart);
     public Optional<Categorie> retournerCategorie(int idCategorie);
+    public String chercherNomPiece(Long fileId);
     
 	
 }

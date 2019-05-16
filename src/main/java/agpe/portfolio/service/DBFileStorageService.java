@@ -59,4 +59,8 @@ public class DBFileStorageService {
     public int nbrePIeceUtilisateur(String matricule) {
 		return dbFileRepository.nbrePiecesUtilisateur(matricule);
     }
+    
+    public String chercherNomPiece(Long fileId) {
+    	return dbFileRepository.findById(fileId).get().getNomPiece();
+    }
 }
