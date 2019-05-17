@@ -32,12 +32,8 @@ public class FileController {
 
     @Autowired
     private AgpeMetier agpeMetier;
-
     
-    @RequestMapping(value  = "/addpiece")
-    public String addPiece() {
-    	return "piece";
-    }
+   
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
     	Optional<Categorie> cat = agpeMetier.retournerCategorie(1);

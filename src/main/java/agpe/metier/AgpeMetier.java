@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.multipart.MultipartFile;
 
+import agpe.authentification.model.Role;
 import agpe.mail.MailRequest;
 import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
@@ -36,6 +38,8 @@ public interface AgpeMetier{
     public void enregistrerDepartement(Departement depart);
     public Optional<Categorie> retournerCategorie(int idCategorie);
     public String chercherNomPiece(Long fileId);
+    public void updatePassword(String password, String login);
+    public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles);
     
 	
 }

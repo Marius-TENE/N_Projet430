@@ -35,8 +35,11 @@ public class AgpeApplication implements CommandLineRunner{
 		agpeMetier.enregistrerUTilisateur(ut);
 		
 	
-//		SmsRequest smsRequest = new SmsRequest("+237691103603","welcome to agpe application.");
-//		agpeMetier.envoyerSms(smsRequest);
+		/*
+		 * SmsRequest smsRequest = new
+		 * SmsRequest("+237691103603","welcome to agpe application.");
+		 * agpeMetier.envoyerSms(smsRequest);
+		 */
 //		
 //		MailRequest mailRequest = new MailRequest("tefuncowm@gmail.com","Welcome to agpe application","registration on agpe");
 //		MailRequest mailRequest1 = new MailRequest("fredjordan288@gmail.com","Welcome to agpe application","registration on agpe");

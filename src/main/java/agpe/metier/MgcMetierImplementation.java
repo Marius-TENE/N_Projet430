@@ -5,10 +5,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import agpe.authentification.model.Role;
 import agpe.mail.MailRequest;
 import agpe.mail.MailSenderImplementation;
 import agpe.modeles.Categorie;
@@ -30,6 +33,9 @@ public class MgcMetierImplementation implements AgpeMetier{
 	private UtilisateurRepository utr;
 	
 	@Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
 	private MailSenderImplementation mls;
 	
 	@Autowired
@@ -49,6 +55,7 @@ public class MgcMetierImplementation implements AgpeMetier{
 
 	@Override
 	public Utilisateur enregistrerUTilisateur(Utilisateur u) {
+		u.setPassword(passwordEncoder.encode(u.getPassword()));
 		return utr.save(u);
 	}
 
@@ -173,6 +180,18 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public String chercherNomPiece(Long fileId) {
 		return dbfserv.chercherNomPiece(fileId);
+	}
+
+	@Override
+	public void updatePassword(String password, String login) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

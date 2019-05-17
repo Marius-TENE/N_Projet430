@@ -2,19 +2,22 @@ package agpe.modeles;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import agpe.authentification.model.Role;
 import agpe.portfolio.modele.Piece;
 
 @Entity
@@ -57,9 +60,6 @@ public class Utilisateur {
 	@Column(name = "actif")
 	private int actif;
 	
-	@NotNull
-	private int status;
-	
 	private String grade;
 	private String specialite;
 
@@ -70,12 +70,23 @@ public class Utilisateur {
 	@JoinColumn(name = "idDepartement")
 	private Departement departement;
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	    @JoinTable(
+	            name = "users_roles",
+	            joinColumns = @JoinColumn(
+	                    name = "user_id", referencedColumnName = "matricule"),
+	            inverseJoinColumns = @JoinColumn(
+	                    name = "role_id", referencedColumnName = "id"))
+	private Collection<Role> roles;
+	
 	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
+	
 
 	public Utilisateur(@NotEmpty(message = "Entrer un matricule svp") String matricule,
 			@NotEmpty(message = "*Entrer un nom svp") String nom, String prenom,
@@ -84,8 +95,8 @@ public class Utilisateur {
 			@Length(min = 5, message = "*Votre mot de passe doit avoir au moins 8 caractères") @NotEmpty(message = "*Entrer un mot de passe") String password,
 			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
 			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
-			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif,
-			@NotNull int status, String grade, String specialite, Departement departement) {
+			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif, String grade,
+			String specialite, Collection<Piece> pieces, Departement departement, Collection<Role> roles) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -97,10 +108,11 @@ public class Utilisateur {
 		this.tel = tel;
 		this.naissance = naissance;
 		this.actif = actif;
-		this.status = status;
 		this.grade = grade;
 		this.specialite = specialite;
+		this.pieces = pieces;
 		this.departement = departement;
+		this.roles = roles;
 	}
 
 
@@ -109,22 +121,27 @@ public class Utilisateur {
 			@Email(message = "*Entrer un email valide svp ") @NotEmpty(message = "*Entrer un email") String email,
 			@NotEmpty(message = "*Entrer un login svp") String login,
 			@Length(min = 5, message = "*Votre mot de passe doit avoir au moins 8 caractères") @NotEmpty(message = "*Entrer un mot de passe") String password,
+			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
 			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
-			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif,
-			@NotNull int status, String grade, Departement departement) {
+			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif, String grade,
+			String specialite, Departement departement, Collection<Role> roles) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
 		this.email = email;
 		this.login = login;
 		this.password = password;
+		this.adresse = adresse;
 		this.tel = tel;
 		this.naissance = naissance;
 		this.actif = actif;
-		this.status = status;
 		this.grade = grade;
+		this.specialite = specialite;
 		this.departement = departement;
+		this.roles = roles;
 	}
+
+
 
 
 	public String getMatricule() {
@@ -226,14 +243,14 @@ public class Utilisateur {
 		this.actif = actif;
 	}
 
-
-	public int getStatus() {
-		return status;
+	
+	public Collection<Role> getRoles() {
+		return roles;
 	}
 
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
 	}
 
 
