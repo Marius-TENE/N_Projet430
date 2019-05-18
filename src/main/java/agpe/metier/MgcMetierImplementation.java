@@ -32,9 +32,9 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Autowired
 	private UtilisateurRepository utr;
 	
-	@Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired private BCryptPasswordEncoder passwordEncoder;
+	 
 	@Autowired
 	private MailSenderImplementation mls;
 	
@@ -157,5 +157,12 @@ public class MgcMetierImplementation implements AgpeMetier{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Utilisateur enregistrerUtilisateur(Utilisateur user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		return utr.save(user);
+	}
+	
 
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmls:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout">
 
 <head>
 
@@ -45,19 +46,19 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default"  id="connexion">
                     <div class="panel-heading">
-                        <h3 class="panel-title"" style="color: black; font-weight: bold;font-size: 20px; text-align:center;>Se connecter</h3>
+                        <h3 class="panel-title"" style="color: black; font-weight: bold;font-size: 20px; text-align:center>Se connecter</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" method="POST" action="admin.html" id="connexionForm">
+                        <form role="form" method="POST" th:action="@{/connexion}" id="connexionForm">
                             <label>Identifiant</label>
                             <div class="form-group input-group">
                                 <span class="input-group-addon" style="color: rgbrgb(37,63,51);"><i class="fa fa-user"></i></span>
-                                <input type="text" name="id" id="id" class="form-control" placeholder="Entrer votre identifiant" autofocus>
+                                <input type="text" name="username" id="id" class="form-control" placeholder="Entrer votre identifiant" autofocus>
                             </div>
                             <label>Mot de passe</label>
                             <div class="form-group input-group">
                                 <span class="input-group-addon" style="color: rgb(37,63,51);"><i class="fa fa-lock"></i></span>
-                                <input type="Password" name="Password" id="Password" class="form-control" placeholder="Entrer le mot de passe">
+                                <input type="Password" name="password" id="Password" class="form-control" placeholder="Entrer le mot de passe">
                             </div>
                             <div class="">
                                 <a href="" style="color: black;">mot de passe oublié</a>

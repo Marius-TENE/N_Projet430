@@ -16,6 +16,8 @@ import agpe.portfolio.modele.Piece;
 import agpe.sms.SmsRequest;
 
 public interface AgpeMetier{
+	
+	public Utilisateur enregistrerUtilisateur(Utilisateur user);
 	public void supprimerPiece(Piece piece);
 	public void envoyerSms(SmsRequest smsRequest);
 	public void envoyerSmsGroup(ArrayList<Utilisateur> users,String message);

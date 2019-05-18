@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -69,15 +70,8 @@ public class Utilisateur {
 	@ManyToOne
 	@JoinColumn(name = "idDepartement")
 	private Departement departement;
-	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	    @JoinTable(
-	            name = "users_roles",
-	            joinColumns = @JoinColumn(
-	                    name = "user_id", referencedColumnName = "matricule"),
-	            inverseJoinColumns = @JoinColumn(
-	                    name = "role_id", referencedColumnName = "id"))
-	private Collection<Role> roles;
+	@NotNull
+	private String status;
 	
 	
 	public Utilisateur() {
@@ -96,7 +90,7 @@ public class Utilisateur {
 			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
 			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
 			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif, String grade,
-			String specialite, Collection<Piece> pieces, Departement departement, Collection<Role> roles) {
+			String specialite, Collection<Piece> pieces, Departement departement, String status ) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -112,7 +106,7 @@ public class Utilisateur {
 		this.specialite = specialite;
 		this.pieces = pieces;
 		this.departement = departement;
-		this.roles = roles;
+		this.status = status;
 	}
 
 
@@ -124,7 +118,7 @@ public class Utilisateur {
 			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
 			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
 			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif, String grade,
-			String specialite, Departement departement, Collection<Role> roles) {
+			String specialite, Departement departement, String status) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -138,7 +132,7 @@ public class Utilisateur {
 		this.grade = grade;
 		this.specialite = specialite;
 		this.departement = departement;
-		this.roles = roles;
+		this.status = status;
 	}
 
 
@@ -243,15 +237,16 @@ public class Utilisateur {
 		this.actif = actif;
 	}
 
-	
-	public Collection<Role> getRoles() {
-		return roles;
+	public String getStatus() {
+		return status;
 	}
 
 
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
+	public void setStatus(String status) {
+		this.status = status;
 	}
+
+
 
 
 	public String getGrade() {
