@@ -54,13 +54,13 @@ public class PasswordForgotController {
 			Map<String, Object> model = new HashMap<>();
 			model.put("token", token);
 			model.put("user", user);
-			model.put("signature","http://memorynotfound.com");
+			model.put("signature","Tous droits reservés © agpe, LLC. All rights reserved.");
 			String url = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
 			model.put("resetUrl",url+"/restaurer-mot-passe?token="+token.getToken());
 			
 			mail.setModel(model);
 			emailService.sendEmail(mail);
-			return "redirect:/forgotpassword";
+			return "redirect:/motpasse-oublie";
 			
 		}
 		else {

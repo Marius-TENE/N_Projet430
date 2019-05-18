@@ -247,8 +247,6 @@ public class Utilisateur {
 	}
 
 
-
-
 	public String getGrade() {
 		return grade;
 	}
@@ -288,5 +286,15 @@ public class Utilisateur {
 		this.departement = departement;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Utilisateur [matricule=" + matricule + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email
+				+ ", login=" + login + ", password=" + password + ", adresse=" + adresse + ", tel=" + tel
+				+ ", naissance=" + naissance + ", actif=" + actif + ", grade=" + grade + ", specialite=" + specialite
+				+ ", status=" + status + "]";
+	}
+	
+	
 	
 }

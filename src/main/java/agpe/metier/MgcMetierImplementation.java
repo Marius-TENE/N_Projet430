@@ -152,12 +152,6 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public void updatePassword(String password, String login) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		// TODO Auto-generated method stub
 		return null;
@@ -190,6 +184,10 @@ public class MgcMetierImplementation implements AgpeMetier{
 	public PasswordResetToken findByToken(String token) {
 		return tokenR.findByToken(token);
 	}
-	
 
+	@Override
+	public void supprimerToken(PasswordResetToken token) {
+		tokenR.delete(token);
+	}
+	
 }

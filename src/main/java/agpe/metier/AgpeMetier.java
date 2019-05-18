@@ -36,10 +36,10 @@ public interface AgpeMetier{
     public void enregistrerDepartement(Departement depart);
     public Optional<Categorie> retournerCategorie(int idCategorie);
     public String chercherNomPiece(Long fileId);
-    public void updatePassword(String password, String login);
     public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles);
     public PasswordResetToken enregisterToken(PasswordResetToken token);
     public PasswordResetToken findByToken(String token);
+    public void supprimerToken(PasswordResetToken token);
     
 	
 }
