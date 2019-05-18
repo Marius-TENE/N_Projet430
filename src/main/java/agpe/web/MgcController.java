@@ -14,11 +14,6 @@ public class MgcController {
 	private AgpeMetier mgcMetier;
 	
 	
-	@RequestMapping(value = "/addpiece")
-    public String addPiece() {
-    	return "piece";
-    }
-	
 	@RequestMapping(value = {"/connexion"},method = RequestMethod.GET)
 	public String index() {
 		return "pages/connexion";

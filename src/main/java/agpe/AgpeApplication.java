@@ -29,11 +29,13 @@ public class AgpeApplication implements CommandLineRunner{
 		agpeMetier.enregistrerDepartement(depart);
 		Categorie cat =new Categorie("Personnel");
 		agpeMetier.enregistrerCategorie(cat);
-		Utilisateur ut = new Utilisateur("15Y511","TENE MBA","MARIUS","tefuncowm@gmail.com","15Y511",
-			"groupe7","yde","+237691103603","uhgk",1,1,"Prof","fkdn",depart);
-		
-		agpeMetier.enregistrerUTilisateur(ut);
-		
+		/*
+		 * Utilisateur ut = new
+		 * Utilisateur("15Y511","TENE MBA","MARIUS","tefuncowm@gmail.com","15Y511",
+		 * "groupe7","yde","+237691103603","uhgk",1,1,"Prof","fkdn",depart);
+		 * 
+		 * agpeMetier.enregistrerUTilisateur(ut);
+		 */
 	
 		/*
 		 * SmsRequest smsRequest = new

@@ -16,13 +16,6 @@ import agpe.portfolio.modele.Piece;
 import agpe.sms.SmsRequest;
 
 public interface AgpeMetier{
-	public Utilisateur enregistrerUTilisateur(Utilisateur u);
-	public Utilisateur editerInfosConnexion(Utilisateur u);
-	public Utilisateur editerInfosUtilisateur(Utilisateur u);
-	public Utilisateur editerStatutUtilisateur(Utilisateur u);
-	public Optional<Utilisateur> chercherUtilisateurAvecLogin(String login);
-	public Utilisateur recupererCompte(String login,String email);
-	public boolean chercherUtilisateur(String login);
 	public void supprimerPiece(Piece piece);
 	public void envoyerSms(SmsRequest smsRequest);
 	public void envoyerSmsGroup(ArrayList<Utilisateur> users,String message);

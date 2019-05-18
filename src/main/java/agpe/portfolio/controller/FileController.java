@@ -36,16 +36,20 @@ public class FileController {
    
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-    	Optional<Categorie> cat = agpeMetier.retournerCategorie(1);
-		Optional<Utilisateur> ut = agpeMetier.chercherUtilisateurAvecLogin("15Y511");
-        Piece dbFile = agpeMetier.enregistrerPiece(file,ut.get(),cat.get());
-		
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-		  .path("/telechargement/") .path(String.valueOf(dbFile.getIdPiece()).toString()) .toUriString();
-		System.out.print("\n\nLien : "+fileDownloadUri+"\n\n");
-		
-		 return new UploadFileResponse(dbFile.getNomPiece(), fileDownloadUri,
-	                file.getContentType(), file.getSize());
+		return null;
+		/*
+		 * Optional<Categorie> cat = agpeMetier.retournerCategorie(1);
+		 * Optional<Utilisateur> ut = agpeMetier.chercherUtilisateurAvecLogin("15Y511");
+		 * Piece dbFile = agpeMetier.enregistrerPiece(file,ut.get(),cat.get());
+		 * 
+		 * String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+		 * .path("/telechargement/")
+		 * .path(String.valueOf(dbFile.getIdPiece()).toString()) .toUriString();
+		 * System.out.print("\n\nLien : "+fileDownloadUri+"\n\n");
+		 * 
+		 * return new UploadFileResponse(dbFile.getNomPiece(), fileDownloadUri,
+		 * file.getContentType(), file.getSize());
+		 */
 		 
     }
     

@@ -1,0 +1,118 @@
+body{
+
+	background-color: rgb(37,63,51);
+	/*background-color: rgb(220,250,218);*/
+	/*background-color: rgb(228,210,192);*/
+	font-family: "Times New Roman";
+	color: black;
+
+}
+
+.container{
+	background-color:white;
+	margin-top:6%;
+	margin-bottom: 6%;
+	padding-bottom: 5%;
+
+}
+.containerenseignant{
+	background-color:white;
+	margin-bottom: 6%;
+	padding-bottom: 5%;
+	height: 100%;
+
+}
+
+
+#connexion{
+	margin-top: 5%;
+	font-size: 20px;
+
+}
+#header{
+	margin-left: 1%;
+	font-size: 20px;
+
+}
+#footer{
+	margin-top:-40px;
+	background-color: rgb(37,63,51);
+	color: white;
+}
+#menu-admin{
+	margin-top: 100px;
+}
+
+#menu-admin a{
+	color: white;
+	font-size: 20px;
+	background-color: rgb(55,94,89);	
+
+}
+
+#menu-admin a:hover{
+	color: white;
+	background-color: rgb(92,156,150);
+}
+
+#sous-menu{
+	color: white;
+	background-color: rgb(37,63,51);
+}
+
+#Rechercher{
+	font-size:18px;
+	 height: 40px;
+	 color: rgb(116,71,48);
+}
+
+#entete-admin{
+	color:white;
+	font-size: 20px;
+	background-color: rgb(37,63,51);
+	padding-bottom: 2%;
+
+}
+
+#entete-admin #titre a {
+	color: white;
+	font-size: 40px;
+	
+	background-color: rgb(37,63,51);
+	padding-bottom: 60px;
+}
+
+#icone {
+color: rgb(92,156,150);
+font-size: 25px;
+}
+
+
+#icone2{
+font-size: 12px;
+margin-top: -7px;
+margin-left: 15px;
+}
+
+
+
+#titre_panel{
+	font-size:22px;
+	 color: black;
+
+}
+
+#Departement{
+font-size: 20px;	
+}
+
+ #nom-dossier{
+	margin-bottom: 10px;
+}
+
+ #nom-departement{
+	margin-bottom: 10px;
+}
+ #nom-dossier div{
+	color: rgb(116,71,48);
+}

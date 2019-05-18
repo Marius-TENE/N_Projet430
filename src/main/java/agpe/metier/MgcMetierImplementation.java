@@ -54,42 +54,6 @@ public class MgcMetierImplementation implements AgpeMetier{
 	private agpe.sms.Service service;
 
 	@Override
-	public Utilisateur enregistrerUTilisateur(Utilisateur u) {
-		u.setPassword(passwordEncoder.encode(u.getPassword()));
-		return utr.save(u);
-	}
-
-	@Override
-	public Utilisateur editerInfosConnexion(Utilisateur u) {
-		return utr.save(u);
-	}
-
-	@Override
-	public Utilisateur editerInfosUtilisateur(Utilisateur u) {
-		return utr.save(u);
-	}
-
-	@Override
-	public Utilisateur editerStatutUtilisateur(Utilisateur u) {
-		return utr.save(u);
-	}
-
-	@Override
-	public Utilisateur recupererCompte(String login, String email) {
-		return null;
-	}
-
-	@Override
-	public boolean chercherUtilisateur(String login) {
-		return utr.existsById(login);
-	}
-
-	@Override
-	public Optional<Utilisateur> chercherUtilisateurAvecLogin(String login) {
-		return utr.findById(login);
-	}
-
-	@Override
 	public void supprimerPiece(Piece piece) {
 		pir.delete(piece);
 	}
