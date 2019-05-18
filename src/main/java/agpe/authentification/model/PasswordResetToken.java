@@ -18,7 +18,7 @@ public class PasswordResetToken {
     private String token;
 
     @OneToOne(targetEntity = Utilisateur.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "user_id")
+    @JoinColumn(nullable = false, name = "matricule")
     private Utilisateur user;
 
     @Column(nullable = false)
@@ -57,4 +57,14 @@ public class PasswordResetToken {
     public boolean isExpired() {
         return new Date().after(this.expiryDate);
     }
+
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
+	}
+    
+    
 }

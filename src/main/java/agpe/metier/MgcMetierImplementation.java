@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import agpe.authentification.model.PasswordResetToken;
 import agpe.authentification.model.Role;
+import agpe.authentification.repository.PasswordResetTokenRepository;
 import agpe.mail.MailRequest;
 import agpe.mail.MailSenderImplementation;
 import agpe.modeles.Categorie;
@@ -32,8 +34,11 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Autowired
 	private UtilisateurRepository utr;
 	
+	@Autowired
+	private PasswordResetTokenRepository tokenR;
 	
-	@Autowired private BCryptPasswordEncoder passwordEncoder;
+	@Autowired 
+	private BCryptPasswordEncoder passwordEncoder;
 	 
 	@Autowired
 	private MailSenderImplementation mls;
@@ -162,6 +167,28 @@ public class MgcMetierImplementation implements AgpeMetier{
 	public Utilisateur enregistrerUtilisateur(Utilisateur user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return utr.save(user);
+	}
+
+	@Override
+	public Utilisateur chercherUtilisateurAvecEmail(String email) {
+		Utilisateur u = utr.findByEmail(email);
+		return u;
+	}
+
+	@Override
+	public void ModifierMotPasse(String password, String matricule) {
+		password=passwordEncoder.encode(password);
+		utr.updatePassword(password, matricule);
+	}
+
+	@Override
+	public PasswordResetToken enregisterToken(PasswordResetToken token) {
+		return tokenR.save(token);
+	}
+
+	@Override
+	public PasswordResetToken findByToken(String token) {
+		return tokenR.findByToken(token);
 	}
 	
 
