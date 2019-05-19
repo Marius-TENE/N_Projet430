@@ -5,14 +5,12 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import agpe.authentification.model.PasswordResetToken;
-import agpe.authentification.model.Role;
 import agpe.authentification.repository.PasswordResetTokenRepository;
 import agpe.mail.MailRequest;
 import agpe.mail.MailSenderImplementation;
@@ -152,12 +150,6 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Utilisateur enregistrerUtilisateur(Utilisateur user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return utr.save(user);
@@ -188,6 +180,17 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public void supprimerToken(PasswordResetToken token) {
 		tokenR.delete(token);
+	}
+
+	@Override
+	public String retournerRoleUtilisateur(String login) {
+		Utilisateur u = utr.findById(login).get();
+		return u.getRole();
+	}
+
+	@Override
+	public Utilisateur chercherUtilisateurAvecLogin(String login) {
+		return utr.chercherUtilisateurAvecLogin(login);
 	}
 	
 }

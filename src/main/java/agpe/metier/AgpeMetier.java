@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.multipart.MultipartFile;
 
 import agpe.authentification.model.PasswordResetToken;
-import agpe.authentification.model.Role;
 import agpe.mail.MailRequest;
 import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
@@ -20,6 +18,8 @@ public interface AgpeMetier{
 	
 	public Utilisateur enregistrerUtilisateur(Utilisateur user);
 	public Utilisateur chercherUtilisateurAvecEmail(String email);
+	public Utilisateur chercherUtilisateurAvecLogin(String login);
+	public String retournerRoleUtilisateur(String login);
 	public void ModifierMotPasse(String password,String matricule);
 	public void supprimerPiece(Piece piece);
 	public void envoyerSms(SmsRequest smsRequest);
@@ -36,10 +36,8 @@ public interface AgpeMetier{
     public void enregistrerDepartement(Departement depart);
     public Optional<Categorie> retournerCategorie(int idCategorie);
     public String chercherNomPiece(Long fileId);
-    public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles);
     public PasswordResetToken enregisterToken(PasswordResetToken token);
     public PasswordResetToken findByToken(String token);
     public void supprimerToken(PasswordResetToken token);
-    
-	
+   
 }

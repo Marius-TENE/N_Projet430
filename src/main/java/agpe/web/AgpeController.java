@@ -1,22 +1,55 @@
 package agpe.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import agpe.metier.AgpeMetier;
+import agpe.modeles.Utilisateur;
 
 @Controller
-public class MgcController {
+public class AgpeController {
 	
 	@Autowired
-	private AgpeMetier mgcMetier;
+	private AgpeMetier agpeMetier;
 	
+	@RequestMapping(value = "/determinerRole",method = RequestMethod.GET)
+	public String determinerRoleUtilisateur(HttpSession session) {
+
+		  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		  Utilisateur user = agpeMetier.chercherUtilisateurAvecLogin(auth.getName());
+		  session.setAttribute("user", user);
+		
+		  if(user.getRole().compareToIgnoreCase("enseignant")==0) {
+			   return AfficherInterfaceAccueilEnseignant(user);
+		  }
+		  else {
+			   return AfficherInterfaceAccueilAdmin(user);
+		  }
+		 
+	}
 	
+	private String AfficherInterfaceAccueilAdmin(Utilisateur user) {
+		return "redirect:/motpasse-oublie";
+	}
+
+	private String AfficherInterfaceAccueilEnseignant(Utilisateur user) {
+		return "redirect:/motpasse-oublie";
+	}
+
 	@RequestMapping(value = {"/connexion"},method = RequestMethod.GET)
 	public String index() {
 		return "pages/connexion";
+	}
+	
+	@RequestMapping(value = "/nonAutorise")
+	public String nomAutorise() {
+		return "pages/nomAutorise";   
 	}
 	
 //	@RequestMapping(value = "/incription",method = RequestMethod.POST)
