@@ -54,7 +54,7 @@ public class PasswordResetController {
 		PasswordResetToken token = agpeMetier.findByToken(form.getToken());
 		Utilisateur user = token.getUser();
 		System.out.print("\n\n"+user.toString()+"\n");
-		agpeMetier.ModifierMotPasse(form.getPassword(),user.getMatricule());
+		agpeMetier.ModifierMotPasse(form.getPassword(),user.getMatricule(),user.getTel());
 		agpeMetier.supprimerToken(token);
 		
 		return "redirect:/connexion";

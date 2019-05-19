@@ -52,8 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logout()
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/deconnexion"))
+                        .logoutSuccessUrl("/connexion")
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/nonAutorise");

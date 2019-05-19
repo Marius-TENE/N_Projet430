@@ -3,6 +3,7 @@ package agpe.web;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,21 +27,27 @@ public class AgpeController {
 		  session.setAttribute("user", user);
 		
 		  if(user.getRole().compareToIgnoreCase("enseignant")==0) {
-			   return AfficherInterfaceAccueilEnseignant(user);
+			   return "redirect:/enseignant";
 		  }
 		  else {
-			   return AfficherInterfaceAccueilAdmin(user);
+			   return "redirect:/admin";
 		  }
 		 
 	}
 	
-	private String AfficherInterfaceAccueilAdmin(Utilisateur user) {
-		return "redirect:/motpasse-oublie";
+	@Secured(value = "ROLE_admin")
+	@RequestMapping(value = "/admin",method = RequestMethod.GET)
+	public String AfficherInterfaceAccueilAdmi(HttpSession session) {
+		
+		return "pages/admin";
+	}
+	
+	@Secured(value = {"ROLE_enseignant","ROLE_admin"})
+	@RequestMapping(value="/enseignant",method = RequestMethod.GET)
+	public String AfficherInterfaceAccueilEnseignant() {
+		return "pages/portfolio_enseignant";
 	}
 
-	private String AfficherInterfaceAccueilEnseignant(Utilisateur user) {
-		return "redirect:/motpasse-oublie";
-	}
 
 	@RequestMapping(value = {"/connexion"},method = RequestMethod.GET)
 	public String index() {
@@ -49,7 +56,7 @@ public class AgpeController {
 	
 	@RequestMapping(value = "/nonAutorise")
 	public String nomAutorise() {
-		return "pages/nomAutorise";   
+		return "pages/nonAutorise";   
 	}
 	
 //	@RequestMapping(value = "/incription",method = RequestMethod.POST)

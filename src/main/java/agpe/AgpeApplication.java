@@ -9,6 +9,7 @@ import agpe.metier.AgpeMetier;
 import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
 import agpe.modeles.Utilisateur;
+import agpe.sms.SmsRequest;
 
 @SpringBootApplication
 public class AgpeApplication implements CommandLineRunner{
@@ -31,6 +32,9 @@ public class AgpeApplication implements CommandLineRunner{
 		
 		Utilisateur u = new Utilisateur("15Y511","TENE MBA","tefuncowm@gmail.com","15Y511", "groupe7",
 				"yde", "+237691103603", "dgf", 1, "fsf", "fdsf", depart, "enseignant");
+		Utilisateur u1 = new Utilisateur("15Y512","ZEKENG","tefuncowm@yahoo.com","15Y512", "groupe7",
+				"doula", "+237697973191", "dgff", 1, "fsf", "fdsf", depart, "admin");
+		agpeMetier.enregistrerUtilisateur(u1);
 		agpeMetier.enregistrerUtilisateur(u);
 		/*
 		 * Utilisateur ut = new
@@ -45,6 +49,7 @@ public class AgpeApplication implements CommandLineRunner{
 		 * SmsRequest("+237691103603","welcome to agpe application.");
 		 * agpeMetier.envoyerSms(smsRequest);
 		 */
+		 
 //		
 //		MailRequest mailRequest = new MailRequest("tefuncowm@gmail.com","Welcome to agpe application","registration on agpe");
 //		MailRequest mailRequest1 = new MailRequest("fredjordan288@gmail.com","Welcome to agpe application","registration on agpe");

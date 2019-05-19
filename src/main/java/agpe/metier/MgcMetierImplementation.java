@@ -16,11 +16,13 @@ import agpe.mail.MailRequest;
 import agpe.mail.MailSenderImplementation;
 import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
+import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
 import agpe.portfolio.modele.Piece;
 import agpe.portfolio.service.DBFileStorageService;
 import agpe.repository.CategorieRepository;
 import agpe.repository.DepartementRepository;
+import agpe.repository.EtablissementRepository;
 import agpe.repository.PieceRepository;
 import agpe.repository.UtilisateurRepository;
 import agpe.sms.SmsRequest;
@@ -49,6 +51,9 @@ public class MgcMetierImplementation implements AgpeMetier{
 	
 	@Autowired
 	private DepartementRepository departementRepository;
+	
+	@Autowired
+	private EtablissementRepository etR;
 	
 	@Autowired
 	PieceRepository pir;
@@ -162,9 +167,11 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public void ModifierMotPasse(String password, String matricule) {
+	public void ModifierMotPasse(String password, String matricule,String telephone) {
+		SmsRequest sms = new SmsRequest(telephone,"Mot de passe changé avec succès !.\nNouveau mot de passe: \n"+password);
 		password=passwordEncoder.encode(password);
 		utr.updatePassword(password, matricule);
+		envoyerSms(sms);
 	}
 
 	@Override
@@ -191,6 +198,34 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public Utilisateur chercherUtilisateurAvecLogin(String login) {
 		return utr.chercherUtilisateurAvecLogin(login);
+	}
+
+	@Override
+	public ArrayList<Utilisateur> ListerPortfolioParDepartementEtEtablissement(int idDepartement) {
+		Departement departement = departementRepository.findById(idDepartement).get();
+		return utr.ListerPortfolioParDepartementEtEtablissement(departement);
+	}
+
+	@Override
+	public ArrayList<Utilisateur> ListerPortfolioParEtablissement(int idEtablissement) {
+		ArrayList<Utilisateur> liste = new ArrayList<Utilisateur>();
+		ArrayList<Departement> liste_departement = departementRepository.ListeDepartementEtablissemnet(etR.findById(idEtablissement).get()); 
+		int nbre_depart = liste_departement.size();
+		
+		for(int i=0;i<nbre_depart;i++) {
+			liste.addAll(ListerPortfolioParDepartementEtEtablissement(liste_departement.get(i).getIdDepartement()));
+		}
+		return liste;
+	}
+
+	@Override
+	public Etablissement ajouterEtablissement(Etablissement etablissment) {
+		return etR.save(etablissment);
+	}
+
+	@Override
+	public ArrayList<Departement> ListeDepartementEtablissemnet(int idEtablissement) {
+		return departementRepository.ListeDepartementEtablissemnet(etR.findById(idEtablissement).get());
 	}
 	
 }
