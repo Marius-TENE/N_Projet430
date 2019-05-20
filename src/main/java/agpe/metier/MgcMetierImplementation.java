@@ -105,8 +105,8 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public Piece enregistrerPiece(MultipartFile file, Utilisateur user, Categorie categorie) {
-		return dbfserv.storeFile(file, user, categorie);
+	public Piece enregistrerPiece(MultipartFile file, Utilisateur user, Categorie categorie,String nouveauNom) {
+		return dbfserv.storeFile(file, user, categorie,nouveauNom);
 	}
 
 	@Override
@@ -125,13 +125,13 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public int nbrePiecesUtilisateurCategorie(String matricule, int idCategorie) {
-		return dbfserv.nbrePiecesUtilisateurCategorie(matricule, idCategorie);
+	public int nbrePiecesUtilisateurCategorie(Utilisateur user,Categorie categorie) {
+		return dbfserv.nbrePiecesUtilisateurCategorie(user, categorie);
 	}
 
 	@Override
-	public int nbrePieceUtilisateur(String matricule) {
-		return dbfserv.nbrePIeceUtilisateur(matricule);
+	public int nbrePieceUtilisateur(Utilisateur user) {
+		return dbfserv.nbrePIeceUtilisateur(user);
 	}
 
 	@Override
@@ -235,6 +235,26 @@ public class MgcMetierImplementation implements AgpeMetier{
 		envoyerSms(sms);
 		envoyerMail(new MailRequest(user.getEmail(),"Vos nouvelles informations de connexion sont les suivantes: \nLogin: "+user.getLogin()+ "\nPasswor: "+user.getPassword()));
 		return user1;
+	}
+
+	@Override
+	public Categorie rechercherCategoriePieceAvecNom(String nomCategorie) {
+		return catr.rechercherIdCategoriePieceAvecNom(nomCategorie);
+	}
+
+	@Override
+	public ArrayList<Categorie> listeCategoriePieces() {
+		return pir.listeCategoriePieces();
+	}
+
+	@Override
+	public ArrayList<Categorie> listeCategorieNonVideUtilisateur(Utilisateur u) {
+		return pir.listeCategorieNonVideUtilisateur(u);
+	}
+
+	@Override
+	public ArrayList<Piece> listerToutesPiecesUtilisateur(Utilisateur u) {
+		return dbfserv.listerToutesPiecesUtilisateur(u);
 	}
 	
 }

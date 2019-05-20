@@ -1,6 +1,7 @@
 package agpe.portfolio.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,9 +23,14 @@ public class DBFileStorageService {
     @Autowired
     private PieceRepository dbFileRepository;
 
-    public Piece storeFile(MultipartFile file,Utilisateur user,Categorie categorie) {
+    public Piece storeFile(MultipartFile file,Utilisateur user,Categorie categorie, String nouveauNom) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    	System.out.print("\n\nNom1 : "  + nouveauNom+"\n\n");
+    	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    	if(!nouveauNom.isEmpty()) {
+    		fileName = nouveauNom;
+    	}
+        
         System.out.print("Nom : "  + fileName+"\n\n");
         try {
             // Check if the file's name contains invalid characters
@@ -53,14 +59,17 @@ public class DBFileStorageService {
     	dbFileRepository.delete(piece);
     }
     
-    public int nbrePiecesUtilisateurCategorie(String matricule,int idCategorie) {
-		return dbFileRepository.nbrePiecesUtilisateurCategorie(matricule, idCategorie);
+    public int nbrePiecesUtilisateurCategorie(Utilisateur user,Categorie categorie) {
+		return dbFileRepository.nbrePiecesUtilisateurCategorie(user, categorie);
     }
-    public int nbrePIeceUtilisateur(String matricule) {
-		return dbFileRepository.nbrePiecesUtilisateur(matricule);
+    public int nbrePIeceUtilisateur(Utilisateur user) {
+		return dbFileRepository.nbrePiecesUtilisateur(user);
     }
     
     public String chercherNomPiece(Long fileId) {
     	return dbFileRepository.findById(fileId).get().getNomPiece();
+    }
+    public ArrayList<Piece> listerToutesPiecesUtilisateur(Utilisateur u){
+    	return dbFileRepository.listerToutesPiecesUtilisateur(u);
     }
 }

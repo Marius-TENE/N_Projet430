@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import agpe.authentification.service.EmailService;
 import agpe.authentification.web.dao.ModificationInfosConnexionDao;
+import agpe.authentification.web.dao.PasswordResetDto;
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Utilisateur;
 
@@ -34,6 +35,12 @@ public class ModificationInfosConnexion {
 		Map map =mav.getModel();
 		System.out.print("\n\n\n"+map.get("password_diff")+"\n\n\n");
 		return "pages/modifier_infos_connexion";
+	}
+	
+	
+	@ModelAttribute("modification_info_connexionForm")
+	public ModificationInfosConnexionDao PasswordReset() {
+		return new ModificationInfosConnexionDao();
 	}
 	
 	@PostMapping

@@ -28,6 +28,9 @@ public class Utilisateur {
     @NotEmpty(message = "*Entrer un nom svp")
 	private String nom;
 	
+	@NotNull
+	private String sexe;
+	
 	@Column(nullable = true)
 	private String prenom;
 	
@@ -86,7 +89,7 @@ public class Utilisateur {
 			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
 			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
 			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif, String grade,
-			String specialite, Collection<Piece> pieces, Departement departement, String role ) {
+			String specialite, Collection<Piece> pieces, Departement departement, String role,String sexe ) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -103,6 +106,7 @@ public class Utilisateur {
 		this.pieces = pieces;
 		this.departement = departement;
 		this.role = role;
+		this.sexe=sexe;
 	}
 
 
@@ -114,7 +118,7 @@ public class Utilisateur {
 			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
 			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
 			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif, String grade,
-			String specialite, Departement departement, String role) {
+			String specialite, Departement departement, String role,String sexe) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -129,6 +133,7 @@ public class Utilisateur {
 		this.specialite = specialite;
 		this.departement = departement;
 		this.role = role;
+		this.sexe=sexe;
 	}
 
 
@@ -171,6 +176,17 @@ public class Utilisateur {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	
+	
+	public String getSexe() {
+		return sexe;
+	}
+
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
 	}
 
 

@@ -1,7 +1,6 @@
 package agpe.web;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,8 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Categorie;
 import agpe.modeles.Utilisateur;
+import agpe.portfolio.modele.NbrePieces;
 import agpe.portfolio.modele.Piece;
-import antlr.collections.List;
 
 @Controller
 public class AgpeController {
@@ -58,22 +57,17 @@ public class AgpeController {
 		ModelAndView mav = new ModelAndView();
 		mav.clear();
 		mav.setViewName("pages/portfolio_enseignant");
-		
-		ArrayList<Categorie> categ = agpeMetier.listeCategorieNonVideUtilisateur((Utilisateur) httpSession.getAttribute("user"));
-		ArrayList<Piece> pieces_ = agpeMetier.listerToutesPiecesUtilisateur((Utilisateur)httpSession.getAttribute("user"));
-		
-		int nbre_categories  = categ.size();
-		int nbre_pieces = pieces_.size();
-		Categorie categories[] = new Categorie[nbre_categories];
-		Piece pieces[] = new Piece[nbre_pieces];
-		
-		for(int i=0;i<nbre_pieces;i++) {
-			pieces[i]=pieces_.get(i);
-		}
-		for(int j=0;j<nbre_categories;j++) {
-			categories[j]=categ.get(j);
-		}
-		
+		Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
+		ArrayList<Categorie> categories = agpeMetier.listeCategorieNonVideUtilisateur(user);
+		ArrayList<Piece> pieces = agpeMetier.listerToutesPiecesUtilisateur(user);
+		/*
+		 * ArrayList<NbrePieces> nbresp = new ArrayList<NbrePieces>();
+		 * //pieces.isEmpty(); for(int i=0;i<categories.size();i++) { int nbre_pieces=0;
+		 * nbre_pieces =
+		 * agpeMetier.nbrePiecesUtilisateurCategorie(user,categories.get(i));
+		 * nbresp.add(new NbrePieces(categories.get(i).getIdCategorie(),nbre_pieces)); }
+		 * mav.addObject("nbres",nbresp);
+		 */
 		mav.addObject("categories",categories);
 		mav.addObject("pieces",pieces);
 
