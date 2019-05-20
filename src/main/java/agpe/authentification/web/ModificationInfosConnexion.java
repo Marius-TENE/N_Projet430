@@ -1,20 +1,20 @@
 package agpe.authentification.web;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-import agpe.authentification.model.PasswordResetToken;
 import agpe.authentification.service.EmailService;
-import agpe.authentification.web.dao.PasswordResetDto;
+import agpe.authentification.web.dao.ModificationInfosConnexionDao;
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Utilisateur;
 
@@ -30,19 +30,36 @@ public class ModificationInfosConnexion {
 	
 	@GetMapping
 	public String afficherFormulaireModificationInfosConnexion() {
+		ModelAndView mav = new ModelAndView();
+		Map map =mav.getModel();
+		System.out.print("\n\n\n"+map.get("password_diff")+"\n\n\n");
 		return "pages/modifier_infos_connexion";
 	}
 	
 	@PostMapping
 	@Transactional
-	public String handlePassordReset(@ModelAttribute("modification_info_connexionForm") ModificationInfosConnexion form,HttpSession httpSession) {
+	public ModelAndView handleModifierInfosConnexion(@ModelAttribute("modification_info_connexionForm") ModificationInfosConnexionDao form,HttpSession httpSession) {
 		Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
-		if(form.ge)
-		System.out.print("\n\n"+user.toString()+"\n");
-		agpeMetier.ModifierMotPasse(form.getPassword(),user.getMatricule(),user.getTel());
-		agpeMetier.supprimerToken(token);
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/modifier_infos_connexion");
 		
-		return "redirect:/connexion";
+		if(form.getPassword().compareTo(form.getConfirmpassword())!=0) {
+			mav.addObject("password_diff", "Les mots de passe ne correspondent pas !");
+			mav.addObject("login", user.getLogin());
+			return mav;
+		}
+		else {
+			mav.addObject("succes","Vos informations ont été enregistrées avec succès !");
+			mav.addObject("login",user.getLogin());
+			user.setLogin(form.getLogin());
+			user.setPassword(form.getPassword());
+			agpeMetier.enregistrerUtilisateur(user);
+			httpSession.removeAttribute("user");
+			httpSession.setAttribute("user", user);
+			return mav;
+		}
+	 	
 	}
 	
 }

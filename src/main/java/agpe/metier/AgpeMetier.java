@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.web.multipart.MultipartFile;
 
 import agpe.authentification.model.PasswordResetToken;
+import agpe.authentification.web.dao.ModificationInfosConnexionDao;
 import agpe.mail.MailRequest;
 import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
@@ -22,6 +23,7 @@ public interface AgpeMetier{
 	public Utilisateur chercherUtilisateurAvecLogin(String login);
 	public String retournerRoleUtilisateur(String login);
 	public void ModifierMotPasse(String password,String matricule, String telephone);
+	public Utilisateur modifierInfosConnexion(Utilisateur user);
 	
 	public ArrayList<Utilisateur> ListerPortfolioParDepartementEtEtablissement(int idDepartement);
 	public ArrayList<Utilisateur> ListerPortfolioParEtablissement(int idEtablissement);

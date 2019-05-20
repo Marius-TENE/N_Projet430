@@ -23,5 +23,10 @@ public class ModificationInfosConnexionDao {
 	public void setConfirmpassword(String confirmpassword) {
 		this.confirmpassword = confirmpassword;
 	}
+	@Override
+	public String toString() {
+		return "ModificationInfosConnexionDao [login=" + login + ", password=" + password + ", confirmpassword="
+				+ confirmpassword + "]";
+	}
 	
 }

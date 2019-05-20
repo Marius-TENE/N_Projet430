@@ -185,8 +185,9 @@
                     <!-- /.dropdown-user -->
                 </li>
                 <Br/>
-                <li>Fatimah aboubakar</li>
-                <li>15Y519<li>
+                <li th:if="${session.prenom !=null}" th:text="${session.user.prenom + ' ' + session.user.nom}"></li>
+                <li th:unless="${session.prenom != null}" th:text="${session.user.nom}"></li>
+                <li th:text="${session.user.matricule}"><li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
@@ -230,42 +231,42 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="col-lg-2">Nom</td>
-                                                            <td> Aboubakar</td>
+                                                            <td th:text="${session.user.nom}"></td>
                                                         </tr>
 
                                                         <tr>
                                                             <td>Prenom</td>
-                                                            <td> Fâtimah</td>
+                                                            <td th:text="${session.user.prenom}"> </td>
                                                         </tr>
                                                         
                                                         <tr>
                                                             <td>Matricule</td>
-                                                            <td> 15Y519</td>
+                                                            <td th:text="${session.user.matricule}"> </td>
                                                         </tr>
 
                                                         <tr>
                                                             <td>Téléphone</td>
-                                                            <td> 699425427</td>
+                                                            <td th:text="${session.user.tel}"></td>
                                                         </tr>
                                                          <tr>
                                                             <td>Email</td>
-                                                            <td> Ftaoubakar@gmail.com</td>
+                                                            <td th:text="${session.user.email}"> </td>
                                                         </tr>
                                                          <tr>
                                                             <td>Adresse</td>
-                                                            <td> Fougerole yaoundé Cameroun</td>
+                                                            <td th:text="${session.user.adresse}"></td>
                                                         </tr>
                                                           <tr>
                                                             <td>Departement</td>
-                                                            <td> Informatique</td>
+                                                            <td th:text="${session.user.departement.nomDepartement}"> </td>
                                                         </tr>
                                                          <tr>
                                                             <td>Grade</td>
-                                                            <td> Professeur</td>
+                                                            <td th:text="${session.user.grade}"></td>
                                                         </tr>
                                                           <tr>
                                                             <td>Spécialité</td>
-                                                            <td> Réseau</td>
+                                                            <td th:text="${session.user.specialite}"> </td>
                                                         </tr>
         
                                                     </tbody>

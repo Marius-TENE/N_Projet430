@@ -227,5 +227,14 @@ public class MgcMetierImplementation implements AgpeMetier{
 	public ArrayList<Departement> ListeDepartementEtablissemnet(int idEtablissement) {
 		return departementRepository.ListeDepartementEtablissemnet(etR.findById(idEtablissement).get());
 	}
+
+	@Override
+	public Utilisateur modifierInfosConnexion(Utilisateur user) {
+		Utilisateur user1 =enregistrerUtilisateur(user);
+		SmsRequest sms = new SmsRequest(user.getTel(),"Vos nouvelles informations de connexion sont les suivantes: \nLogin: "+user.getLogin()+ "\nPasswor: "+user.getPassword()); 
+		envoyerSms(sms);
+		envoyerMail(new MailRequest(user.getEmail(),"Vos nouvelles informations de connexion sont les suivantes: \nLogin: "+user.getLogin()+ "\nPasswor: "+user.getPassword()));
+		return user1;
+	}
 	
 }

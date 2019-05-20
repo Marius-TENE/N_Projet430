@@ -24,6 +24,7 @@ public class AgpeController {
 
 		  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		  Utilisateur user = agpeMetier.chercherUtilisateurAvecLogin(auth.getName());
+		  
 		  session.setAttribute("user", user);
 		
 		  if(user.getRole().compareToIgnoreCase("enseignant")==0) {
