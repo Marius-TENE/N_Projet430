@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmls:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout">
 
 <head>
 
@@ -224,7 +225,7 @@
                 </div>
                 <div class="col-lg-4">
 
-                    <form method="POST" th:action="@{/creation_nouveau_portfolio}" th:object="${creation_portfolioForm}" id="inscriptionEnseignantsForm" id="inscriptionEnseignantsForm">
+                    <form method="POST" th:action="@{/creation_nouveau_portfolio}" th:object="${creation_portfolioForm}" id="inscriptionEnseignantsForm">
                         <fieldset>
                             <legend>Informations personnelles</legend>
                             <div class="form-group">

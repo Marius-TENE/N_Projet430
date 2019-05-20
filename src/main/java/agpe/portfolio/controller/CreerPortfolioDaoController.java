@@ -52,7 +52,7 @@ public class CreerPortfolioDaoController {
 		user.setRole("enseignant");
 		System.out.print("\n\n"+form.toString()+"\n");
 		agpeMetier.enregistrerUtilisateur(user);
-		return "redirect:/creer_portfolio";
+		return "redirect:/creation_nouveau_portfolio";
 	}	
 
 }

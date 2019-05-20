@@ -36,6 +36,7 @@ public class ModifierInfosPersonnelleController {
 	@Transactional
 	public String handlePassordReset(@ModelAttribute("modefierInfosPersonnellesForm") CreerPortfolioDao form,HttpSession httpSession) {
 		Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
+		httpSession.removeAttribute("user");
 		user.setMatricule(form.getMatricule());
 		user.setNom(form.getNom());
 		user.setPrenom(form.getPrenom());
@@ -46,10 +47,9 @@ public class ModifierInfosPersonnelleController {
 		user.setGrade(form.getGrade());
 		user.setSpecialite(form.getSpecialite());
 		user.setSexe(form.getSexe());
-		
 		System.out.print("\n\n"+form.toString()+"\n");
 		agpeMetier.enregistrerUtilisateur(user);
-		
+		httpSession.setAttribute("user",user);
 		return "redirect:/modification_infos_personnelles";
 	}	
 

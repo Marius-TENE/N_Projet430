@@ -50,7 +50,7 @@ public class AgpeController {
 		return "pages/admin";
 	}
 	
-	@Secured(value = {"ROLE_enseignant","ROLE_admin"})
+	@Secured(value = {"ROLE_enseignant"})
 	@RequestMapping(value="/enseignant",method = RequestMethod.GET)
 	public ModelAndView AfficherInterfaceAccueilEnseignant(HttpSession httpSession) {
 
