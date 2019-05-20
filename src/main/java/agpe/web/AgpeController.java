@@ -1,5 +1,8 @@
 package agpe.web;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +12,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import agpe.metier.AgpeMetier;
+import agpe.modeles.Categorie;
 import agpe.modeles.Utilisateur;
+import agpe.portfolio.modele.Piece;
+import antlr.collections.List;
 
 @Controller
 public class AgpeController {
@@ -21,19 +28,20 @@ public class AgpeController {
 	
 	@RequestMapping(value = "/determinerRole",method = RequestMethod.GET)
 	public String determinerRoleUtilisateur(HttpSession session) {
-
-		  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		  Utilisateur user = agpeMetier.chercherUtilisateurAvecLogin(auth.getName());
-		  
-		  session.setAttribute("user", user);
 		
-		  if(user.getRole().compareToIgnoreCase("enseignant")==0) {
-			   return "redirect:/enseignant";
-		  }
-		  else {
-			   return "redirect:/admin";
-		  }
-		 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Utilisateur user = agpeMetier.chercherUtilisateurAvecLogin(auth.getName());
+		ArrayList<Categorie> liste_categories = agpeMetier.listeCategoriePieces();
+		session.setAttribute("categories",liste_categories);
+		session.setAttribute("user", user);
+
+		if(user.getRole().compareToIgnoreCase("enseignant")==0) {
+			return "redirect:/enseignant";
+		}
+		else {
+			return "redirect:/admin";
+		}
+
 	}
 	
 	@Secured(value = "ROLE_admin")
@@ -45,8 +53,31 @@ public class AgpeController {
 	
 	@Secured(value = {"ROLE_enseignant","ROLE_admin"})
 	@RequestMapping(value="/enseignant",method = RequestMethod.GET)
-	public String AfficherInterfaceAccueilEnseignant() {
-		return "pages/portfolio_enseignant";
+	public ModelAndView AfficherInterfaceAccueilEnseignant(HttpSession httpSession) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/portfolio_enseignant");
+		
+		ArrayList<Categorie> categ = agpeMetier.listeCategorieNonVideUtilisateur((Utilisateur) httpSession.getAttribute("user"));
+		ArrayList<Piece> pieces_ = agpeMetier.listerToutesPiecesUtilisateur((Utilisateur)httpSession.getAttribute("user"));
+		
+		int nbre_categories  = categ.size();
+		int nbre_pieces = pieces_.size();
+		Categorie categories[] = new Categorie[nbre_categories];
+		Piece pieces[] = new Piece[nbre_pieces];
+		
+		for(int i=0;i<nbre_pieces;i++) {
+			pieces[i]=pieces_.get(i);
+		}
+		for(int j=0;j<nbre_categories;j++) {
+			categories[j]=categ.get(j);
+		}
+		
+		mav.addObject("categories",categories);
+		mav.addObject("pieces",pieces);
+
+		return mav;
 	}
 
 
