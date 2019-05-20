@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>AGPE: Liste des portfolios</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Pagination CSS -->
+    <link href="../vendor/Paginate-Data-Bootstrap-4-Pagination-Buzina/buzina-pagination.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="../css/miseenforme.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+       <nav class="navbar navbar-default navbar-static-top" role="navigation" id="entete-admin" style="margin-bottom: 0" >
+            <div class="navbar-header" id="titre">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="admin.html" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope fa-fw" id="icone"></i>
+                        <span class="badge badge-danger" id="icone2">9+</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw" id="icone"></i>
+                        <span class="badge badge-danger" id="icone2">9+</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-tasks fa-fw"></i> New Task
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw" id="icone"></i> <i class="fa fa-caret-down" id="icone"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Mon compte</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Réglages</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation" id="menu-admin">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="admin.html"><i class="fa fa-dashboard fa-fw"></i> Acceuil</a>
+                        </li>
+                        <li>
+                             <a href="#"><i class="fa fa-folder-open-o fa-fw"></i> Portfolios<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level" id="sous-menu">
+                                <li>
+                                    <a href="creer_portfolio.html"><i class="fa fa-edit fa-fw"></i> Creer portfolio</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Tous les portfolios</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 page-header col-md-offset-6" >
+                        <form method="POST" action="" id="rechercheForm">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" id="Rechercher"  placeholder="Nom / Identifiant portfolio ">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search" style="font-size:18px; height: 26px;  color: rgb(116,71,48);"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form> 
+                    </div>
+                </div>
+                <!-- /.row -->
+				
+				<div class="row">
+                    <!-- Résultats de la recherche-->
+                    <div id="results" style1="position: absolute; z-index: 10; border:1px solid black; height: 500px; overflow-y: scroll; background-color: rgb(223,240,216);">
+                        
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <!-- collapsible-->
+               
+               
+                <div class="row">
+                    <div class="col-lg-12">
+                            <!-- .panel-heading -->
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+
+                                    <!-- faculte des arts lettres et sciences humaines -->
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="accordion1">FACULTE DES ARTS,LETTRES ET SCIENCES HUMAINES</a>
+                                            </h4>
+                                        </div>
+                                       
+                                        <div id="collapseOne" class="panel-collapse collapse">
+                                            <div class="panel-body" id="uniqueId1">
+                                                <!--Début des dossiers-->
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                    <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" id="Departement"> Departement d'Anglais</a>
+                                                            </h4>
+                                                        </div>
+														<div id="collapseOne1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+															<div class="panel-body">
+																<div class="col-lg-12"> 
+																	<ul class="list-group">
+																		<a class="list-group-item list-group-item-info" href="#">
+																			<div> 
+																				<i class="fa fa-folder-open-o"></i>
+																				<strong>John Smith</strong>
+																			</div>
+																			<div>Description du dossier ou du fichier...</div>
+																			<div><span class="pull-right text-muted small">termes de la recherche</span><br></div>
+																			
+																		</a>
+																	</ul>
+																</div>
+															</div>
+														</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne2" id="Departement">Departement d'Anthropologie</a>
+                                                                </h4>
+                                                            </div>
+															<div id="collapseOne2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+															<div class="panel-body">
+																<div class="col-lg-12"> 
+																	<ul class="list-group">
+																		<a class="list-group-item list-group-item-info" href="#">
+																			<div> 
+																				<i class="fa fa-folder-open-o"></i>
+																				<strong>John Smith</strong>
+																			</div>
+																			<div>Description du dossier ou du fichier...</div>
+																			<div><span class="pull-right text-muted small">termes de la recherche</span><br></div>
+																			
+																		</a>
+																	</ul>
+																</div>
+															</div>
+														</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                    <div class="panel panel-success">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne3" id="Departement">Département d'Art et Archéologie</a>
+															</h4>
+														</div>
+														<div id="collapseOne3" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+															<div class="panel-body">
+																<div class="col-lg-12"> 
+																	<ul class="list-group">
+																		<a class="list-group-item list-group-item-info" href="#">
+																			<div> 
+																				<i class="fa fa-folder-open-o"></i>
+																				<strong>John Smith</strong>
+																			</div>
+																			<div>Description du dossier ou du fichier...</div>
+																			<div><span class="pull-right text-muted small">termes de la recherche</span><br></div>
+																			
+																		</a>
+																	</ul>
+																</div>
+															</div>
+														</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne4" id="Departement">Département d'Espagnol</a>
+															</h4>
+														</div>
+														<div id="collapseOne4" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+															<div class="panel-body">
+																<div class="col-lg-12"> 
+																	<ul class="list-group">
+																		<a class="list-group-item list-group-item-info" href="#">
+																			<div> 
+																				<i class="fa fa-folder-open-o"></i>
+																				<strong>John Smith</strong>
+																			</div>
+																			<div>Description du dossier ou du fichier...</div>
+																		</a>
+																	</ul>
+																</div>
+															</div>
+														</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne5" id="Departement">Département d'Etudes Bilingues</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne5" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne6" id="Departement">Département d'Etudes Germaniques</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne6" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne7" id="Departement">Département de Géographie</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne7" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne8" id="Departement">Département d'Histoire</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne8" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne9" id="Departement">Département de Français</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne9" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne10" id="Departement">Département de Langues Africaines et Linguistique</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne10" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne11" id="Departement">Département de Littérature et Civilisation Africaine</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne11" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne12" id="Departement">Département de Philosophie</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne12" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne13" id="Departement">Département de psychologie</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne13" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne14" id="Departement">Département de Sciences du Langage</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne14" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne15" id="Departement">Département de Sociologie</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne15" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12"  id="nom-departement"> 
+                                                     <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne16" id="Departement">Département de Tourisme et Hôtellerie </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne16" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="panel-body">
+                                                                <div class="col-lg-12"> 
+                                                                    <ul class="list-group">
+                                                                        <a class="list-group-item list-group-item-info" href="#">
+                                                                            <div> 
+                                                                                <i class="fa fa-folder-open-o"></i>
+                                                                                <strong>John Smith</strong>
+                                                                            </div>
+                                                                            <div>Description du dossier ou du fichier...</div>
+                                                                        </a>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!--fin des departements-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- .panel-body -->
+      
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <!-- /collapsible -->
+			
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- pagination Plugin JavaScript -->
+    <script src="../vendor/Paginate-Data-Bootstrap-4-Pagination-Buzina/buzina-pagination.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        function pagination(identifiant){
+          var monId = "#"+identifiant;
+          $(monId).buzinaPagination({
+          prevnext: true,
+          prevText : "Précédent",
+          nextText : "Suivant",
+          itemsOnPage:6
+          });
+        }
+        pagination("uniqueId1");
+        pagination("uniqueId2");
+        pagination("uniqueId3");
+        pagination("uniqueId4");
+        pagination("uniqueId5");
+        pagination("uniqueId6");
+        pagination("uniqueId7");
+		pagination("uniqueId8");
+      });
+    </script>
+
+</body>
+
+</html>

@@ -12,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import agpe.modeles.Categorie;
 import agpe.modeles.Utilisateur;
+import agpe.notification.modele.Notification;
+import agpe.notification.repository.NotificationRepository;
+import agpe.notification.service.NotificationServiceImplement;
 import agpe.portfolio.exception.FileStorageException;
 import agpe.portfolio.exception.MyFileNotFoundException;
 import agpe.portfolio.modele.Piece;
@@ -22,6 +25,8 @@ public class DBFileStorageService {
 
     @Autowired
     private PieceRepository dbFileRepository;
+    
+    @Autowired NotificationServiceImplement notificationServ;
 
     public Piece storeFile(MultipartFile file,Utilisateur user,Categorie categorie, String nouveauNom) {
         // Normalize file name
@@ -39,8 +44,10 @@ public class DBFileStorageService {
             }
 
             Piece dbFile = new Piece(new Date(), fileName,file.getContentType(),file.getBytes(), categorie, user);
-
-            return dbFileRepository.save(dbFile);
+            dbFileRepository.save(dbFile);
+            Notification notification = new Notification(user.getMatricule(),new Date(),"A ajouter le fichier "+dbFile.getNomPiece(),0);
+            notificationServ.enregistrerNotification(notification);
+            return dbFile;
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
@@ -57,6 +64,8 @@ public class DBFileStorageService {
     
     public void deletePiece(Piece piece) {
     	dbFileRepository.delete(piece);
+    	Notification notification = new Notification(piece.getUtilisateur().getMatricule(),new Date(),"A supprimé le fichier "+piece.getNomPiece(),0);
+        notificationServ.enregistrerNotification(notification);
     }
     
     public int nbrePiecesUtilisateurCategorie(Utilisateur user,Categorie categorie) {

@@ -1,6 +1,7 @@
 package agpe.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Categorie;
 import agpe.modeles.Utilisateur;
-import agpe.portfolio.modele.NbrePieces;
+import agpe.notification.modele.Notification;
 import agpe.portfolio.modele.Piece;
 
 @Controller
@@ -60,21 +62,47 @@ public class AgpeController {
 		Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
 		ArrayList<Categorie> categories = agpeMetier.listeCategorieNonVideUtilisateur(user);
 		ArrayList<Piece> pieces = agpeMetier.listerToutesPiecesUtilisateur(user);
-		/*
-		 * ArrayList<NbrePieces> nbresp = new ArrayList<NbrePieces>();
-		 * //pieces.isEmpty(); for(int i=0;i<categories.size();i++) { int nbre_pieces=0;
-		 * nbre_pieces =
-		 * agpeMetier.nbrePiecesUtilisateurCategorie(user,categories.get(i));
-		 * nbresp.add(new NbrePieces(categories.get(i).getIdCategorie(),nbre_pieces)); }
-		 * mav.addObject("nbres",nbresp);
-		 */
+		
+		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
+		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user);
+		int nbre_notification_non_lu = notificationNonLu.size();
+		ArrayList<Notification> cinqdernieresNotification = new ArrayList<Notification>();
+		if(dernierenotification.size()>5) {
+			for(int i=0;i<5;i++) {
+				cinqdernieresNotification.add(dernierenotification.get(i));
+			}
+		}
+		else {
+			cinqdernieresNotification=dernierenotification;
+		}
+		mav.addObject("nbre_pieces", agpeMetier.nbrePieceUtilisateur(user));
+		mav.addObject("notifications",cinqdernieresNotification);
+		mav.addObject("nbre_notif", nbre_notification_non_lu);
 		mav.addObject("categories",categories);
 		mav.addObject("pieces",pieces);
 
 		return mav;
 	}
-
-
+	
+	
+	@GetMapping("/notification")
+	public ModelAndView AfficherNotificationComplete(HttpSession httpSession) {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/notification");
+		Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
+		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
+		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user);
+		int nbre=notificationNonLu.size();
+		for(int i=0;i<nbre;i++) {
+			notificationNonLu.get(i).setLu(1);
+			notificationNonLu.get(i).setDateLecture(new Date());
+			agpeMetier.marquerCommeLu(notificationNonLu.get(i));
+		}
+		mav.addObject("notifications",dernierenotification);
+		return mav;
+	}
+	
 	@RequestMapping(value = {"/connexion"},method = RequestMethod.GET)
 	public String index() {
 		return "pages/connexion";

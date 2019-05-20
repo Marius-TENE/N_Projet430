@@ -18,6 +18,8 @@ import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
 import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
+import agpe.notification.modele.Notification;
+import agpe.notification.service.NotificationServiceImplement;
 import agpe.portfolio.modele.Piece;
 import agpe.portfolio.service.DBFileStorageService;
 import agpe.repository.CategorieRepository;
@@ -33,6 +35,9 @@ public class MgcMetierImplementation implements AgpeMetier{
 	
 	@Autowired
 	private UtilisateurRepository utr;
+	
+	@Autowired
+	private NotificationServiceImplement notServ;
 	
 	@Autowired
 	private PasswordResetTokenRepository tokenR;
@@ -224,8 +229,8 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public ArrayList<Departement> ListeDepartementEtablissemnet(int idEtablissement) {
-		return departementRepository.ListeDepartementEtablissemnet(etR.findById(idEtablissement).get());
+	public ArrayList<Departement> ListeDepartementEtablissemnet(Etablissement etablissement) {
+		return departementRepository.ListeDepartementEtablissemnet(etablissement);
 	}
 
 	@Override
@@ -255,6 +260,31 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public ArrayList<Piece> listerToutesPiecesUtilisateur(Utilisateur u) {
 		return dbfserv.listerToutesPiecesUtilisateur(u);
+	}
+
+	@Override
+	public Notification enregistrerNotification(Notification notification) {
+		return notServ.enregistrerNotification(notification);
+	}
+
+	@Override
+	public Notification marquerCommeLu(Notification notification) {
+		return notServ.marquerCommeLu(notification);
+	}
+
+	@Override
+	public ArrayList<Notification> notificationsRecus(Utilisateur u) {
+		return notServ.notificationsRecus(u);
+	}
+
+	@Override
+	public ArrayList<Notification> notificationsNonLus(Utilisateur u) {
+		return notServ.notificationsNonLus(u);
+	}
+
+	@Override
+	public ArrayList<Etablissement> listeEtablissement() {
+		return etR.listeEtablissement();
 	}
 	
 }

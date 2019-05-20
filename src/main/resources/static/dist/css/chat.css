@@ -17,24 +17,36 @@
     padding-right: 0;
 }
 
-.tom, .ju {
-    height: 80px;
-    width: 80px;
-    background: url('../img/user1.jpg');
-    background-size: cover;
-}
-
-.ju {
-    background: url('../img/user2.jpg');
-    background-size: cover;
-}
-
 .chatLine .well {
-    margin-top: 10px;
-    margin-right: 113px;
+    margin-top: 1px;
+    /*margin-right: 113px;*/
+    margin-right: 50px;
+    margin: 2px 45px 2px 45px; /* haut droite bas gauche */
 }
 
 .chatLineLeft .well {
     margin-top: 10px;
     margin-left: 113px;
+}
+
+.well.sender{
+    background-color: #3498db;
+}
+
+.well.receiver{
+    background-color: #e2dddd;
+}
+
+.fleche_droite{
+    position: relative;
+    top: 10px;
+    margin-right: -38px;
+    float: right;
+}
+
+.fleche_gauche{
+    position: relative;
+    top: 10px;
+    margin-left: -38px;
+    float: left;
 }

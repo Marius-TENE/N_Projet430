@@ -13,6 +13,7 @@ import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
 import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
+import agpe.notification.modele.Notification;
 import agpe.portfolio.modele.Piece;
 import agpe.sms.SmsRequest;
 
@@ -48,7 +49,13 @@ public interface AgpeMetier{
     public void supprimerToken(PasswordResetToken token);
     public Categorie rechercherCategoriePieceAvecNom(String nomCategorie);
     public Etablissement ajouterEtablissement(Etablissement etablissment);
-    public ArrayList<Departement> ListeDepartementEtablissemnet(int idEtablissement);
+    public ArrayList<Etablissement> listeEtablissement();
+    public ArrayList<Departement> ListeDepartementEtablissemnet(Etablissement etablissement);
     public ArrayList<Piece> listerToutesPiecesUtilisateur(Utilisateur u);
+    public Notification enregistrerNotification(Notification notification);
+	public Notification marquerCommeLu(Notification notification);
+	public ArrayList<Notification> notificationsRecus(Utilisateur u);
+	public ArrayList<Notification> notificationsNonLus(Utilisateur u);
+	
    
 }
