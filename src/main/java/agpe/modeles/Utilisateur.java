@@ -2,14 +2,11 @@ package agpe.modeles;
 
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
@@ -18,7 +15,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import agpe.authentification.model.Role;
 import agpe.portfolio.modele.Piece;
 
 @Entity
@@ -31,6 +27,9 @@ public class Utilisateur {
 	@Column(name = "nom")
     @NotEmpty(message = "*Entrer un nom svp")
 	private String nom;
+	
+	@NotNull
+	private String sexe;
 	
 	@Column(nullable = true)
 	private String prenom;
@@ -71,7 +70,7 @@ public class Utilisateur {
 	@JoinColumn(name = "idDepartement")
 	private Departement departement;
 	@NotNull
-	private String status;
+	private String role;
 	
 	
 	public Utilisateur() {
@@ -90,7 +89,7 @@ public class Utilisateur {
 			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
 			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
 			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif, String grade,
-			String specialite, Collection<Piece> pieces, Departement departement, String status ) {
+			String specialite, Collection<Piece> pieces, Departement departement, String role,String sexe ) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -106,7 +105,8 @@ public class Utilisateur {
 		this.specialite = specialite;
 		this.pieces = pieces;
 		this.departement = departement;
-		this.status = status;
+		this.role = role;
+		this.sexe=sexe;
 	}
 
 
@@ -118,7 +118,7 @@ public class Utilisateur {
 			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
 			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
 			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif, String grade,
-			String specialite, Departement departement, String status) {
+			String specialite, Departement departement, String role,String sexe) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -132,7 +132,8 @@ public class Utilisateur {
 		this.grade = grade;
 		this.specialite = specialite;
 		this.departement = departement;
-		this.status = status;
+		this.role = role;
+		this.sexe=sexe;
 	}
 
 
@@ -175,6 +176,17 @@ public class Utilisateur {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	
+	
+	public String getSexe() {
+		return sexe;
+	}
+
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
 	}
 
 
@@ -237,13 +249,12 @@ public class Utilisateur {
 		this.actif = actif;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getRole() {
+		return role;
 	}
 
-
-	public void setStatus(String status) {
-		this.status = status;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 
@@ -292,7 +303,7 @@ public class Utilisateur {
 		return "Utilisateur [matricule=" + matricule + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email
 				+ ", login=" + login + ", password=" + password + ", adresse=" + adresse + ", tel=" + tel
 				+ ", naissance=" + naissance + ", actif=" + actif + ", grade=" + grade + ", specialite=" + specialite
-				+ ", status=" + status + "]";
+				+ ", role=" + role + "]";
 	}
 	
 	

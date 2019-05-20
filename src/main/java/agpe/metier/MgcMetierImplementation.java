@@ -5,24 +5,24 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import agpe.authentification.model.PasswordResetToken;
-import agpe.authentification.model.Role;
 import agpe.authentification.repository.PasswordResetTokenRepository;
 import agpe.mail.MailRequest;
 import agpe.mail.MailSenderImplementation;
 import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
+import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
 import agpe.portfolio.modele.Piece;
 import agpe.portfolio.service.DBFileStorageService;
 import agpe.repository.CategorieRepository;
 import agpe.repository.DepartementRepository;
+import agpe.repository.EtablissementRepository;
 import agpe.repository.PieceRepository;
 import agpe.repository.UtilisateurRepository;
 import agpe.sms.SmsRequest;
@@ -51,6 +51,9 @@ public class MgcMetierImplementation implements AgpeMetier{
 	
 	@Autowired
 	private DepartementRepository departementRepository;
+	
+	@Autowired
+	private EtablissementRepository etR;
 	
 	@Autowired
 	PieceRepository pir;
@@ -102,8 +105,8 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public Piece enregistrerPiece(MultipartFile file, Utilisateur user, Categorie categorie) {
-		return dbfserv.storeFile(file, user, categorie);
+	public Piece enregistrerPiece(MultipartFile file, Utilisateur user, Categorie categorie,String nouveauNom) {
+		return dbfserv.storeFile(file, user, categorie,nouveauNom);
 	}
 
 	@Override
@@ -122,13 +125,13 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public int nbrePiecesUtilisateurCategorie(String matricule, int idCategorie) {
-		return dbfserv.nbrePiecesUtilisateurCategorie(matricule, idCategorie);
+	public int nbrePiecesUtilisateurCategorie(Utilisateur user,Categorie categorie) {
+		return dbfserv.nbrePiecesUtilisateurCategorie(user, categorie);
 	}
 
 	@Override
-	public int nbrePieceUtilisateur(String matricule) {
-		return dbfserv.nbrePIeceUtilisateur(matricule);
+	public int nbrePieceUtilisateur(Utilisateur user) {
+		return dbfserv.nbrePIeceUtilisateur(user);
 	}
 
 	@Override
@@ -152,12 +155,6 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Utilisateur enregistrerUtilisateur(Utilisateur user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return utr.save(user);
@@ -170,9 +167,11 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public void ModifierMotPasse(String password, String matricule) {
+	public void ModifierMotPasse(String password, String matricule,String telephone) {
+		SmsRequest sms = new SmsRequest(telephone,"Mot de passe changé avec succès !.\nNouveau mot de passe: \n"+password);
 		password=passwordEncoder.encode(password);
 		utr.updatePassword(password, matricule);
+		envoyerSms(sms);
 	}
 
 	@Override
@@ -188,6 +187,74 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public void supprimerToken(PasswordResetToken token) {
 		tokenR.delete(token);
+	}
+
+	@Override
+	public String retournerRoleUtilisateur(String login) {
+		Utilisateur u = utr.findById(login).get();
+		return u.getRole();
+	}
+
+	@Override
+	public Utilisateur chercherUtilisateurAvecLogin(String login) {
+		return utr.chercherUtilisateurAvecLogin(login);
+	}
+
+	@Override
+	public ArrayList<Utilisateur> ListerPortfolioParDepartementEtEtablissement(int idDepartement) {
+		Departement departement = departementRepository.findById(idDepartement).get();
+		return utr.ListerPortfolioParDepartementEtEtablissement(departement);
+	}
+
+	@Override
+	public ArrayList<Utilisateur> ListerPortfolioParEtablissement(int idEtablissement) {
+		ArrayList<Utilisateur> liste = new ArrayList<Utilisateur>();
+		ArrayList<Departement> liste_departement = departementRepository.ListeDepartementEtablissemnet(etR.findById(idEtablissement).get()); 
+		int nbre_depart = liste_departement.size();
+		
+		for(int i=0;i<nbre_depart;i++) {
+			liste.addAll(ListerPortfolioParDepartementEtEtablissement(liste_departement.get(i).getIdDepartement()));
+		}
+		return liste;
+	}
+
+	@Override
+	public Etablissement ajouterEtablissement(Etablissement etablissment) {
+		return etR.save(etablissment);
+	}
+
+	@Override
+	public ArrayList<Departement> ListeDepartementEtablissemnet(int idEtablissement) {
+		return departementRepository.ListeDepartementEtablissemnet(etR.findById(idEtablissement).get());
+	}
+
+	@Override
+	public Utilisateur modifierInfosConnexion(Utilisateur user) {
+		Utilisateur user1 =enregistrerUtilisateur(user);
+		SmsRequest sms = new SmsRequest(user.getTel(),"Vos nouvelles informations de connexion sont les suivantes: \nLogin: "+user.getLogin()+ "\nPasswor: "+user.getPassword()); 
+		envoyerSms(sms);
+		envoyerMail(new MailRequest(user.getEmail(),"Vos nouvelles informations de connexion sont les suivantes: \nLogin: "+user.getLogin()+ "\nPasswor: "+user.getPassword()));
+		return user1;
+	}
+
+	@Override
+	public Categorie rechercherCategoriePieceAvecNom(String nomCategorie) {
+		return catr.rechercherIdCategoriePieceAvecNom(nomCategorie);
+	}
+
+	@Override
+	public ArrayList<Categorie> listeCategoriePieces() {
+		return pir.listeCategoriePieces();
+	}
+
+	@Override
+	public ArrayList<Categorie> listeCategorieNonVideUtilisateur(Utilisateur u) {
+		return pir.listeCategorieNonVideUtilisateur(u);
+	}
+
+	@Override
+	public ArrayList<Piece> listerToutesPiecesUtilisateur(Utilisateur u) {
+		return dbfserv.listerToutesPiecesUtilisateur(u);
 	}
 	
 }

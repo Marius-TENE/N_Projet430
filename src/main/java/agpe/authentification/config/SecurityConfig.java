@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication()
 		.dataSource(dataSource)
 		.usersByUsernameQuery("select login as principal,password as credentials,true from utilisateur where login = ?")
-		.authoritiesByUsernameQuery("select matricule as principal, status as role from utilisateur where matricule = ?")
+		.authoritiesByUsernameQuery("select login as principal, role as role from utilisateur where login = ?")
 		.rolePrefix("ROLE_");
 	}
     @Override
@@ -46,19 +46,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                         .loginPage("/connexion")
-                            .permitAll()
-                    .defaultSuccessUrl("/index.html")
+                        .defaultSuccessUrl("/determinerRole")
+                        .permitAll()
                 .and()
                     .logout()
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/deconnexion"))
+                        .logoutSuccessUrl("/connexion")
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/nonAutorise");
+        		
     }
 
 	
-	  @Bean public BCryptPasswordEncoder passwordEncoder(){ return new
-	  BCryptPasswordEncoder(); }
+	  @Bean 
+	  public BCryptPasswordEncoder passwordEncoder(){ 
+		  return new BCryptPasswordEncoder();
+	  }
 	 
 }
