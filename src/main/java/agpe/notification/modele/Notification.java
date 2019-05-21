@@ -77,6 +77,14 @@ public class Notification {
 	public void setLu(int lu) {
 		this.lu = lu;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Notification [idNotification=" + idNotification + ", idUtilisateur=" + idUtilisateur
+				+ ", dateNotification=" + dateNotification + ", message=" + message + ", dateLecture=" + dateLecture
+				+ ", lu=" + lu + "]";
+	}
 	
 	
 }

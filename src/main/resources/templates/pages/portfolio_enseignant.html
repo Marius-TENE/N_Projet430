@@ -111,11 +111,11 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw" id="icone"></i>
-                        <span class="badge badge-danger" id="icone2"><tr th:if="${nbre_pieces != 0}" th:text="${nbre_pieces} + '+'" ></tr></span>
+                        <span class="badge badge-danger" id="icone2"><tr th:if="${nbre_notif != 0}" th:text="${nbre_notif} + '+'" ></tr></span>
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
                     	<tr th:each="notif : ${notifications}">
-	                        <li class="divider"></li>
+	                        <li class="divider" th:if="${nbre_notifs} !=0_"></li>
 	                        <li>
 	                            <a th:href="@{/notification}">
 	                                <div>

@@ -286,5 +286,15 @@ public class MgcMetierImplementation implements AgpeMetier{
 	public ArrayList<Etablissement> listeEtablissement() {
 		return etR.listeEtablissement();
 	}
+
+	@Override
+	public ArrayList<Departement> listerTousLesDepartements() {
+		return departementRepository.listerTousLesDepartements();
+	}
+
+	@Override
+	public ArrayList<Utilisateur> listerTousLesPortfolios() {
+		return utr.listerTousLesPortfolios();
+	}
 	
 }

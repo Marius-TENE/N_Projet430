@@ -51,6 +51,8 @@ public interface AgpeMetier{
     public Etablissement ajouterEtablissement(Etablissement etablissment);
     public ArrayList<Etablissement> listeEtablissement();
     public ArrayList<Departement> ListeDepartementEtablissemnet(Etablissement etablissement);
+    public ArrayList<Departement> listerTousLesDepartements();
+    public ArrayList<Utilisateur> listerTousLesPortfolios();
     public ArrayList<Piece> listerToutesPiecesUtilisateur(Utilisateur u);
     public Notification enregistrerNotification(Notification notification);
 	public Notification marquerCommeLu(Notification notification);

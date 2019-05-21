@@ -13,4 +13,7 @@ public interface DepartementRepository extends JpaRepository<Departement, Intege
 	
 	@Query("select d from Departement d where d.etablissement = :et")
 	ArrayList<Departement> ListeDepartementEtablissemnet(@Param("et") Etablissement etablissement);
+	
+	@Query("select d from Departement d")
+	ArrayList<Departement> listerTousLesDepartements();
 }

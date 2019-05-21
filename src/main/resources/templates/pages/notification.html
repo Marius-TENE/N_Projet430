@@ -60,20 +60,20 @@
                         <span class="badge badge-danger" id="icone2">9+</span>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
-                       <tr th:each="notif : ${notifications}">
+                      
 	                        <li class="divider"></li>
 	                        <li>
 	                                <div>
-	                                    <strong th:if="${session.user.matricule == notif.idUtilisateur}"><tr th:text="${session.user.nom}"></tr></strong>
-	                                    <strong th:unless="${session.user.matricule == notif.idUtilisateur}">L'admin</strong>
+	                                    <strong ><tr th:text="${session.user.nom}"></tr></strong>
+	                           
 	                                    <span class="pull-right text-muted">
-	                                        <em th:text="${notif.dateNotification}"></em>
+	                                        <em "></em>
 	                                    </span>
 	                                </div>
-	                                <div th:text="${notif.message}"></div>
+	                                <div "></div>
 	                            </a>
 	                        </li>
-                        
+                      
                         </tr>
                     </ul>
                     <!-- /.dropdown-messages -->
@@ -192,26 +192,22 @@
                 </div>
                 <!-- /.row -->
 
+
+
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="list-group">
+                       <tr th:each="notif : ${notifications}">
                         <a class="list-group-item list-group-item-info" href="#">
                             <div> 
                                 <i class="fa fa-bell"></i>
-                                <strong>John Smith</strong>
+                                <strong th:if="${notif.idUtilisateur}==${session.user.matricule}" th:text="${session.user.nom}"></strong>
+                                <strong th:unless="${notif.idUtilisateur}==${session.user.matricule}">L'admin</strong>
                             </div>
-                            <div>A ajouté une nouvelle pièce a votre dossier</div>
-                            <div><span class="pull-right text-muted small">samedi 15H30</span><br></div>
-                            
+                            <div th:text="${notif.message}"></div>
+                            <div><span class="pull-right text-muted small" th:text="${notif.dateNotification}"></span><br></div>   
                         </a>
-                        <a class="list-group-item list-group-item-success" href="#">
-                            <div> 
-                                <i class="fa fa-bell"></i>
-                                <strong>EBOLEKEM Martin</strong>
-                            </div>
-                            <div>A supprimé l'acte d'avancement No 5</div>
-                            <div><span class="pull-right text-muted small">samedi 15H30</span><br></div>
-                        </a>
+                       </tr>
                     </ul>
                 </div>
             </div> <br>

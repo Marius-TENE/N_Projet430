@@ -24,4 +24,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, String
     
     @Query("select u from Utilisateur u,Departement d where u.role = enseignant and u.actif = 1 and u.departement = :dp and d=:dp")
     ArrayList<Utilisateur> ListerPortfolioParDepartementEtEtablissement(@Param("dp") Departement departement);
+    
+    @Query("select u from Utilisateur u")
+	ArrayList<Utilisateur> listerTousLesPortfolios();
 }

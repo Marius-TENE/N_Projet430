@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Categorie;
+import agpe.modeles.Departement;
+import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
 import agpe.notification.modele.Notification;
 import agpe.portfolio.modele.Piece;
@@ -66,6 +68,7 @@ public class AgpeController {
 		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
 		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user);
 		int nbre_notification_non_lu = notificationNonLu.size();
+		System.out.print("ok \n\n" + nbre_notification_non_lu+"\n\n\n");
 		ArrayList<Notification> cinqdernieresNotification = new ArrayList<Notification>();
 		if(dernierenotification.size()>5) {
 			for(int i=0;i<5;i++) {
@@ -79,13 +82,29 @@ public class AgpeController {
 		mav.addObject("notifications",cinqdernieresNotification);
 		mav.addObject("nbre_notif", nbre_notification_non_lu);
 		mav.addObject("categories",categories);
+		mav.addObject("nbre_notifs", cinqdernieresNotification.size());
 		mav.addObject("pieces",pieces);
 
 		return mav;
 	}
 	
 	
-	@GetMapping("/notification")
+	@Secured(value = {"ROLE_admin"})
+	@RequestMapping(value = "/consultation_portfolios_enseignants",method = RequestMethod.GET)
+	public ModelAndView ConsulterPortfoliosEnseignants(HttpSession httpSession) {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/afficher_portfolios");
+		ArrayList<Etablissement> etablissements = agpeMetier.listeEtablissement();
+		ArrayList<Departement> departements = agpeMetier.listerTousLesDepartements();
+		ArrayList<Utilisateur> portfolios = agpeMetier.listerTousLesPortfolios();
+		mav.addObject("etablissements", etablissements);
+		mav.addObject("departements", departements);
+		mav.addObject("portfolios", portfolios);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/notification",method = RequestMethod.GET)
 	public ModelAndView AfficherNotificationComplete(HttpSession httpSession) {
 		ModelAndView mav = new ModelAndView();
 		mav.clear();
@@ -99,6 +118,8 @@ public class AgpeController {
 			notificationNonLu.get(i).setDateLecture(new Date());
 			agpeMetier.marquerCommeLu(notificationNonLu.get(i));
 		}
+		System.out.print("ok \n\n" + dernierenotification.get(0).toString()+"\n\n\n");
+		System.out.print("ok \n\n" + nbre+"\n\n\n");
 		mav.addObject("notifications",dernierenotification);
 		return mav;
 	}
