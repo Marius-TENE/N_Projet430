@@ -70,6 +70,11 @@ public class Departement {
 	public void setEnseignants(Collection<Utilisateur> enseignants) {
 		this.enseignants = enseignants;
 	}
+
+	@Override
+	public String toString() {
+		return "Departement [idDepartement=" + idDepartement + ", nomDepartement=" + nomDepartement + "]";
+	}
 	
 	
 }

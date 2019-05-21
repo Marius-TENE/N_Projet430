@@ -93,6 +93,13 @@ public class Etablissement {
 	public void setDepartements(Collection<Departement> departements) {
 		this.departements = departements;
 	}
+
+	@Override
+	public String toString() {
+		return "Etablissement [idEtablissement=" + idEtablissement + ", nomEtablissement=" + nomEtablissement
+				+ ", adresseEtablissement=" + adresseEtablissement + ", telephoneEtablissement="
+				+ telephoneEtablissement + ", emailEtablissement=" + emailEtablissement + "]";
+	}
 	
 	
 	

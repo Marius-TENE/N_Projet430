@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import agpe.authentification.model.PasswordResetToken;
 import agpe.authentification.repository.PasswordResetTokenRepository;
+import agpe.chat.modele.Chat;
+import agpe.chat.service.ChatService;
 import agpe.mail.MailRequest;
 import agpe.mail.MailSenderImplementation;
 import agpe.modeles.Categorie;
@@ -32,6 +34,10 @@ import agpe.sms.SmsRequest;
 @Service
 @Transactional
 public class MgcMetierImplementation implements AgpeMetier{
+	
+	
+	@Autowired
+	private ChatService chatServ;
 	
 	@Autowired
 	private UtilisateurRepository utr;
@@ -295,6 +301,31 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public ArrayList<Utilisateur> listerTousLesPortfolios() {
 		return utr.listerTousLesPortfolios();
+	}
+
+	@Override
+	public Etablissement enregistrerEtablissement(Etablissement etablissement) {
+		return etR.save(etablissement);
+	}
+
+	@Override
+	public Chat enregistrerChat(Chat chat) {
+		return chatServ.enregistrerChat(chat);
+	}
+
+	@Override
+	public ArrayList<Chat> listeMessageUtilisateur(Utilisateur user) {
+		return chatServ.listeMessageUtilisateur(user);
+	}
+
+	@Override
+	public ArrayList<Chat> listeMessageNonLu(Utilisateur user) {
+		return chatServ.listeMessageNonLu(user);
+	}
+
+	@Override
+	public ArrayList<Chat> listeEchangeAvecUtilisateur(Utilisateur user1, Utilisateur user2) {
+		return chatServ.listeEchangeAvecUtilisateur(user1, user2);
 	}
 	
 }

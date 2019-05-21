@@ -99,6 +99,7 @@ public class AgpeController {
 		ArrayList<Departement> departements = agpeMetier.listerTousLesDepartements();
 		ArrayList<Utilisateur> portfolios = agpeMetier.listerTousLesPortfolios();
 		mav.addObject("etablissements", etablissements);
+		System.out.print("ok \n\n" + etablissements.get(0).toString()+"\n\n\n");
 		mav.addObject("departements", departements);
 		mav.addObject("portfolios", portfolios);
 		return mav;

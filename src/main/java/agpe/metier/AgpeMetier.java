@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import agpe.authentification.model.PasswordResetToken;
 import agpe.authentification.web.dao.ModificationInfosConnexionDao;
+import agpe.chat.modele.Chat;
 import agpe.mail.MailRequest;
 import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
@@ -58,6 +59,11 @@ public interface AgpeMetier{
 	public Notification marquerCommeLu(Notification notification);
 	public ArrayList<Notification> notificationsRecus(Utilisateur u);
 	public ArrayList<Notification> notificationsNonLus(Utilisateur u);
+	public Etablissement enregistrerEtablissement(Etablissement etablissement);
+	public Chat enregistrerChat(Chat chat);
+	public ArrayList<Chat> listeMessageUtilisateur(Utilisateur user);
+	public ArrayList<Chat> listeMessageNonLu(Utilisateur user);
+	public ArrayList<Chat> listeEchangeAvecUtilisateur(Utilisateur user1,Utilisateur user2);
 	
    
 }

@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import agpe.chat.modele.Chat;
 import agpe.portfolio.modele.Piece;
 
 @Entity
@@ -65,6 +66,12 @@ public class Utilisateur {
 
 	@OneToMany(mappedBy = "utilisateur",fetch = FetchType.LAZY)
 	private Collection<Piece> pieces;
+	
+	@OneToMany(mappedBy = "expediteur",fetch = FetchType.LAZY)
+	private Collection<Chat> messageEnvoye;
+	
+	@OneToMany(mappedBy = "recepteur",fetch = FetchType.LAZY)
+	private Collection<Chat> messageRecu;
 	
 	@ManyToOne
 	@JoinColumn(name = "idDepartement")
@@ -296,6 +303,36 @@ public class Utilisateur {
 	public void setDepartement(Departement departement) {
 		this.departement = departement;
 	}
+
+	
+	
+	
+	public Collection<Chat> getMessageEnvoye() {
+		return messageEnvoye;
+	}
+
+
+
+
+	public void setMessageEnvoye(Collection<Chat> messageEnvoye) {
+		this.messageEnvoye = messageEnvoye;
+	}
+
+
+
+
+	public Collection<Chat> getMessageRecu() {
+		return messageRecu;
+	}
+
+
+
+
+	public void setMessageRecu(Collection<Chat> messageRecu) {
+		this.messageRecu = messageRecu;
+	}
+
+
 
 
 	@Override
