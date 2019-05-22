@@ -289,44 +289,24 @@
  									<div class="panel panel-success">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" th:text="${categ.nomCategorie}"></a>
+                                                <a data-toggle="collapse" data-parent="#accordion" th:href="'#collapseTwo' + ${categ.idCategorie}" th:text="${categ.nomCategorie}"></a>
                                             </h4>
                                         </div>
                                         
-                                        <div id="collapseTwo" class="panel-collapse collapse ">
+                                        <div th:id="'collapseTwo'+${categ.idCategorie}" class="panel-collapse collapse ">
                                             <div class="panel-body">
                                                 <p>Contenu</p>
                                                 <table width="100%" class="table table-striped  table-hover" id="dataTables-example">
                                                     <tbody>
-                                                       
-                                                       
+                                                    	
                                                         <tr th:each="piece : ${pieces}">
-                                                            <td th:text="${piece.nomPiece}"></td>
-                                                            <td>
-                                                                <a th:href="@{'/telechargement/'+${piece.idPiece}}" type="button" class="btn btn-outline btn-success">Télécharger</a>
-                                            
-                                                                <!-- Modal -->
-                                                                <button type="button" class="btn btn-outline btn-danger"  data-toggle="modal" href="#infos">Supprimer</button>
-                                                                <div class="modal fade" id="infos">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Confirmation</h4>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <h4 class="text text-danger">Voulez vous vraiment supprimer cette pièce?</h4>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                 <a th:href="@{'/supprimer/'+${piece.idPiece}}" data-dismiss="modal" type="button" class="btn btn-danger">Oui</a>
-                                                                                <button class="btn btn-info" data-dismiss="modal">Non</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- /Modal -->
-
-                                                            </td>
+                                                        	<span th:if="${piece.categorie.idCategorie} == ${categ.idCategorie}">
+	                                                            <td th:text="${piece.nomPiece}"></td>
+	                                                            <td>
+	                                                                <a th:href="@{'/telechargement/'+${piece.idPiece}}" type="button" class="btn btn-outline btn-success">Télécharger</a>
+	                                                                <a th:href="@{'/supprimer/'+${piece.idPiece}}" data-dismiss="modal" type="button" class="btn btn-danger">Supprimer</a>
+	                                                            </td>
+	                                                          </span> 
                                                         </tr>
                                                         
                                                      
