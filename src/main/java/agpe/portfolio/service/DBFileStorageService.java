@@ -45,7 +45,7 @@ public class DBFileStorageService {
 
             Piece dbFile = new Piece(new Date(), fileName,file.getContentType(),file.getBytes(), categorie, user);
             dbFileRepository.save(dbFile);
-            Notification notification = new Notification(user.getMatricule(),new Date(),"A ajouter le fichier "+dbFile.getNomPiece(),0);
+            Notification notification = new Notification(user.getMatricule(),new Date(),"ajouté le fichier "+dbFile.getNomPiece(),0);
             notificationServ.enregistrerNotification(notification);
             return dbFile;
         } catch (IOException ex) {
@@ -64,7 +64,7 @@ public class DBFileStorageService {
     
     public void deletePiece(Piece piece) {
     	dbFileRepository.delete(piece);
-    	Notification notification = new Notification(piece.getUtilisateur().getMatricule(),new Date(),"A supprimé le fichier "+piece.getNomPiece(),0);
+    	Notification notification = new Notification(piece.getUtilisateur().getMatricule(),new Date(),"supprimé le fichier "+piece.getNomPiece(),0);
         notificationServ.enregistrerNotification(notification);
     }
     

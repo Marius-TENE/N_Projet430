@@ -48,7 +48,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="admin.html" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+                <a class="navbar-brand" th:href="@{/enseignant}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
 
             </div>
             <!-- /.navbar-header -->
@@ -201,8 +201,8 @@
                         <a class="list-group-item list-group-item-info" href="#">
                             <div> 
                                 <i class="fa fa-bell"></i>
-                                <strong th:if="${notif.idUtilisateur}==${session.user.matricule}" th:text="${session.user.nom}"></strong>
-                                <strong th:unless="${notif.idUtilisateur}==${session.user.matricule}">L'admin</strong>
+                                <strong th:if="${notif.idUtilisateur}==${session.user.matricule}" > Vous avez </strong>
+                                <strong th:unless="${notif.idUtilisateur}==${session.user.matricule}">L'admin a </strong>
                             </div>
                             <div th:text="${notif.message}"></div>
                             <div><span class="pull-right text-muted small" th:text="${notif.dateNotification}"></span><br></div>   

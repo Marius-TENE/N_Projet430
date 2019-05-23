@@ -73,11 +73,6 @@ public class MgcMetierImplementation implements AgpeMetier{
 	private agpe.sms.Service service;
 
 	@Override
-	public void supprimerPiece(Piece piece) {
-		pir.delete(piece);
-	}
-
-	@Override
 	public void envoyerSms(SmsRequest smsRequest) {
 		service.envoyerSms(smsRequest);
 	}
@@ -326,6 +321,16 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public ArrayList<Chat> listeEchangeAvecUtilisateur(Utilisateur user1, Utilisateur user2) {
 		return chatServ.listeEchangeAvecUtilisateur(user1, user2);
+	}
+
+	@Override
+	public Optional<Etablissement> chercherEtablissementAvecId(int idEtablissement) {
+		return etR.findById(idEtablissement);
+	}
+
+	@Override
+	public Optional<Utilisateur> chercherUtiliateurAvecMatricule(String matricule) {
+		return utr.findById(matricule);
 	}
 	
 }

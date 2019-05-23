@@ -257,40 +257,45 @@
                                     <div class="panel panel-success">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" id="accordion7" th:text="${etab.idEtablissement}"></a>
+                                                <a data-toggle="collapse" data-parent="#accordion" th:href="'#collapseSeven' + ${etab.idEtablissement}" id="accordion7" th:text="${etab.nomEtablissement}"></a>
                                             </h4>
                                         </div>
                                         
-                                        <tr th:each="depart : ${departements}">
-	                                        <div id="collapseSeven" class="panel-collapse collapse">
+	                                        <div th:id="'collapseSeven' + ${etab.idEtablissement}" class="panel-collapse collapse">
+	                                      	<tr th:each="depart : ${departements}">
 	                                            <div class="panel-body" id="uniqueId7"> 
 	                                                 <div class="col-lg-12"  id="nom-departement"> 
 	                                                     <div class="panel panel-success">
 	                                                        <div class="panel-heading">
 	                                                            <h4 class="panel-title">
-	                                                                <a data-toggle="collapse" data-parent="#accordion7" href="#collapseSeven1" id="Departement" th:text="${etab.idEtablissement}"></a>
+	                                                                <a data-toggle="collapse" data-parent="#accordion7" th:href="'#collapseSeven1' + ${depart.idDepartement}" id="Departement" th:text="${depart.nomDepartement}"></a>
 	                                                            </h4>
 	                                                        </div>
-	                                                        <div id="collapseSeven1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+	                                                        <div th:id="'collapseSeven1' + ${depart.idDepartement}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+	                                                            
 	                                                            <div class="panel-body">
 	                                                                <div class="col-lg-12"> 
 	                                                                    <ul class="list-group">
-	                                                                        <a class="list-group-item list-group-item-info" href="#">
-	                                                                            <div> 
-	                                                                                <i class="fa fa-folder-open-o"></i>
-	                                                                                <strong>John Smith</strong>
-	                                                                            </div>
-	                                                                            <div>Description du dossier ou du fichier...</div>
-	                                                                        </a>
+	                                                                       <tr th:each="portfolio : ${portfolios}">
+		                                                                        <a class="list-group-item list-group-item-info" th:href="@{'admin/portfolio_' + ${portfolio.matricule}}">
+		                                                                            <div> 
+		                                                                                <i class="fa fa-folder-open-o"></i>
+		                                                                                <strong th:if="${portfolio.prenom} == null" th:text="${portfolio.grade} + ' '+ ${portfolio.nom}"></strong>
+		                                                                                <strong th:unless="${portfolio.prenom} == null" th:text="${portfolio.grade} + ' '+ ${portfolio.prenom}  + ' '+ ${portfolio.nom'}">John Smith</strong>
+		                                                                            </div>
+		                                                                            <div th:text="'Matricule: ' + ${portfolio.matricule}"></div>
+		                                                                        </a>
+	                                                                        </tr>
 	                                                                    </ul>
 	                                                                </div>
 	                                                            </div>
+	                                                            
 	                                                        </div>
 	                                                    </div>
 	                                                </div>
 	
 	                                            </div>
-	
+											</tr>
 	                                         </div>
                                          
                                        </tr>  

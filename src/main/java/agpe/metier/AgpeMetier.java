@@ -30,7 +30,6 @@ public interface AgpeMetier{
 	public ArrayList<Categorie> listeCategorieNonVideUtilisateur(Utilisateur u);
 	public ArrayList<Utilisateur> ListerPortfolioParDepartementEtEtablissement(int idDepartement);
 	public ArrayList<Utilisateur> ListerPortfolioParEtablissement(int idEtablissement);
-	public void supprimerPiece(Piece piece);
 	public void envoyerSms(SmsRequest smsRequest);
 	public void envoyerSmsGroup(ArrayList<Utilisateur> users,String message);
 	public void envoyerMail(MailRequest mailRequest);
@@ -64,6 +63,8 @@ public interface AgpeMetier{
 	public ArrayList<Chat> listeMessageUtilisateur(Utilisateur user);
 	public ArrayList<Chat> listeMessageNonLu(Utilisateur user);
 	public ArrayList<Chat> listeEchangeAvecUtilisateur(Utilisateur user1,Utilisateur user2);
+	public Optional<Etablissement> chercherEtablissementAvecId(int idEtablissement);
+	public Optional<Utilisateur> chercherUtiliateurAvecMatricule(String matricule);
 	
    
 }

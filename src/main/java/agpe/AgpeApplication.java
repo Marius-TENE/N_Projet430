@@ -36,9 +36,9 @@ public class AgpeApplication implements CommandLineRunner{
 
 
 
-		Utilisateur u = new Utilisateur("15Y511","TENE MBA","tefuncowm@gmail.com","15Y511", "groupe7","yde", "+237691103603", "dgf", 1, "fsf", "fdsf", depart, "enseignant","M");
+		Utilisateur u = new Utilisateur("15Y511","TENE MBA","tefuncowm@gmail.com","15Y511", "groupe7","yde", "+237691103603", "dgf", 1, "Professeur", "Professeur", depart, "enseignant","M");
 		Utilisateur u1 = new
-				Utilisateur("15Y512","ZEKENG","tefuncowm@yahoo.com","15Y512", "groupe7","doula", "+237697973191", "dgff", 1, "fsf", "fdsf", depart, "admin","M");
+				Utilisateur("15Y512","ZEKENG","tefuncowm@yahoo.com","15Y512", "groupe7","doula", "+237697973191", "dgff", 1, "Docteur", "Docteur", depart, "admin","M");
 		agpeMetier.enregistrerUtilisateur(u1); agpeMetier.enregistrerUtilisateur(u);
 
 		/*

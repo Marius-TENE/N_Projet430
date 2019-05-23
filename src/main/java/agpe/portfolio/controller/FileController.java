@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,19 @@ public class FileController {
 		 */
     }
     
+    @Secured(value = {"ROLE_admin"})
+    @PostMapping("/admin/uploadFile_{matricule}")
+    public String uploadFile_Admin(@RequestParam("file") MultipartFile file,String nom,String idCategorie,@PathVariable String matricule) {
+    	
+    	Utilisateur user = agpeMetier.chercherUtiliateurAvecMatricule(matricule).get();
+    	Piece dbFile = agpeMetier.enregistrerPiece(file,user,agpeMetier.retournerCategorie(Integer.valueOf(idCategorie).intValue()).get(),nom);
+    	return "redirect:/admin/portfolio_"+matricule;
+		/*
+		 * return new UploadFileResponse(dbFile.getNomPiece(), fileDownloadUri,
+		 * file.getContentType(), file.getSize());
+		 */
+    }
+    
     @GetMapping("/telechargement/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) {
       
@@ -55,8 +69,9 @@ public class FileController {
     
     @GetMapping("/supprimer/{fileId}")
     public String supprimerPiece(@PathVariable Long fileId) {
+    	System.out.print("\n\nfdsbfs\n\n");
         Piece  dbFile = agpeMetier.chercherPiece(fileId);
-        agpeMetier.supprimerPiece(dbFile);
+        agpeMetier.deletePiece(dbFile);
         return "redirect:/enseignant";
     }
 
