@@ -44,9 +44,9 @@ public class FileController {
     }
     
     @Secured(value = {"ROLE_admin"})
-    @PostMapping("/admin/uploadFile_{matricule}")
+    @PostMapping("/admin/uploadFile/{matricule}")
     public String uploadFile_Admin(@RequestParam("file") MultipartFile file,String nom,String idCategorie,@PathVariable String matricule) {
-    	
+    	System.out.print("\n\nMatricule: "+matricule);
     	Utilisateur user = agpeMetier.chercherUtiliateurAvecMatricule(matricule).get();
     	Piece dbFile = agpeMetier.enregistrerPiece(file,user,agpeMetier.retournerCategorie(Integer.valueOf(idCategorie).intValue()).get(),nom);
     	return "redirect:/admin/portfolio_"+matricule;

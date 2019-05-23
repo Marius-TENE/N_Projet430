@@ -199,7 +199,7 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <!-- enctype est utilisé pour prendre en compte le fichier -->
-                                                                    <form method="POST" enctype="multipart/form-data" th:action="@{'admin/uploadFile_' + ${user.matricule}}">
+                                                                    <form method="POST" enctype="multipart/form-data" th:action="@{'/admin/uploadFile/' + ${user.matricule}}">
                                                                         <div class="form-group">
                                                                             <label>Sélectionner une pièce <span class="error">*</span></label>
                                                                             <input type="file" name="file" required>
