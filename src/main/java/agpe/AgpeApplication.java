@@ -1,5 +1,7 @@
 package agpe;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +12,6 @@ import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
 import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
-import agpe.sms.SmsRequest;
 
 @SpringBootApplication
 public class AgpeApplication implements CommandLineRunner{
@@ -37,9 +38,9 @@ public class AgpeApplication implements CommandLineRunner{
 
 
 		Utilisateur u = new Utilisateur("15Y511","TENE MBA","tefuncowm@gmail.com","15Y511", "groupe7","yde", "+237691103603", "dgf", 1, "Professeur", "Professeur", depart, "enseignant","M");
-		Utilisateur u1 = new
-				Utilisateur("15Y512","ZEKENG","tefuncowm@yahoo.com","15Y512", "groupe7","doula", "+237697973191", "dgff", 1, "Docteur", "Docteur", depart, "admin","M");
-		agpeMetier.enregistrerUtilisateur(u1); agpeMetier.enregistrerUtilisateur(u);
+		agpeMetier.enregistrerUtilisateur(u);
+		Utilisateur u1 = new Utilisateur("15y512","ZEKENG","M","zekeng@gmail.com","15y512","groupe7","Douala","+237691103603",new Date().toString(),1,"admin");
+		agpeMetier.enregistrerUtilisateur(u1);
 
 		/*
 		 * Utilisateur ut = new

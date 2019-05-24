@@ -14,6 +14,7 @@ public class Notification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idNotification;
 	private String idUtilisateur;
+	private String idDepositaire;
 	private Date dateNotification;
 	private String message;
 	private Date dateLecture;
@@ -25,12 +26,13 @@ public class Notification {
 	}
 	
 
-	public Notification(String idUtilisateur, Date dateNotification, String message, int lu) {
+	public Notification(String idUtilisateur,String idDepositaire, Date dateNotification, String message, int lu) {
 		super();
 		this.idUtilisateur = idUtilisateur;
 		this.dateNotification = dateNotification;
 		this.message = message;
 		this.lu = lu;
+		this.idDepositaire=idDepositaire;
 	}
 
 	public Long getIdNotification() {
@@ -76,6 +78,15 @@ public class Notification {
 
 	public void setLu(int lu) {
 		this.lu = lu;
+	}
+
+	public String getIdDepositaire() {
+		return idDepositaire;
+	}
+
+
+	public void setIdDepositaire(String idDepositaire) {
+		this.idDepositaire = idDepositaire;
 	}
 
 

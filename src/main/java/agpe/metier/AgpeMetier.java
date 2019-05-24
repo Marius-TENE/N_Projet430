@@ -34,10 +34,10 @@ public interface AgpeMetier{
 	public void envoyerSmsGroup(ArrayList<Utilisateur> users,String message);
 	public void envoyerMail(MailRequest mailRequest);
 	public void envoyerMailGroup(ArrayList<Utilisateur> users,String message,String objet);
-    public Piece enregistrerPiece(MultipartFile file,Utilisateur user,Categorie categorie, String nouveauNom);
+    public Piece enregistrerPiece(MultipartFile file,Utilisateur user,Categorie categorie, String nouveauNom,String idDepositaire);
     public Piece chercherPiece(Long idPiece);
     public Collection<Piece> chercherPieceUtilisateurAvecCategorie(String matricule,int idCategorie);
-    public void deletePiece(Piece piece);
+    public void deletePiece(Piece piece,String idAuteur);
     public int nbrePiecesUtilisateurCategorie(Utilisateur user,Categorie categorie);
     public int nbrePieceUtilisateur(Utilisateur user);
     public void enregistrerCategorie(Categorie categorie);
@@ -65,6 +65,8 @@ public interface AgpeMetier{
 	public ArrayList<Chat> listeEchangeAvecUtilisateur(Utilisateur user1,Utilisateur user2);
 	public Optional<Etablissement> chercherEtablissementAvecId(int idEtablissement);
 	public Optional<Utilisateur> chercherUtiliateurAvecMatricule(String matricule);
+	public Departement chercherDepartementAvecId(int idDepartement);
+	public ArrayList<Chat> cinqDernierMessages(Utilisateur user);
 	
    
 }

@@ -69,7 +69,24 @@ public class ChatServiceImplementation implements ChatService{
 		
 		for(int i=0;i<nbre;i++) {
 			Chat chat = new Chat(message,new Date(),0,user,enseignants.get(i));
+			enregistrerChat(chat);
 		}
+	}
+
+	@Override
+	public ArrayList<Chat> cinqDernierMessages(Utilisateur user) {
+		ArrayList<Chat> resultat= new ArrayList<Chat>();
+		ArrayList<Chat> tousLesMessages = chatR.listeMessageUtilisateur(user);
+		int taille = tousLesMessages.size();
+		if(taille<=5) {
+			resultat=tousLesMessages;
+		}
+		else {
+			for(int i=0;i<5;i++) {
+				resultat.add(tousLesMessages.get(i));
+			}
+		}
+		return resultat ;
 	}
 
 	

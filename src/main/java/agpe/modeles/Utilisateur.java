@@ -1,6 +1,7 @@
 package agpe.modeles;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -60,7 +61,7 @@ public class Utilisateur {
 	
 	@Column(name = "actif")
 	private int actif;
-	
+
 	private String grade;
 	private String specialite;
 
@@ -86,8 +87,6 @@ public class Utilisateur {
 	}
 	
 	
-	
-
 	public Utilisateur(@NotEmpty(message = "Entrer un matricule svp") String matricule,
 			@NotEmpty(message = "*Entrer un nom svp") String nom, String prenom,
 			@Email(message = "*Entrer un email valide svp ") @NotEmpty(message = "*Entrer un email") String email,
@@ -141,6 +140,55 @@ public class Utilisateur {
 		this.departement = departement;
 		this.role = role;
 		this.sexe=sexe;
+	}
+
+
+	public Utilisateur(@NotEmpty(message = "Entrer un matricule svp") String matricule,
+			@NotEmpty(message = "*Entrer un nom svp") String nom, @NotNull String sexe,
+			@Email(message = "*Entrer un email valide svp ") @NotEmpty(message = "*Entrer un email") String email,
+			@NotEmpty(message = "*Entrer un login svp") String login,
+			@Length(min = 5, message = "*Votre mot de passe doit avoir au moins 8 caractères") @NotEmpty(message = "*Entrer un mot de passe") String password,
+			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
+			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
+			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif,
+			@NotNull String role) {
+		super();
+		this.matricule = matricule;
+		this.nom = nom;
+		this.sexe = sexe;
+		this.email = email;
+		this.login = login;
+		this.password = password;
+		this.adresse = adresse;
+		this.tel = tel;
+		this.naissance = naissance;
+		this.actif = actif;
+		this.role = role;
+	}
+
+
+	public Utilisateur(@NotEmpty(message = "Entrer un matricule svp") String matricule,
+			@NotEmpty(message = "*Entrer un nom svp") String nom, @NotNull String sexe, String prenom,
+			@Email(message = "*Entrer un email valide svp ") @NotEmpty(message = "*Entrer un email") String email,
+			@NotEmpty(message = "*Entrer un login svp") String login,
+			@Length(min = 5, message = "*Votre mot de passe doit avoir au moins 8 caractères") @NotEmpty(message = "*Entrer un mot de passe") String password,
+			@NotEmpty(message = "*Entrer une adresse svp") String adresse,
+			@NotEmpty(message = "*Entrer un numéro de téléphone svp") String tel,
+			@NotEmpty(message = "Veuillez entre une date de naissance") String naissance, int actif,
+			@NotNull String role) {
+		super();
+		this.matricule = matricule;
+		this.nom = nom;
+		this.sexe = sexe;
+		this.prenom = prenom;
+		this.email = email;
+		this.login = login;
+		this.password = password;
+		this.adresse = adresse;
+		this.tel = tel;
+		this.naissance = naissance;
+		this.actif = actif;
+		this.role = role;
 	}
 
 

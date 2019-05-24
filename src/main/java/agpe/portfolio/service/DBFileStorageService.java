@@ -28,7 +28,7 @@ public class DBFileStorageService {
     
     @Autowired NotificationServiceImplement notificationServ;
 
-    public Piece storeFile(MultipartFile file,Utilisateur user,Categorie categorie, String nouveauNom) {
+    public Piece storeFile(MultipartFile file,Utilisateur user,Categorie categorie, String nouveauNom,String idDepositaire) {
         // Normalize file name
     	System.out.print("\n\nNom1 : "  + nouveauNom+"\n\n");
     	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -45,7 +45,7 @@ public class DBFileStorageService {
 
             Piece dbFile = new Piece(new Date(), fileName,file.getContentType(),file.getBytes(), categorie, user);
             dbFileRepository.save(dbFile);
-            Notification notification = new Notification(user.getMatricule(),new Date(),"ajouté le fichier "+dbFile.getNomPiece(),0);
+            Notification notification = new Notification(user.getMatricule(), idDepositaire,new Date(),"Ajouté le fichier "+dbFile.getNomPiece(),0);
             notificationServ.enregistrerNotification(notification);
             return dbFile;
         } catch (IOException ex) {
@@ -62,9 +62,9 @@ public class DBFileStorageService {
 		return dbFileRepository.chercherPieceUtilisateurAvecCategorie(matricule, idCategorie);
     }
     
-    public void deletePiece(Piece piece) {
+    public void deletePiece(Piece piece,String idAuteur) {
     	dbFileRepository.delete(piece);
-    	Notification notification = new Notification(piece.getUtilisateur().getMatricule(),new Date(),"supprimé le fichier "+piece.getNomPiece(),0);
+    	Notification notification = new Notification(piece.getUtilisateur().getMatricule(),idAuteur,new Date(),"Supprimé le fichier "+piece.getNomPiece(),0);
         notificationServ.enregistrerNotification(notification);
     }
     

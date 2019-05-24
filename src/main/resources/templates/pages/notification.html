@@ -201,8 +201,8 @@
                         <a class="list-group-item list-group-item-info" href="#">
                             <div> 
                                 <i class="fa fa-bell"></i>
-                                <strong th:if="${notif.idUtilisateur}==${session.user.matricule}" > Vous avez </strong>
-                                <strong th:unless="${notif.idUtilisateur}==${session.user.matricule}">L'admin a </strong>
+                                <strong th:if="${notif.idUtilisateur}==${notif.idDepositaire}" > Vous avez </strong>
+                                <strong th:unless="${notif.idUtilisateur}==${notif.idDepositaire}">L'admin a </strong>
                             </div>
                             <div th:text="${notif.message}"></div>
                             <div><span class="pull-right text-muted small" th:text="${notif.dateNotification}"></span><br></div>   

@@ -51,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="admin.html" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+                <a class="navbar-brand" th:href="@{/admin}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
             </div>
             <!-- /.navbar-header -->
 
@@ -179,7 +179,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Réglages</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
+                        <li><a th:href="@{/deconnexion}"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -198,10 +198,10 @@
                              <a href="#"><i class="fa fa-folder-open-o fa-fw"></i> Portfolios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level" id="sous-menu">
                                 <li>
-                                    <a href="creer_portfolio.html"><i class="fa fa-edit fa-fw"></i> Creer portfolio</a>
+                                    <a th:href="@{/creation_nouveau_portfolio}"><i class="fa fa-edit fa-fw"></i> Creer portfolio</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Tous les portfolios</a>
+                                    <a th:href="@{/consultation_portfolios_enseignants}"><i class="fa fa-files-o fa-fw"></i> Tous les portfolios</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -247,11 +247,6 @@
                             <div class="panel-body">
                                 <div class="panel-group" id="accordion">
 
-
-
-
-
-
                                  <tr th:each="etab : ${etablissements}">  
                                     <!-- IUT bois de mbalmayo  -->
                                     <div class="panel panel-success">
@@ -281,7 +276,7 @@
 		                                                                            <div> 
 		                                                                                <i class="fa fa-folder-open-o"></i>
 		                                                                                <strong th:if="${portfolio.prenom} == null" th:text="${portfolio.grade} + ' '+ ${portfolio.nom}"></strong>
-		                                                                                <strong th:unless="${portfolio.prenom} == null" th:text="${portfolio.grade} + ' '+ ${portfolio.prenom}  + ' '+ ${portfolio.nom'}">John Smith</strong>
+		                                                                                <strong th:unless="${portfolio.prenom} == null" th:text="${portfolio.grade} + ' '+ ${portfolio.prenom}  + ' '+ ${portfolio.nom}"></strong>
 		                                                                            </div>
 		                                                                            <div th:text="'Matricule: ' + ${portfolio.matricule}"></div>
 		                                                                        </a>
@@ -302,13 +297,7 @@
                                     </div>
                                </tr>
                                     <!-- ./IUT bois de mbalmayo  -->
-                                             
-                                    
-
-
-
-
-                                    
+                   
                                         </div>
                                     </div>
 

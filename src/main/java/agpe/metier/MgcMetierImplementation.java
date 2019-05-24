@@ -111,8 +111,8 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public Piece enregistrerPiece(MultipartFile file, Utilisateur user, Categorie categorie,String nouveauNom) {
-		return dbfserv.storeFile(file, user, categorie,nouveauNom);
+	public Piece enregistrerPiece(MultipartFile file, Utilisateur user, Categorie categorie,String nouveauNom,String idDepositaire) {
+		return dbfserv.storeFile(file, user, categorie,nouveauNom,idDepositaire);
 	}
 
 	@Override
@@ -126,8 +126,8 @@ public class MgcMetierImplementation implements AgpeMetier{
 	}
 
 	@Override
-	public void deletePiece(Piece piece) {
-		dbfserv.deletePiece(piece);
+	public void deletePiece(Piece piece,String idAuteur) {
+		dbfserv.deletePiece(piece,idAuteur);
 	}
 
 	@Override
@@ -331,6 +331,16 @@ public class MgcMetierImplementation implements AgpeMetier{
 	@Override
 	public Optional<Utilisateur> chercherUtiliateurAvecMatricule(String matricule) {
 		return utr.findById(matricule);
+	}
+
+	@Override
+	public Departement chercherDepartementAvecId(int idDepartement) {
+		return departementRepository.findById(idDepartement).get();
+	}
+
+	@Override
+	public ArrayList<Chat> cinqDernierMessages(Utilisateur user) {
+		return chatServ.cinqDernierMessages(user);
 	}
 	
 }

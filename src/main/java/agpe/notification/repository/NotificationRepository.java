@@ -11,10 +11,10 @@ import agpe.notification.modele.Notification;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long>{
 	
-	@Query("select n from Notification n where n.idUtilisateur = :u order by n.dateNotification desc")
+	@Query("select n from Notification n where n.idUtilisateur = :u or n.idDepositaire = :u order by n.dateNotification desc")
 	ArrayList<Notification> notificationsRecus(@Param("u")String idUtilisateur);
 	
-	@Query("select n from Notification n where n.idUtilisateur = :u and n.lu = 0 order by n.dateNotification desc")
+	@Query("select n from Notification n where (n.idUtilisateur = :u or n.idDepositaire = :u) and n.lu = 0 order by n.dateNotification desc")
 	ArrayList<Notification> notificationsNonLus(@Param("u")String idUtilisateur);
 
 }

@@ -37,7 +37,6 @@ public class ChatController {
 		ModelAndView mav = new ModelAndView();
 		mav.clear();
 		mav.setViewName("pages/chat");
-		
 		ArrayList<Chat> messages = agpeMetier.listeEchangeAvecUtilisateur(agpeMetier.chercherUtilisateurAvecLogin(matricule),user);
 		mav.addObject("message",messages);
 		return mav;

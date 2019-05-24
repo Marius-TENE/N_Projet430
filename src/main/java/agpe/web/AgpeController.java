@@ -6,11 +6,6 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import agpe.chat.modele.Chat;
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
@@ -37,7 +33,6 @@ public class AgpeController {
 	
 	@RequestMapping(value = "/determinerRole",method = RequestMethod.GET)
 	public String determinerRoleUtilisateur(HttpSession session) {
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Utilisateur user = agpeMetier.chercherUtilisateurAvecLogin(auth.getName());
 		ArrayList<Categorie> liste_categories = agpeMetier.listeCategoriePieces();
@@ -73,6 +68,10 @@ public class AgpeController {
 		
 		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
 		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user);
+		ArrayList<Chat> messageNonsLus = agpeMetier.listeMessageNonLu(user);
+		ArrayList<Chat> dernierMessages = agpeMetier.cinqDernierMessages(user);
+		int nbre_message_non_lus = messageNonsLus.size();
+		
 		int nbre_notification_non_lu = notificationNonLu.size();
 		System.out.print("ok \n\n" + nbre_notification_non_lu+"\n\n\n");
 		ArrayList<Notification> cinqdernieresNotification = new ArrayList<Notification>();
@@ -84,6 +83,8 @@ public class AgpeController {
 		else {
 			cinqdernieresNotification=dernierenotification;
 		}
+		mav.addObject("messages", dernierMessages);
+		mav.addObject("nbre_messages", nbre_message_non_lus);
 		mav.addObject("nbre_pieces", agpeMetier.nbrePieceUtilisateur(user));
 		mav.addObject("notifications",cinqdernieresNotification);
 		mav.addObject("nbre_notif", nbre_notification_non_lu);
@@ -157,5 +158,13 @@ public class AgpeController {
 		
         return mav;
     }
+	
+	@GetMapping("/nouveau_message_{matricule}")
+	public ModelAndView AfficherListeDestinataires(@PathVariable String matricule) {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		return mav;
+	}
+	
     
 }

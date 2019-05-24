@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmls:th="http://www.thymleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout" >
-
-
+<html lang="en">
 
 <head>
 
@@ -12,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AGPE: Portfolios </title>
+    <title>Chat</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -35,6 +32,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Custom CSS -->
+    <link href="../dist/css/chat.css" rel="stylesheet">    
+
 </head>
 
 <body>
@@ -50,8 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" th:href="@{/admin}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
-
+                <a class="navbar-brand" href="admin.html" >AGPE Administrateur</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -111,7 +110,7 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw" id="icone"></i>
-						<span class="badge badge-danger" id="icone2">9+</span>
+                        <span class="badge badge-danger" id="icone2">9+</span>
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
                         <li>
@@ -179,9 +178,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Réglages</a>
                         </li>
                         <li class="divider"></li>
-                        
-                        
-                        <li><a th:href="@{/deconnexion}"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -192,18 +189,18 @@
 
             <div class="navbar-default sidebar" role="navigation" id="menu-admin">
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav " id="side-menu">
-                        <li class="active">
-                            <a href="#"><i class="fa fa-dashboard fa-fw "></i> Acceuil</a>
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="admin.html"><i class="fa fa-dashboard fa-fw"></i> Acceuil</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-folder-open-o fa-fw"></i> Portfolios<span class="fa arrow"></span></a>
+                             <a href="#"><i class="fa fa-folder-open-o fa-fw"></i> Portfolios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level" id="sous-menu">
                                 <li>
-                                    <a th:href="@{/creation_nouveau_portfolio}"><i class="fa fa-edit fa-fw"></i> Creer portfolio</a>
+                                    <a href="#"><i class="fa fa-edit fa-fw"></i> Creer portfolio</a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/consultation_portfolios_enseignants}"><i class="fa fa-files-o fa-fw"></i> Tous les portfolios</a>
+                                    <a href="liste_portfolios.html"><i class="fa fa-files-o fa-fw"></i> Tous les portfolios</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -219,10 +216,91 @@
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Rien de plus simple pour comuniquer ! </h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                <!-- /collapsible -->
+
+                <div class="row">
+                    <!-- Interface de chat-->
+                    <div class="col-xs-9 chatColumn">
+                        <div class="chat table-bordered">
+                            <div class="chatContent">
+                                <div class="row">
+                                    <div class="col-xs-10 chatLine">
+                                        <div class="well sender">
+                                            Salut ju, ça va ?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10 chatLineLeft">
+                                        <div class="well receiver">
+                                            ça va et toi ?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10 chatLine">
+                                        <div class="well sender">
+                                            Bien, tu as regardé pour les inscriptions à la Spartan ?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10 chatLineLeft">
+                                        <div class="well sender">
+                                            Bien entendu !
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="chatLine <?php echo($message->sender==$membre) ? 'col-xs-offset-2' : 'col-xs-10' ?>">
+                                        <div class="well <?php echo($message->sender==$membre) ? 'sender' : 'receiver' ?>" title="<?php echo($message->sender==$membre) ? ''.$membre : ''.$user ?>">
+                                            <img <?php echo($message->sender==$membre) ? 'src="img/fleche_droite.png" class="fleche_droite"' : 'src="img/fleche_gauche.png" class="fleche_gauche"' ?>>
+                                            <?= $message->message ?><br />
+                                            <span style="font-size: 0.9em; font-style: italic; opacity: 0.7;"><?= $message->date ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <form>
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control" autofocus>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-info">Envoyer</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- membres connectées-->
+                    <div class="col-xs-3 chatConnecte">
+                        <h6 class="alert alert-success">Utilisateurs connectés</h6>
+                        <ul class="list-group">
+                            <a href="#" class="list-group-item active">
+                                <span class="glyphicon glyphicon-certificate text-info"></span>
+                                Ebolekem 
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <span class="glyphicon glyphicon-certificate text-success"></span>
+                                Monthé Valéry <span class="badge">2</span>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <span class="glyphicon glyphicon-certificate text-success"></span>
+                                Tene
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <span class="glyphicon glyphicon-certificate text-danger"></span>
+                                Fatimah
+                            </a>
+                        </ul>
+                    </div>
+                </div>
 			
             </div>
             <!-- /.container-fluid -->

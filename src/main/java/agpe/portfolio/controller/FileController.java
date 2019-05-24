@@ -35,7 +35,7 @@ public class FileController {
     public String uploadFile(@RequestParam("file") MultipartFile file,HttpSession httpSession,String nom,String idCategorie) {
     	System.out.print("\n\nLien : "+idCategorie+"\n\n");
     	Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
-    	Piece dbFile = agpeMetier.enregistrerPiece(file,user,agpeMetier.retournerCategorie(Integer.valueOf(idCategorie).intValue()).get(),nom);
+    	Piece dbFile = agpeMetier.enregistrerPiece(file,user,agpeMetier.retournerCategorie(Integer.valueOf(idCategorie).intValue()).get(),nom,user.getMatricule());
     	return "redirect:/enseignant";
 		/*
 		 * return new UploadFileResponse(dbFile.getNomPiece(), fileDownloadUri,
@@ -48,7 +48,7 @@ public class FileController {
     public String uploadFile_Admin(@RequestParam("file") MultipartFile file,String nom,String idCategorie,@PathVariable String matricule) {
     	System.out.print("\n\nMatricule: "+matricule);
     	Utilisateur user = agpeMetier.chercherUtiliateurAvecMatricule(matricule).get();
-    	Piece dbFile = agpeMetier.enregistrerPiece(file,user,agpeMetier.retournerCategorie(Integer.valueOf(idCategorie).intValue()).get(),nom);
+    	Piece dbFile = agpeMetier.enregistrerPiece(file,user,agpeMetier.retournerCategorie(Integer.valueOf(idCategorie).intValue()).get(),nom,matricule);
     	return "redirect:/admin/portfolio_"+matricule;
 		/*
 		 * return new UploadFileResponse(dbFile.getNomPiece(), fileDownloadUri,
@@ -71,7 +71,7 @@ public class FileController {
     public String supprimerPiece(@PathVariable Long fileId) {
     	System.out.print("\n\nfdsbfs\n\n");
         Piece  dbFile = agpeMetier.chercherPiece(fileId);
-        agpeMetier.deletePiece(dbFile);
+        agpeMetier.deletePiece(dbFile,dbFile.getUtilisateur().getMatricule());
         return "redirect:/enseignant";
     }
 

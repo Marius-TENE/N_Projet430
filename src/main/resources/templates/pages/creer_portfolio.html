@@ -195,10 +195,10 @@
                              <a href="#"><i class="fa fa-folder-open-o fa-fw"></i> Portfolios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level" id="sous-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-edit fa-fw"></i> Creer portfolio</a>
+                                    <a th:href="@{/creation_nouveau_portfolio}"><i class="fa fa-edit fa-fw"></i> Creer portfolio</a>
                                 </li>
                                 <li>
-                                    <a href="liste_portfolios.html"><i class="fa fa-files-o fa-fw"></i> Tous les portfolios</a>
+                                    <a th:href="@{/consultation_portfolios_enseignants}"><i class="fa fa-files-o fa-fw"></i> Tous les portfolios</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -288,23 +288,13 @@
                         <div class="form-group">
                             <label>Département</label>
                             <select class="form-control" name="idDepartement">
-                                <optgroup label="Faculté des Sciences">
-                                    <option value="1">Biochimie (BC)</option>
-                                    <option>Biologie des Organismes Animaux (BPA)</option>
-                                    <option>Biologie des Organismes Végétaux (BPV)</option>
-                                    <option>Chimie Inorganique (CI)</option>
-                                    <option>Chimie Organique (CO)</option>
-                                    <option>Informatique (IN)</option>
-                                    <option>Mathématique (MA)</option>
-                                    <option>Physique (PH)</option>
-                                    <option>Sciences de la Terre (ST)</option>
-                                </optgroup>
-                                <optgroup label="Faculté des Arts Lettres et Sciences Humaines">
-                                    <option>Géographie</option>
-                                </optgroup>
-                                <optgroup label="Faculté des Sciences de l'éducation">
-                                    <option>Sociologie</option>
-                                </optgroup>
+                            	<span th:each="etab : ${etablissements}">
+	                                <optgroup th:label="${etab.nomEtablissement}">
+	                                	<span th:each="depart : ${departements}">
+	                                    	<option th:value="${depart.idDepartement}" th:text="${depart.nomDepartement}"></option>
+	                                    </span>
+	                                </optgroup>
+                                </span>
                             </select>
                         </div>
                         </fieldset>

@@ -39,5 +39,4 @@ public class NotificationServiceImplement implements NotificationService{
 		return notificationRepository.notificationsNonLus(u.getMatricule());
 	}
 	
-	
 }
