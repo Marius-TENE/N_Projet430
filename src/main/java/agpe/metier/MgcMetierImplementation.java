@@ -30,11 +30,11 @@ import agpe.repository.EtablissementRepository;
 import agpe.repository.PieceRepository;
 import agpe.repository.UtilisateurRepository;
 import agpe.sms.SmsRequest;
+import agpe.statistiques.model.Statistique;
 
 @Service
 @Transactional
 public class MgcMetierImplementation implements AgpeMetier{
-	
 	
 	@Autowired
 	private ChatService chatServ;
@@ -342,5 +342,5 @@ public class MgcMetierImplementation implements AgpeMetier{
 	public ArrayList<Chat> cinqDernierMessages(Utilisateur user) {
 		return chatServ.cinqDernierMessages(user);
 	}
-	
+
 }

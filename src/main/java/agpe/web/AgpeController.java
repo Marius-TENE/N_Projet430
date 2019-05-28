@@ -24,6 +24,8 @@ import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
 import agpe.notification.modele.Notification;
 import agpe.portfolio.modele.Piece;
+import agpe.statistiques.model.Histogramme;
+import agpe.statistiques.model.Statistique;
 
 @Controller
 public class AgpeController {
@@ -50,9 +52,59 @@ public class AgpeController {
 	
 	@Secured(value = "ROLE_admin")
 	@RequestMapping(value = "/admin",method = RequestMethod.GET)
-	public String AfficherInterfaceAccueilAdmi(HttpSession session) {
+	public ModelAndView AfficherInterfaceAccueilAdmi(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/admin");
 		
-		return "pages/admin";
+		ArrayList<Etablissement> etablissements = agpeMetier.listeEtablissement();
+		ArrayList<Departement> departements = agpeMetier.listerTousLesDepartements();
+		ArrayList<Utilisateur> portfolios = agpeMetier.listerTousLesPortfolios();
+		
+		ArrayList<Statistique> statistiques = new ArrayList<Statistique>();
+		ArrayList<Statistique> statistiques1 = new ArrayList<Statistique>();
+		
+		int nbre_etab=etablissements.size();
+		int nbre_depart = departements.size();
+		int nbre_port = portfolios.size();
+		
+		for(int i=0;i<nbre_etab;i++) {
+			int nombre_occurences=0;
+			int nombre_occ=0;//stat1
+			for(int k=0;k<nbre_depart;k++) {
+				
+				if(etablissements.get(i).getIdEtablissement()==departements.get(k).getIdDepartement()) {
+					nombre_occ++;
+				}
+				//statistique
+				for(int j=0;j<nbre_port;j++) {
+					if(etablissements.get(i).getIdEtablissement()==departements.get(k).getEtablissement().getIdEtablissement()
+							&& departements.get(k).getIdDepartement()==portfolios.get(j).getDepartement().getIdDepartement()) {
+						nombre_occurences++;
+					}
+				}
+			}
+			Statistique stat = new Statistique(etablissements.get(i),nombre_occurences);
+			statistiques.add(stat);
+			Statistique stat1 = new Statistique(etablissements.get(i),nombre_occ);
+			statistiques1.add(stat1);
+			System.out.print(stat.toString());
+		}
+		
+		/*
+		 * Histogramme histogramme = genererHistogramme(statistiques,
+		 * "column","Nombre de portfolios gérés par établissement");
+		 * mav.addObject("statistiques",statistiques); Histogramme histogramme1 =
+		 * genererHistogramme(statistiques1,
+		 * "column","Nombre de departements par établissement");
+		 * mav.addObject("histogramme",histogramme);
+		 */
+		ArrayList<String> liste = new ArrayList<String>();
+		liste.add("bonjour");
+		liste.add("Monsieur");
+		mav.addObject("liste",liste);
+		
+		return mav;
 	}
 	
 	@Secured(value = {"ROLE_enseignant"})

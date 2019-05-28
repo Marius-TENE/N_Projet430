@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.web.multipart.MultipartFile;
 
 import agpe.authentification.model.PasswordResetToken;
-import agpe.authentification.web.dao.ModificationInfosConnexionDao;
 import agpe.chat.modele.Chat;
 import agpe.mail.MailRequest;
 import agpe.modeles.Categorie;
@@ -17,6 +16,7 @@ import agpe.modeles.Utilisateur;
 import agpe.notification.modele.Notification;
 import agpe.portfolio.modele.Piece;
 import agpe.sms.SmsRequest;
+import agpe.statistiques.model.Statistique;
 
 public interface AgpeMetier{
 	
@@ -68,5 +68,4 @@ public interface AgpeMetier{
 	public Departement chercherDepartementAvecId(int idDepartement);
 	public ArrayList<Chat> cinqDernierMessages(Utilisateur user);
 	
-   
 }
