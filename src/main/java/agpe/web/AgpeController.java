@@ -50,51 +50,6 @@ public class AgpeController {
 
 	}
 	
-	public String extraireAnneeNaissance(String date /* la date doit être sous le format AAAA-MM-JJ*/) {
-		char ext[]=new char[4];
-		date.getChars(0,3,ext,0);
-		return new String(ext);
-	}
-	
-	public ArrayList<ArrayList<String>> statNombrePortfolioParDepartement(int codeEtablissement) {
-		ArrayList<ArrayList<String>> liste_finale = new ArrayList<ArrayList<String>>();
-		ArrayList<Departement> depart = agpeMetier.ListeDepartementEtablissemnet(agpeMetier.chercherEtablissementAvecId(codeEtablissement).get());
-		ArrayList<String> label = new ArrayList<String>();
-		ArrayList<String> y = new ArrayList<String>();
-		
-		ArrayList<Utilisateur> tmp = new ArrayList<Utilisateur>();
-		int nbre=depart.size();
-		for(int i=0;i<nbre;i++) {
-			label.add(depart.get(i).getNomDepartement());
-			tmp=agpeMetier.ListerPortfolioParDepartementEtEtablissement(depart.get(i).getIdDepartement());
-			y.add(String.valueOf(tmp.size()).toString());
-		}
-		liste_finale.add(label);
-		liste_finale.add(y);
-		return liste_finale;
-	}
-	
-	public ArrayList<ArrayList<String>> statNombrePortfolioParEtablissement(){
-		ArrayList<ArrayList<String>> liste_finale = new ArrayList<ArrayList<String>>();
-		ArrayList<Etablissement> etab = agpeMetier.listeEtablissement();
-		ArrayList<String> label = new ArrayList<String>();
-		ArrayList<String> y = new ArrayList<String>();
-		
-		ArrayList<Utilisateur> tmp = new ArrayList<Utilisateur>();
-		int nbre=etab.size();
-		for(int i=0;i<nbre;i++) {
-			label.add(etab.get(i).getNomEtablissement());
-			tmp = agpeMetier.ListerPortfolioParEtablissement(etab.get(i).getIdEtablissement());
-			y.add(String.valueOf(tmp.size()).toString());
-		}
-		liste_finale.add(label);
-		liste_finale.add(y);
-		return liste_finale;
-	}
-	
-	
-	
-	
 	@Secured(value = "ROLE_admin")
 	@RequestMapping(value = "/admin",method = RequestMethod.GET)
 	public ModelAndView AfficherInterfaceAccueilAdmi(HttpSession session) {

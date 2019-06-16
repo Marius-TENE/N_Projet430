@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmls:th="http://www.thymleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout"7>
+<html lang="en">
 
 <head>
 
@@ -229,35 +228,41 @@
                     <div class="col-xs-9 chatColumn">
                         <div class="chat table-bordered">
                             <div class="chatContent">
-
+                                <div class="row">
+                                    <div class="col-xs-10 chatLine">
+                                        <div class="well sender">
+                                            Salut ju, ça va ?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10 chatLineLeft">
+                                        <div class="well receiver">
+                                            ça va et toi ?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10 chatLine">
+                                        <div class="well sender">
+                                            Bien, tu as regardé pour les inscriptions à la Spartan ?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-10 chatLineLeft">
+                                        <div class="well sender">
+                                            Bien entendu !
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="row">
                                     <div class="chatLine <?php echo($message->sender==$membre) ? 'col-xs-offset-2' : 'col-xs-10' ?>">
                                         <div class="well <?php echo($message->sender==$membre) ? 'sender' : 'receiver' ?>" title="<?php echo($message->sender==$membre) ? ''.$membre : ''.$user ?>">
                                             <img <?php echo($message->sender==$membre) ? 'src="img/fleche_droite.png" class="fleche_droite"' : 'src="img/fleche_gauche.png" class="fleche_gauche"' ?>>
                                             <?= $message->message ?><br />
                                             <span style="font-size: 0.9em; font-style: italic; opacity: 0.7;"><?= $message->date ?></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="chatLine col-xs-offset-2">
-                                        <div class="well sender" title="<?php echo($message->sender==$membre) ? ''.$membre : ''.$user ?>">
-                                            <img <?php echo($message->sender==$membre) ? 'src="img/fleche_droite.png" class="fleche_droite"' : 'src="img/fleche_gauche.png" class="fleche_gauche"' ?>>
-                                            <?= $message->message ?><br />
-                                            <span style="font-size: 0.9em; font-style: italic; opacity: 0.7;">Message du sender</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                
-
-                                <div class="row">
-                                    <div class="chatLine col-xs-10">
-                                        <div class="well receiver" title="<?php echo($message->sender==$membre) ? ''.$membre : ''.$user ?>">
-                                            <img <?php echo($message->sender==$membre) ? 'src="img/fleche_droite.png" class="fleche_droite"' : 'src="img/fleche_gauche.png" class="fleche_gauche"' ?>>
-                                            <?= $message->message ?><br />
-                                            <span style="font-size: 0.9em; font-style: italic; opacity: 0.7;">Message du Receiver</span>
                                         </div>
                                     </div>
                                 </div>
