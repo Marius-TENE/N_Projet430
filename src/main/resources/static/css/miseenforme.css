@@ -1,80 +1,63 @@
 body{
 
-	/*background-color: rgb(77,34,77);*/
+	background-color: rgb(37,63,51);
 	/*background-color: rgb(220,250,218);*/
-	background-color: white;
+	/*background-color: rgb(228,210,192);*/
 	font-family: "Times New Roman";
 	color: black;
-}
 
-.body{
-
-	background-color: rgb(77,34,77);
-	
-	font-family: "Times New Roman";
-	color: black;
 }
 
 .container{
 	background-color:white;
-	width:100%;
-	
+	margin-top:6%;
+	margin-bottom: 6%;
+	padding-bottom: 5%;
 
 }
 .containerenseignant{
+	background-color:white;
 	margin-bottom: 6%;
 	padding-bottom: 5%;
 	height: 100%;
 
 }
 
-.entete{
-	text-align:left;
-	
-}
-
-#logo{
-	width:100px;
-	height:102.5px;
-}
-
 
 #connexion{
-	font-size:10px;
-	margin-top:10%;
+	margin-top: 5%;
+	font-size: 20px;
+
 }
 #header{
-	padding-top:-50%;
+	margin-left: 1%;
 	font-size: 20px;
-	background-color: white;
-	margin-bottom:30px;
-	color:black;
+
 }
-#espace{
-	margin-top:-2%;
-	background-color: rgb(77,34,77);
-	color:rgb(77,34,77);
+#footer{
+	margin-top:-40px;
+	background-color: rgb(37,63,51);
+	color: white;
 }
 #menu-admin{
-	margin-top: 49px;
-	background-color: rgb(77,34,77);
+	margin-top: 100px;
 }
 
 #menu-admin a{
 	color: white;
-	font-size: 15px;
-	background-color: rgb(77,34,77);	
+	font-size: 20px;
+	background-color: rgb(55,94,89);	
 
 }
 
 #menu-admin a:hover{
 	color: white;
-	background-color: rgb(95,60,95);
+	background-color: rgb(92,156,150);
 }
 
 #sous-menu{
 	color: white;
-	background-color: rgb(77,34,77);
+	background-color: rgb(37,63,51);
 }
 
 #Rechercher{
@@ -84,23 +67,24 @@ body{
 }
 
 #entete-admin{
-	height:50px;
 	color:white;
-	font-size: 15px;
-	background-color: rgb(77,34,77);
+	font-size: 20px;
+	background-color: rgb(37,63,51);
+	padding-bottom: 2%;
 
 }
 
 #entete-admin #titre a {
 	color: white;
 	font-size: 40px;
-	background-color: rgb(77,34,77);
+	
+	background-color: rgb(37,63,51);
 	padding-bottom: 60px;
 }
 
 #icone {
-color: rgb(77,34,77);
-font-size: 15px;
+color: rgb(92,156,150);
+font-size: 25px;
 }
 
 
@@ -110,17 +94,7 @@ margin-top: -7px;
 margin-left: 15px;
 }
 
-#iconeadmin {
-color: white;
-font-size: 15px;
-}
 
-
-#iconeadmin2{
-font-size: 12px;
-margin-top: -7px;
-margin-left: 15px;
-}
 
 #titre_panel{
 	font-size:22px;

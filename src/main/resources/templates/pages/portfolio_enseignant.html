@@ -1,13 +1,6 @@
 <!DOCTYPE html>
-
-
-
-
 <html lang="en" xmls:th="http://www.thymleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout" >
-	
-	
-	
 
 <head>
 
@@ -17,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>UY1-SSPE: Portfolio</title>
+    <title>AGPE: Portfolio</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,38 +37,26 @@
 </head>
 
 <body>
-		<header id="header">
-	        <div class="col-md-1 " style="background-color:white;">
-	        	<img alt="université de yaoundé 1" src="img/logo.png" id="logo">
-	        </div>
-	        <div class="col-md-11 text text-left" style="background-color:white;">
-	        	<p style="font-size:16.5px;"> Cameroun</br>
-	        	 Université de Yaoundé I</br>
-	        	 Direction des Affaires Académiques et Coopérations</br>
-	        	Service du Suivi du Personnel Enseignant</br>
-	        	
-	        </div>
-	        
-	    </header>
 
-      
+   
     <div id="wrapper">
- <div id="espace">
-	<p>test</p>
-	<p>test</p>
-  </div>
+
         <!-- Navigation -->
-      
-           
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" id="entete-admin" style="margin-bottom: 0" >
+            <div class="navbar-header" id="titre">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               <a class="navbar-brand" th:href="@{/enseignant}" >AGPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+
+            </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-            
-            
-            
-            	<li style="color:rgb(77,34,77);"><a th:href="@{'/nouveau_message_' + ${session.user.matricule}}">Nouveau</a></li>
-                
-                
+            	<li><a th:href="@{'/nouveau_message_' + ${session.user.matricule}}">Nouveau Message</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw" id="icone"></i>
@@ -146,14 +127,14 @@
                 </li>
                 <Br/>
                 <li th:if="${session.prenom !=null}" th:text="${session.user.prenom + ' ' + session.user.nom}"></li>
-                <li style="margin-left:30%; font-style:italic;" th:unless="${session.prenom != null}" th:text="${session.user.nom}"></li>
+                <li th:unless="${session.prenom != null}" th:text="${session.user.nom}"></li>
                 <li th:text="${session.user.matricule}"><li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
 
            
-        
+        </nav>
 
         <!-- Page Content -->
 
@@ -176,6 +157,7 @@
                             </div>
                             
                             
+                             <div class="col-lg-1"> <button type="button" class="btn btn-outline btn-primary right" data-toggle="modal" href="#ajouterDoc">Ajouter un document</button> </div>
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="ajouterDoc">
                                                         <div class="modal-dialog">
@@ -316,16 +298,10 @@
                                             <div class="panel-footer">
                                                 
                                                 <div class="row">
-                                                    <div class="col-lg-10" ><tr th:text="${nbre_pieces}"></tr> document(s)
-                                                     </div>
-                                                    <div class="col-lg-2">
-                                                    	<button type="button" class="btn btn-outline btn-primary right" data-toggle="modal" href="#ajouterDoc">Ajouter un document</button>
-                                                     </div> 
-                                                        
+                                                    <div class="col-lg-9" ><tr th:text="${nbre_pieces}"></tr> document(s)</div>
+                                                   
+                                                    <!-- /Modal -->
                                                 </div>
-                                                
-                                                
-                                                
                                             </div>
                                         </div>    
                                     </div>

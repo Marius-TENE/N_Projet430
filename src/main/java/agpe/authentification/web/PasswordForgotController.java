@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.rabbitmq.client.AMQP.Access.Request;
 
 import agpe.authentification.model.Mail;
 import agpe.authentification.model.PasswordResetToken;
@@ -35,7 +36,7 @@ public class PasswordForgotController {
 	}
 	
 	@PostMapping
-	public String processusEnvoiFormulaireRestaurationMotPasse(Model model1,String email,HttpServletRequest request) {
+	public String processusEnvoiFormulaireRestaurationMotPasse(String email,HttpServletRequest request) {
 		
 		Utilisateur user = agpeMetier.chercherUtilisateurAvecEmail(email);
 		if(user!=null) {
@@ -63,8 +64,8 @@ public class PasswordForgotController {
 			
 		}
 		else {
-			model1.addAttribute("email",email);
-			model1.addAttribute("msg","utilisateur introuvable");
+			
+			//message d'erreur
 			return "pages/forgotpassword";
 		}
 		
