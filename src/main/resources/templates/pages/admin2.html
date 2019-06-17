@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmls:th="http://www.thymleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout" >
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,53 +31,34 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-      <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
  <script type="text/javascript" th:inline="javascript">
 window.onload = function () {
 	
 	/*<![CDATA[*/
  
-    var labels = /*[[${labels}]]*/ ;
-    var y1 = /*[[${y}]]*/ ;
+    var titre = /*[[${liste}]]*/ ;
 	
   /*]]>*/
   	var dataP = [];
 	
 	var chart = new CanvasJS.Chart("chartContainer", {
 		title:{
-			text: ""            
-		},
-		axisX:{
-		       title: "Etablissement",
-		       titleFontColor: "blue",
-		       titleFontSize: 15,
-		       labelFontFamily: "tahoma",
-		       labelFontSize: 20
-		},
-		axisY:{
-			title: "Nombre de portfolios",
-		       titleFontColor: "blue",
-		       titleFontSize: 15,
-		       labelFontFamily: "tahoma",
-		       labelFontSize: 20
+			text: "titre"            
 		},
 		data: [              
 		{
 			// Change type to "doughnut", "line", "splineArea", etc.
-			type: "column",
-			color: "blue",
-			showInLegend: true,
-			legendText: "Nombre de portfolios par établissement",
+			type: "pie",
 			dataPoints: dataP
 		}
 		]
 	});
 	
-	for(var i=0;i<labels.length;i++){
+	for(var i=0;i<titre.length;i++){
 		dataP.push({
-			label: labels[i],
-			y: y1[i]
+			label: titre[i],
+			y: 5
 		});
 	}
 	
@@ -101,7 +81,7 @@ window.onload = function () {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                 <a class="navbar-brand" th:href="@{/admin}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+                <a class="navbar-brand" th:href="@{/admin}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
 
             </div>
             <!-- /.navbar-header -->
@@ -230,6 +210,8 @@ window.onload = function () {
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Réglages</a>
                         </li>
                         <li class="divider"></li>
+                        
+                        
                         <li><a th:href="@{/deconnexion}"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
                         </li>
                     </ul>
@@ -239,7 +221,7 @@ window.onload = function () {
             </ul>
             <!-- /.navbar-top-links -->
 
-           <div class="navbar-default sidebar" role="navigation" id="menu-admin">
+            <div class="navbar-default sidebar" role="navigation" id="menu-admin">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav " id="side-menu">
                         <li class="active">
@@ -267,138 +249,16 @@ window.onload = function () {
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>Nouveaux messages!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Plus de détails</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-university fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>Etablissements!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ajouter un établissement</span>
-                                <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-graduation-cap fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>Départements!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ajouter un département</span>
-                                <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-map-marker fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Géolocalisation!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a th:href="@{/geolocalisation}">
-                            <div class="panel-footer">
-                                <span class="pull-left">Plus de détails</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-
-            <div class="row">
-                <div class="col-md-8">
-
-                    <div class="panel  panel-green">
-                        <div class="panel-heading">
-                            <i class="fa fa-area-chart fa-fw"></i> Nombre de portfolios géré par établissement de l'UY1
-                        </div>
-                        <div class="panel-body">
-                            <div class="row" id="chartContainer" style="height:300px; width: 100%;">
+                <div class="row" id="chartContainer" style="height: 300px; width: 100%;">
                     
-               				 </div>
-                        </div>
-                    </div>
-                    <!-- /.panel green -->
-                    
-                      <div class="panel  panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Nombre d'Enseignants par établissements
-                        </div>
-                        <div class="panel-body">
-                            body
-                        </div>
-                    </div>
-                    <!-- /.panel default -->
                 </div>
-
-            </div>
-            <!-- /.row -->
-			
+             
             </div>
             <!-- /.container-fluid -->
         </div>
+        
+        
+        
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->

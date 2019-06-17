@@ -50,60 +50,77 @@ public class AgpeController {
 
 	}
 	
+	
+	
+	public ArrayList<ArrayList<String>> statNombrePortfolioParDepartement(int codeEtablissement) {
+		ArrayList<ArrayList<String>> liste_finale = new ArrayList<ArrayList<String>>();
+		ArrayList<Departement> depart = agpeMetier.ListeDepartementEtablissemnet(agpeMetier.chercherEtablissementAvecId(codeEtablissement).get());
+		ArrayList<String> label = new ArrayList<String>();
+		ArrayList<String> y = new ArrayList<String>();
+		
+		ArrayList<Utilisateur> tmp = new ArrayList<Utilisateur>();
+		int nbre=depart.size();
+		for(int i=0;i<nbre;i++) {
+			label.add(depart.get(i).getNomDepartement());
+			tmp=agpeMetier.ListerPortfolioParDepartementEtEtablissement(depart.get(i).getIdDepartement());
+			y.add(String.valueOf(tmp.size()).toString());
+		}
+		liste_finale.add(label);
+		liste_finale.add(y);
+		return liste_finale;
+	}
+	
+	public ArrayList<ArrayList<String>> statNombrePortfolioParEtablissement(){
+		ArrayList<ArrayList<String>> liste_finale = new ArrayList<ArrayList<String>>();
+		ArrayList<Etablissement> etab = agpeMetier.listeEtablissement();
+		ArrayList<String> label = new ArrayList<String>();
+		ArrayList<String> y = new ArrayList<String>();
+		
+		ArrayList<Utilisateur> tmp = new ArrayList<Utilisateur>();
+		int nbre=etab.size();
+		for(int i=0;i<nbre;i++) {
+			label.add(etab.get(i).getNomEtablissement());
+			tmp = agpeMetier.ListerPortfolioParEtablissement(etab.get(i).getIdEtablissement());
+			y.add(String.valueOf(tmp.size()).toString());
+		}
+		liste_finale.add(label);
+		liste_finale.add(y);
+		return liste_finale;
+	}
+	
 	@Secured(value = "ROLE_admin")
 	@RequestMapping(value = "/admin",method = RequestMethod.GET)
 	public ModelAndView AfficherInterfaceAccueilAdmi(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.clear();
 		mav.setViewName("pages/admin");
+		ArrayList<ArrayList<String>> liste_finale = statNombrePortfolioParEtablissement();
+		ArrayList<String> labels = liste_finale.get(0);
+		ArrayList<String> y1 = liste_finale.get(1);
+		ArrayList<Integer> y = new ArrayList<Integer>();
+		int taille = y1.size();
 		
-		ArrayList<Etablissement> etablissements = agpeMetier.listeEtablissement();
-		ArrayList<Departement> departements = agpeMetier.listerTousLesDepartements();
-		ArrayList<Utilisateur> portfolios = agpeMetier.listerTousLesPortfolios();
-		
-		ArrayList<Statistique> statistiques = new ArrayList<Statistique>();
-		ArrayList<Statistique> statistiques1 = new ArrayList<Statistique>();
-		
-		int nbre_etab=etablissements.size();
-		int nbre_depart = departements.size();
-		int nbre_port = portfolios.size();
-		
-		for(int i=0;i<nbre_etab;i++) {
-			int nombre_occurences=0;
-			int nombre_occ=0;//stat1
-			for(int k=0;k<nbre_depart;k++) {
-				
-				if(etablissements.get(i).getIdEtablissement()==departements.get(k).getIdDepartement()) {
-					nombre_occ++;
-				}
-				//statistique
-				for(int j=0;j<nbre_port;j++) {
-					if(etablissements.get(i).getIdEtablissement()==departements.get(k).getEtablissement().getIdEtablissement()
-							&& departements.get(k).getIdDepartement()==portfolios.get(j).getDepartement().getIdDepartement()) {
-						nombre_occurences++;
-					}
-				}
-			}
-			Statistique stat = new Statistique(etablissements.get(i),nombre_occurences);
-			statistiques.add(stat);
-			Statistique stat1 = new Statistique(etablissements.get(i),nombre_occ);
-			statistiques1.add(stat1);
-			System.out.print(stat.toString());
+		for(int i=0;i<taille;i++) {
+			y.add(Integer.valueOf(y1.get(i)));
 		}
+		mav.addObject("labels",labels);
+		mav.addObject("y",y);
 		
-		/*
-		 * Histogramme histogramme = genererHistogramme(statistiques,
-		 * "column","Nombre de portfolios gérés par établissement");
-		 * mav.addObject("statistiques",statistiques); Histogramme histogramme1 =
-		 * genererHistogramme(statistiques1,
-		 * "column","Nombre de departements par établissement");
-		 * mav.addObject("histogramme",histogramme);
-		 */
-		ArrayList<String> liste = new ArrayList<String>();
-		liste.add("bonjour");
-		liste.add("Monsieur");
-		mav.addObject("liste",liste);
 		
+		return mav;
+	}
+	
+	@Secured(value = "ROLE_admin")
+	@RequestMapping(value = "/geolocalisation",method = RequestMethod.GET)
+	public ModelAndView consulterGeolocalisation(HttpSession session) {
+		ModelAndView mav = new ModelAndView("pages/geolocalisation");
+		return mav;
+	}
+	
+	@Secured(value = "ROLE_admin")
+	@RequestMapping(value = "/creerEtablissement",method = RequestMethod.GET)
+	public ModelAndView AfficherFormulaireCreationEtablissement(HttpSession session) {
+		ModelAndView mav = new ModelAndView("pages/creer_etablissement");
 		return mav;
 	}
 	

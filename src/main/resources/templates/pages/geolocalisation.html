@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmls:th="http://www.thymleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout" >
 
 <head>
 
@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AGPE: reinitialiser mot de passe</title>
+    <title>AGPE: géolocalisation</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +38,6 @@
 
 <body>
 
-   
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -50,7 +49,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-               <a class="navbar-brand" href="admin.html" >AGPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+               <a class="navbar-brand" th:href="@{/admin}" >AGPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
 
             </div>
         </nav>
@@ -59,23 +58,9 @@
 
     <div class="containerenseignant" >
             <div class="container-fluid">
-                <div class="row">
-                <div class="col-lg-4"></div>
-                    <div class="col-lg-8">
-                        <h1 class="page-header">Réinitialiser le mot de passe</h1>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
+                <iframe src="https://www.google.com/maps/d/embed?mid=1Kxf4fBOAzvZP7QWlzY5MjoMkErWfGqzB" width="100%" height="550"></iframe>
 
-                <div class="col-lg-4 col-lg-offset-4">
-                
-                    <form th:action="@{/motpasse-oublie}" method="post" id="reinitialiserMdpForm">
-                        <div class="form-group">
-                            <label></label>
-                            <input type="email" name="email" id="mail" class="form-control" required placeholder="Veuillez entrer votre adresse email">
-                        </div>
-                        <input type="submit" name="reset" class="btn btn-info" value="Confirmer">
-                    </form> 
+                <div class="col-md-10">
                     
                 </div>
             </div>

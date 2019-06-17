@@ -1,7 +1,5 @@
 package agpe.authentification.web;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import agpe.authentification.service.EmailService;
 import agpe.authentification.web.dao.ModificationInfosConnexionDao;
-import agpe.authentification.web.dao.PasswordResetDto;
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Utilisateur;
 
@@ -32,8 +29,6 @@ public class ModificationInfosConnexion {
 	@GetMapping
 	public String afficherFormulaireModificationInfosConnexion() {
 		ModelAndView mav = new ModelAndView();
-		Map map =mav.getModel();
-		System.out.print("\n\n\n"+map.get("password_diff")+"\n\n\n");
 		return "pages/modifier_infos_connexion";
 	}
 	

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmls:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout" >
 
 <head>
 
@@ -61,7 +62,7 @@
                         <i class="fa fa-user fa-fw" id="icone"></i> <i class="fa fa-caret-down" id="icone"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
+                        <li><a th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->

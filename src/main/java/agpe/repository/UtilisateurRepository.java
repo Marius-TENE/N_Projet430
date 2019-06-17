@@ -22,7 +22,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, String
     @Query("update Utilisateur u set u.password = :password where u.matricule = :mat")
     void updatePassword(@Param("password") String password, @Param("mat") String matricule);
     
-    @Query("select u from Utilisateur u,Departement d where u.role = enseignant and u.actif = 1 and u.departement = :dp and d=:dp")
+    @Query("select u from Utilisateur u  where u.role = 'enseignant' and u.actif = 1 and u.departement = :dp")
     ArrayList<Utilisateur> ListerPortfolioParDepartementEtEtablissement(@Param("dp") Departement departement);
     
     @Query("select u from Utilisateur u where u.role <> 'admin'")
