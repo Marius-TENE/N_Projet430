@@ -112,9 +112,11 @@
                     <h4>Completez le formulaire suivant pour créer un portfolio à un nouvel enseignant</h4>
                 </div>
                 <div class="col-lg-4">
-
+					
                     <form method="POST" th:action="@{/creation_nouveau_portfolio}" th:object="${creation_portfolioForm}" id="inscriptionEnseignantsForm">
                         <fieldset>
+          					<label th:if="${echec!=null}" th:text="${echec}" class="text-warning"></label>
+                        <label th:if="${success!=null}" th:text="${success}" class="text-success"></label>
                             <legend>Informations personnelles</legend>
                             <div class="form-group">
                             <label>Matricule <span class="error">*</span></label>
@@ -178,7 +180,7 @@
                             <select class="form-control" name="idDepartement">
                             	<span th:each="etab : ${etablissements}">
 	                                <optgroup th:label="${etab.nomEtablissement}">
-	                                	<span th:each="depart : ${departements}">
+	                                	<span th:each="depart : ${etab.departements}">
 	                                    	<option th:value="${depart.idDepartement}" th:text="${depart.nomDepartement}"></option>
 	                                    </span>
 	                                </optgroup>

@@ -23,6 +23,7 @@ public interface AgpeMetier{
 	public Utilisateur enregistrerUtilisateur(Utilisateur user);
 	public Utilisateur chercherUtilisateurAvecEmail(String email);
 	public Utilisateur chercherUtilisateurAvecLogin(String login);
+	public Boolean existanceUtilisateur(String matricule);
 	public String retournerRoleUtilisateur(String login);
 	public void ModifierMotPasse(String password,String matricule, String telephone);
 	public Utilisateur modifierInfosConnexion(Utilisateur user);

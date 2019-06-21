@@ -344,4 +344,9 @@ public class MgcMetierImplementation implements AgpeMetier{
 		return chatServ.cinqDernierMessages(user);
 	}
 
+	@Override
+	public Boolean existanceUtilisateur(String matricule) {
+		return utr.existsById(matricule);
+	}
+
 }

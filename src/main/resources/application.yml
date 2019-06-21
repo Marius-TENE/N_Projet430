@@ -1,6 +1,9 @@
 # ===============================
 #   twilio configurations
 # ===============================
+#+12024108908
+#sid:ACb2ce5ad7c7527e8383c2cc445a78a67d
+#token:1c45440d2f78c1a81588448c3f30b529
 twilio:
   account_sid: ACda640b2aa5e6e522288613da6edd6304
   auth_token: 89747f7af03de0ae69d6b3031d7fb76a
