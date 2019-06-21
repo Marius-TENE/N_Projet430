@@ -265,15 +265,13 @@
                                         </div>
                                     </div>
                                     
-                                    
-                                <tr th:each="categ : ${categories}">    
- 									<div class="panel panel-success">
+                                     
+ 									<div class="panel panel-success" th:each="categ : ${categories}">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#accordion" th:href="'#collapseTwo' + ${categ.idCategorie}" th:text="${categ.nomCategorie}"></a>
                                             </h4>
-                                        </div>
-                                        
+                             			</div>
                                         <div th:id="'collapseTwo'+${categ.idCategorie}" class="panel-collapse collapse ">
                                             <div class="panel-body">
                                                 <p>Contenu</p>
@@ -287,14 +285,15 @@
 	                                                                <a th:href="@{'/telechargement/'+${piece.idPiece}}" type="button" class="btn btn-outline btn-success">Télécharger</a>
 	                                                                <a th:href="@{'/supprimer/'+${piece.idPiece}}" data-dismiss="modal" type="button" class="btn btn-danger">Supprimer</a>
 	                                                            </td>
-	                                                          </span> 
+	                                                        </span> 
                                                         </tr>
-                                                        
-                                                     
+                                                       
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            
+                                          </div>
+                                        </div>
+                                        
                                             <div class="panel-footer">
                                                 
                                                 <div class="row">
@@ -304,10 +303,9 @@
                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>    
+                    					</div>
                                     </div>
-                              </tr>
-
+                             
 
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>

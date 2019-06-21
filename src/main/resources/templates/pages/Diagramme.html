@@ -54,6 +54,26 @@
 
             <ul class="nav navbar-top-links navbar-right">
 
+               <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw" id="icone"></i>
+                        <span class="badge badge-danger" id="icone2"><tr th:if="${nbre_notif != 0}" th:text="${nbre_notif} + '+'" ></tr></span>
+                    </a>
+                   <ul class="dropdown-menu dropdown-alerts">
+                    	<tr th:each="notif : ${notifications}">
+	                        <li class="divider" th:if="${nbre_notifs} !=0_"></li>
+	                        <li>
+	                            <a th:href="@{/notification_admin}">
+	                                <div>
+	                                    <i class="fa fa-bell fa-fw"></i><span>...</span> <span th:text="${notif.message}"></span>
+	                                    <span class="pull-right text-muted small" th:text="${notif.dateNotification}"></span>
+	                                </div>
+	                            </a>
+	                        </li>
+                       </tr>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">

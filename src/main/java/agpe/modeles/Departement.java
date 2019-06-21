@@ -38,6 +38,14 @@ public class Departement {
 		super();
 		this.nomDepartement = nomDepartement;
 	}
+	
+	
+
+	public Departement(@NotNull String nomDepartement, Etablissement etablissement) {
+		super();
+		this.nomDepartement = nomDepartement;
+		this.etablissement = etablissement;
+	}
 
 	public int getIdDepartement() {
 		return idDepartement;

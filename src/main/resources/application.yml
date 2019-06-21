@@ -2,9 +2,9 @@
 #   twilio configurations
 # ===============================
 twilio:
-  account_sid: AC6c2ead20ebd298333c3df7831633b071
-  auth_token: e3ee6e2ce667c0a18ab9034c90373322
-  trial_number: +13342924705
+  account_sid: ACda640b2aa5e6e522288613da6edd6304
+  auth_token: 89747f7af03de0ae69d6b3031d7fb76a
+  trial_number: +12565703396
   
   
 # ===============================
@@ -37,8 +37,8 @@ spring:
     #password: secret
     #port: 587
     host: smtp.gmail.com
-    username: agpe.uy1@gmail.com
-    password: agpe_groupe7
+    username: agpe.uy1.uninet@gmail.com
+    password: agpe_projet430_groupe7
     port: 587
     properties:
       mail:

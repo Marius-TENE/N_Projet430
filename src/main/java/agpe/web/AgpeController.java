@@ -33,6 +33,15 @@ public class AgpeController {
 	@Autowired
 	private AgpeMetier agpeMetier;
 	
+	@RequestMapping(value ="/echecConnexion", method = RequestMethod.GET)
+	public ModelAndView echecConnexion() {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/connexion");
+		mav.addObject("echec","Echec de connexion ! Vérifiez vos informations de connexion");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/determinerRole",method = RequestMethod.GET)
 	public String determinerRoleUtilisateur(HttpSession session) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -106,6 +115,28 @@ public class AgpeController {
 		mav.addObject("labels",labels);
 		mav.addObject("y",y);
 		
+		Utilisateur user = (Utilisateur) session.getAttribute("user");
+		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
+		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user);
+		ArrayList<Chat> messageNonsLus = agpeMetier.listeMessageNonLu(user);
+		ArrayList<Chat> dernierMessages = agpeMetier.cinqDernierMessages(user);
+		int nbre_message_non_lus = messageNonsLus.size();
+		
+		int nbre_notification_non_lu = notificationNonLu.size();
+		System.out.print("ok \n\n" + nbre_notification_non_lu+"\n\n\n");
+		ArrayList<Notification> cinqdernieresNotification = new ArrayList<Notification>();
+		if(dernierenotification.size()>5) {
+			for(int i=0;i<5;i++) {
+				cinqdernieresNotification.add(dernierenotification.get(i));
+			}
+		}
+		else {
+			cinqdernieresNotification=dernierenotification;
+		}
+		
+		mav.addObject("notifications",cinqdernieresNotification);
+		mav.addObject("nbre_notif", nbre_notification_non_lu);
+		mav.addObject("nbre_notifs", cinqdernieresNotification.size());
 		
 		return mav;
 	}
@@ -124,6 +155,44 @@ public class AgpeController {
 		return mav;
 	}
 	
+	@Secured(value = "ROLE_admin")
+	@RequestMapping(value = "/creerDepartement",method = RequestMethod.GET)
+	public ModelAndView AfficherFormulaireCreationDepartemnent(HttpSession session) {
+		ModelAndView mav = new ModelAndView("pages/creer_departement");
+		ArrayList<Etablissement> etablissements = agpeMetier.listeEtablissement();
+		mav.addObject("etablissements", etablissements);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/creerDepartement",method = RequestMethod.POST)
+	public ModelAndView creationDepartement(HttpSession session,String idEtablissement,String nomDepartemnet) {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/creer_departement");
+		try {
+			agpeMetier.enregistrerDepartement(new Departement(nomDepartemnet,agpeMetier.chercherEtablissementAvecId(Integer.valueOf(idEtablissement)).get()));
+			mav.addObject("succes","Departement enregistré avec succès !");
+		} catch (Exception e) {
+			mav.addObject("error","Echec de l'enregistrement. Vérifiez vos informations !");
+		}
+		return mav;
+	}
+	
+	@Secured(value = "ROLE_admin")
+	@RequestMapping(value = "/creerEtablissement",method = RequestMethod.POST)
+	public ModelAndView creationEtablissement(HttpSession session,String nomEtablissement,String emailEtablissement,String telephone,String adresseEtablissement) {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/creer_etablissement");
+		try {
+			agpeMetier.ajouterEtablissement(new Etablissement(nomEtablissement, adresseEtablissement, telephone, emailEtablissement));
+			mav.addObject("succes","Etablissement enregistré avec succès !");
+		} catch (Exception e) {
+			mav.addObject("error","Echec de l'enregistrement. Vérifiez vos informations !");
+		}
+		return mav;
+	}
+	
 	@Secured(value = {"ROLE_enseignant"})
 	@RequestMapping(value="/enseignant",method = RequestMethod.GET)
 	public ModelAndView AfficherInterfaceAccueilEnseignant(HttpSession httpSession) {
@@ -131,6 +200,7 @@ public class AgpeController {
 		ModelAndView mav = new ModelAndView();
 		mav.clear();
 		mav.setViewName("pages/portfolio_enseignant");
+		
 		Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
 		ArrayList<Categorie> categories = agpeMetier.listeCategorieNonVideUtilisateur(user);
 		ArrayList<Piece> pieces = agpeMetier.listerToutesPiecesUtilisateur(user);
@@ -197,6 +267,27 @@ public class AgpeController {
 		}
 		System.out.print("ok \n\n" + dernierenotification.get(0).toString()+"\n\n\n");
 		System.out.print("ok \n\n" + nbre+"\n\n\n");
+		mav.addObject("notifications",dernierenotification);
+		return mav;
+	}
+	
+	@Secured(value = "ROLE_admin")
+	@RequestMapping(value = "/notification_admin",method = RequestMethod.GET)
+	public ModelAndView AfficherNotificationCompleteAdmin(HttpSession httpSession) {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/notification_admin");
+		Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
+		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
+		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user);
+		int nbre=notificationNonLu.size();
+		for(int i=0;i<nbre;i++) {
+			notificationNonLu.get(i).setLu(1);
+			notificationNonLu.get(i).setDateLecture(new Date());
+			agpeMetier.marquerCommeLu(notificationNonLu.get(i));
+		}
+		//System.out.print("ok \n\n" + dernierenotification.get(0).toString()+"\n\n\n");
+		//System.out.print("ok \n\n" + nbre+"\n\n\n");
 		mav.addObject("notifications",dernierenotification);
 		return mav;
 	}

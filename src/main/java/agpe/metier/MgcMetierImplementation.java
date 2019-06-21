@@ -162,6 +162,7 @@ public class MgcMetierImplementation implements AgpeMetier{
 
 	@Override
 	public Utilisateur enregistrerUtilisateur(Utilisateur user) {
+		//service.envoyerSms(new SmsRequest(user.getTel(),"Votre portfolio vient d'être crée.\nVos informations de connexion sont les suivantes:\nLogin: "+user.getLogin()+"\npassword: "+user.getPassword()));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return utr.save(user);
 	}
@@ -177,7 +178,7 @@ public class MgcMetierImplementation implements AgpeMetier{
 		SmsRequest sms = new SmsRequest(telephone,"Mot de passe changé avec succès !.\nNouveau mot de passe: \n"+password);
 		password=passwordEncoder.encode(password);
 		utr.updatePassword(password, matricule);
-		envoyerSms(sms);
+		//service.envoyerSms(sms);
 	}
 
 	@Override

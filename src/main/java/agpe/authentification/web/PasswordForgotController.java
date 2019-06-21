@@ -11,8 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.rabbitmq.client.AMQP.Access.Request;
+import org.springframework.web.servlet.ModelAndView;
 
 import agpe.authentification.model.Mail;
 import agpe.authentification.model.PasswordResetToken;
@@ -36,7 +35,11 @@ public class PasswordForgotController {
 	}
 	
 	@PostMapping
-	public String processusEnvoiFormulaireRestaurationMotPasse(String email,HttpServletRequest request) {
+	public ModelAndView processusEnvoiFormulaireRestaurationMotPasse(String email,HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/forgotpassword");
 		
 		Utilisateur user = agpeMetier.chercherUtilisateurAvecEmail(email);
 		if(user!=null) {
@@ -47,7 +50,7 @@ public class PasswordForgotController {
 			agpeMetier.enregisterToken(token);
 			
 			Mail mail = new Mail();
-			mail.setFrom("agpe.uy1@gmail.com");
+			mail.setFrom("agpe.uy1.uninet@gmail.com");
 			mail.setTo(user.getEmail());
 			mail.setSubject("Requête de restauration de mot de passe");
 			
@@ -60,14 +63,13 @@ public class PasswordForgotController {
 			
 			mail.setModel(model);
 			emailService.sendEmail(mail);
-			return "redirect:/motpasse-oublie";
+			//agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"Pour restaurer votre mot de passe, cliquer sur le lien de restauration qui a été envoyé à l'adresse "+email));
+			mav.addObject("success","Veuillez cliquer sur le lien de restauration qui a été envoyé à l'adresse "+email);
 			
 		}
 		else {
-			
-			//message d'erreur
-			return "pages/forgotpassword";
+			mav.addObject("echec","Désolé, cette adrresse email est introuvable !");
 		}
-		
+		return mav;
 	}
 }

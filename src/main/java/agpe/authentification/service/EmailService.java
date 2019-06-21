@@ -13,6 +13,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import agpe.authentification.model.Mail;
 import agpe.notification.modele.Notification;
+import agpe.sms.SmsRequest;
 
 @Service
 public class EmailService {
@@ -22,6 +23,9 @@ public class EmailService {
 
     @Autowired
     private SpringTemplateEngine templateEngine;
+    
+    @Autowired
+	private agpe.sms.Service service;
 
     public void sendEmail(Mail mail) {
         try {
@@ -40,7 +44,7 @@ public class EmailService {
             helper.setFrom(mail.getFrom());
 
             emailSender.send(message);
-           
+            
         } catch (Exception e){
             throw new RuntimeException(e);
         }

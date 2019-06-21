@@ -50,15 +50,16 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" method="POST" th:action="@{/connexion}" id="connexionForm">
+                        	<div th:if="${echec!=null}" class="text-warning" th:text="${echec}"></div>
                             <label>Identifiant</label>
                             <div class="form-group input-group">
                                 <span class="input-group-addon" style="color: rgbrgb(37,63,51);"><i class="fa fa-user"></i></span>
-                                <input type="text" name="username" id="id" class="form-control" placeholder="Entrer votre identifiant" autofocus>
+                                <input type="text" name="username" required id="id" class="form-control" placeholder="Entrer votre identifiant" autofocus>
                             </div>
                             <label>Mot de passe</label>
                             <div class="form-group input-group">
                                 <span class="input-group-addon" style="color: rgb(37,63,51);"><i class="fa fa-lock"></i></span>
-                                <input type="Password" name="password" id="Password" class="form-control" placeholder="Entrer le mot de passe">
+                                <input type="Password" name="password"  required id="Password" class="form-control" placeholder="Entrer le mot de passe">
                             </div>
                             <div class="">
                                 <a th:href="@{/motpasse-oublie}" style="color: black;">mot de passe oublié</a>

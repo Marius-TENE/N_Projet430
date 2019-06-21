@@ -12,6 +12,7 @@ import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
 import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
+import agpe.sms.SmsRequest;
 
 @SpringBootApplication
 public class AgpeApplication implements CommandLineRunner{
@@ -28,12 +29,22 @@ public class AgpeApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 
 		Etablissement etablissement = new Etablissement("ENS","Yaoundé-Melen","+237691103603","tefuncowm@yahoo.fr");
+		Etablissement etablissement1 = new Etablissement("ENSp","Yaoundé-Melen","+237691103603","tefuncowm@yahoo.fr");
 		agpeMetier.enregistrerEtablissement(etablissement);
+		//agpeMetier.envoyerSms(new SmsRequest("+237655925875","gggg"));
 		Departement depart = new Departement("informatique");
+		Departement depart1 = new Departement("Mathématique");
+		Departement depart3 = new Departement("Mathématique");
+		Departement depart4 = new Departement("Biologie");
 		depart.setEtablissement(etablissement);
+		depart1.setEtablissement(etablissement);
+		depart3.setEtablissement(etablissement1);
+		depart4.setEtablissement(etablissement1);
 		agpeMetier.enregistrerDepartement(depart); 
 		Categorie cat =new Categorie("Personnel"); 
 		agpeMetier.enregistrerCategorie(cat);
+		Categorie cat1 =new Categorie("Administratif"); 
+		agpeMetier.enregistrerCategorie(cat1);
 
 
 

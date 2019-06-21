@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(
                             "/connexion**",
                             "/motpasse-oublie**",
+                            "/echecConnexion",
                             "/restaurer-mot-passe**").permitAll()
                     .antMatchers(
                             "/js/**",
@@ -47,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                         .loginPage("/connexion")
                         .defaultSuccessUrl("/determinerRole")
+                        .failureUrl("/echecConnexion")
                         .permitAll()
                 .and()
                     .logout()

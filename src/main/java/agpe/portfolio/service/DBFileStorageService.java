@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import agpe.metier.AgpeMetier;
 import agpe.modeles.Categorie;
 import agpe.modeles.Utilisateur;
 import agpe.notification.modele.Notification;
@@ -19,12 +20,16 @@ import agpe.portfolio.exception.FileStorageException;
 import agpe.portfolio.exception.MyFileNotFoundException;
 import agpe.portfolio.modele.Piece;
 import agpe.repository.PieceRepository;
+import agpe.sms.SmsRequest;
 
 @Service
 public class DBFileStorageService {
 
     @Autowired
     private PieceRepository dbFileRepository;
+    
+    @Autowired
+    private AgpeMetier agpeMetier;
     
     @Autowired NotificationServiceImplement notificationServ;
 
@@ -46,6 +51,13 @@ public class DBFileStorageService {
             Piece dbFile = new Piece(new Date(), fileName,file.getContentType(),file.getBytes(), categorie, user);
             dbFileRepository.save(dbFile);
             Notification notification = new Notification(user.getMatricule(), idDepositaire,new Date(),"Ajouté le fichier "+dbFile.getNomPiece(),0);
+            if(user.getMatricule().compareTo(idDepositaire)==0) {
+            	//agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"Vous avez ajouté la pièce suivante à votre dossier.\nNom de la pièce: "+dbFile.getNomPiece()));
+            }
+            else {
+            	//agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"la sspe a ajouté la pièce suivante à votre dossier.\nNom de la pièce: "+dbFile.getNomPiece()));
+            }
+            
             notificationServ.enregistrerNotification(notification);
             return dbFile;
         } catch (IOException ex) {
@@ -66,6 +78,9 @@ public class DBFileStorageService {
     	dbFileRepository.delete(piece);
     	Notification notification = new Notification(piece.getUtilisateur().getMatricule(),idAuteur,new Date(),"Supprimé le fichier "+piece.getNomPiece(),0);
         notificationServ.enregistrerNotification(notification);
+        Utilisateur user = agpeMetier.chercherUtilisateurAvecLogin(idAuteur);
+        //agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"La pièce suivante a été supprimée de votre dossier.\nNom de la pièce: "+piece.getNomPiece()+"\nAuteur: "+user.getPrenom()+" "+user.getNom()));
+        
     }
     
     public int nbrePiecesUtilisateurCategorie(Utilisateur user,Categorie categorie) {
