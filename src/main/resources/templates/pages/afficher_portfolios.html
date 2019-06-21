@@ -73,8 +73,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Mon compte</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Réglages</a>
-                        </li>
+                      
                         <li class="divider"></li>
                         <li><a th:href="@{/deconnexion}"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
                         </li>
@@ -144,9 +143,7 @@
                             <div class="panel-body">
                                 <div class="panel-group" id="accordion">
 
-                                 <tr th:each="etab : ${etablissements}">  
-                                   
-                                    <div class="panel panel-success">
+                                    <div class="panel panel-success" th:each="etab : ${etablissements}">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#accordion" th:href="'#collapseSeven' + ${etab.idEtablissement}" th:id="'accordion7' + ${etab.idEtablissement}" th:text="${etab.nomEtablissement}"></a>
@@ -154,13 +151,13 @@
                                         </div>
                                         
 	                                      <div th:id="'collapseSeven' + ${etab.idEtablissement}" class="panel-collapse collapse">
-	                                      	<tr th:each="depart : ${departements}">
-	                                            <div class="panel-body" id="uniqueId7"> 
+	                                      	<div th:each="depart : ${etab.departements}">
+	                                            <div class="panel-body" id="'uniqueId7'+${depart.idDepartement}"> 
 	                                                 <div class="col-lg-12"  id="nom-departement"> 
 	                                                     <div class="panel panel-success">
 	                                                        <div class="panel-heading">
 	                                                            <h4 class="panel-title">
-	                                                                <a data-toggle="collapse" data-parent="#accordion7" th:href="'#collapseSeven1' + ${depart.idDepartement}" id="Departement" th:text="${depart.nomDepartement}"></a>
+	                                                                <a data-toggle="collapse" th:data-parent="'#accordion7' + ${etab.idEtablissement}" th:href="'#collapseSeven1' + ${depart.idDepartement}" th:id="'Departement'+${depart.idDepartement}" th:text="${depart.nomDepartement}"></a>
 	                                                            </h4>
 	                                                        </div>
 	                                                        <div th:id="'collapseSeven1' + ${depart.idDepartement}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
@@ -168,7 +165,7 @@
 	                                                            <div class="panel-body">
 	                                                                <div class="col-lg-12"> 
 	                                                                    <ul class="list-group">
-	                                                                       <tr th:each="portfolio : ${portfolios}">
+	                                                                       <tr th:each="portfolio : ${depart.enseignants}">
 		                                                                        <a class="list-group-item list-group-item-info" th:href="@{'admin/portfolio_' + ${portfolio.matricule}}">
 		                                                                            <div> 
 		                                                                                <i class="fa fa-folder-open-o"></i>
@@ -185,14 +182,13 @@
 	                                                        </div>
 	                                                    </div>
 	                                                </div>
-	
 	                                            </div>
-											</tr>
+											</div>
 	                                      </div>
                                          
                                        </tr>  
                                     </div>
-                               </tr>
+                               
                                     <!-- ./IUT bois de mbalmayo  -->
                    
                                         </div>
@@ -206,15 +202,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
-                <!-- /collapsible -->
-			
-            </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+            
 
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
