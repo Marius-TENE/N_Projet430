@@ -1,0 +1,52 @@
+.chatColumn, .chatLine, .avatarLeft {
+    padding-left: 0;
+}
+.chatConnecte .badge{
+    background-color: red;
+    font-family: 'arial';
+    font-size: 10px;
+}
+
+.chat {
+    height: 346px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.chatMenu, .avatar, .chatLineLeft {
+    padding-right: 0;
+}
+
+.chatLine .well {
+    margin-top: 1px;
+    /*margin-right: 113px;*/
+    margin-right: 50px;
+    margin: 2px 45px 2px 45px; /* haut droite bas gauche */
+}
+
+.chatLineLeft .well {
+    margin-top: 10px;
+    margin-left: 113px;
+}
+
+.well.sender{
+    background-color: #3498db;
+}
+
+.well.receiver{
+    background-color: #e2dddd;
+}
+
+.fleche_droite{
+    position: relative;
+    top: 10px;
+    margin-right: -38px;
+    float: right;
+}
+
+.fleche_gauche{
+    position: relative;
+    top: 10px;
+    margin-left: -38px;
+    float: left;
+}

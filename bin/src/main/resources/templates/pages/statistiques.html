@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmls:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout" >
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EGCEE: géolocalisation</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <link href="../css/miseenforme.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+ <script type="text/javascript" th:inline="javascript">
+window.onload = function () {
+	
+	/*<![CDATA[*/
+ 
+    var labels = /*[[${labels}]]*/ ;
+    var y1 = /*[[${y}]]*/ ;
+	
+  /*]]>*/
+  	var dataP = [];
+	
+	var chart = new CanvasJS.Chart("chartContainer", {
+		title:{
+			text: ""            
+		},
+		axisX:{
+		       title: "Etablissement",
+		       titleFontColor: "blue",
+		       titleFontSize: 15,
+		       labelFontFamily: "tahoma",
+		       labelFontSize: 20
+		},
+		axisY:{
+			title: "Nombre de portfolios",
+		       titleFontColor: "blue",
+		       titleFontSize: 15,
+		       labelFontFamily: "tahoma",
+		       labelFontSize: 20
+		},
+		data: [              
+		{
+			// Change type to "doughnut", "line", "splineArea", etc.
+			type: "column",
+			color: "blue",
+			showInLegend: true,
+			legendText: "Nombre de portfolios par établissement",
+			dataPoints: dataP
+		}
+		]
+	});
+	
+	for(var i=0;i<labels.length;i++){
+		dataP.push({
+			label: labels[i],
+			y: y1[i]
+		});
+	}
+	
+	chart.render();
+}
+</script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" id="entete-admin" style="margin-bottom: 0" >
+            <div class="navbar-header" id="titre">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               <a class="navbar-brand" th:href="@{/admin}" >EGCEE <br/><h6>Espace de gestion des carrières des enseignants et d'échanges</h6></a>
+
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+
+    <div class="containerenseignant" >
+    <br>
+            <div class="container-fluid">
+               <div class="row">
+                <div class="col-md-8">
+
+                    <div class="panel  panel-green">
+                        <div class="panel-heading">
+                            <i class="fa fa-area-chart fa-fw"></i> Nombre de portfolios géré par établissement de l'UY1
+                        </div>
+                        <div class="panel-body">
+                            <div class="row" id="chartContainer" style="height:300px; width: 100%;">
+                    
+               				 </div>
+                        </div>
+                    </div>
+                    <!-- /.panel green -->
+                </div>
+
+            </div>
+            </div>
+            <!-- /.container-fluid -->
+    </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+body{
+
+	background-color: rgb(102,56,112);
+	font-family: "Times New Roman";
+	color: black;
+
+}
+
+.container{
+	background-color:white;
+	margin-top:6%;
+	margin-bottom: 6%;
+	padding-bottom: 5%;
+
+}
+.containerenseignant{
+	background-color:white;
+	margin-bottom: 6%;
+	padding-bottom: 5%;
+	height: 100%;
+
+}
+.user{
+	margin-left:55%;
+	font-size:14px;
+}
+#notification
+{
+	margin-top:20px;
+}
+#btnconnexion{
+	background-color: rgb(102,56,112); 
+	color:white;
+	margin-top: 15px;
+	border:none;
+}
+
+#btnconnexion:hover{
+	background-color: rgb(152,90,173); 
+	color:white;
+	margin-top: 15px;
+	border:none;
+}
+#btnconfirmer{
+	background-color: rgb(102,56,112); 
+	color:white;
+	margin-top: 15px;
+	border:none;
+	margin-left:43%;
+}
+
+#btnconfirmer:hover{
+	background-color: rgb(152,90,173); 
+	color:white;
+	margin-top: 15px;
+	border:none;
+	margin-left:43%;
+}
+.logo{
+	width:100px;
+	height:100px;
+}
+#mail
+{
+	font-size:20px;
+}
+#connexion{
+	margin-top: 3%;
+	font-size: 15px;
+
+}
+#header{
+	margin-left: 1%;
+	font-size: 20px;
+
+}
+#footer{
+	margin-top:-40px;
+	background-color: rgb(102,56,112);
+	color: white;
+}
+#menu-admin{
+	margin-top: 74px;
+	/*width:50px;*/
+}
+
+#menu-admin a{
+	color: white;
+	font-size: 15px;
+	background-color: rgb(102,56,112);	
+
+}
+
+#menu-admin a:hover{
+	color: white;
+	background-color: rgb(152,90,173);
+}
+
+#sous-menu{
+	color: white;
+	background-color: rgb(37,63,51);
+}
+
+#Rechercher{
+	font-size:18px;
+	 height: 40px;
+	 color: rgb(116,71,48);
+}
+
+#entete-admin{
+	color:white;
+	font-size: 20px;
+	background-color: rgb(102,56,112);
+	padding-bottom: 1%;
+
+}
+
+#entete-admin #titre a {
+	color: white;
+	font-size: 40px;
+	
+	background-color: rgb(102,56,112);
+
+}
+
+#icone {
+color: white;
+font-size: 15px;
+}
+
+
+#icone2{
+font-size: 12px;
+margin-top: -7px;
+margin-left: 15px;
+}
+
+
+
+#titre_panel{
+	font-size:22px;
+	 color: black;
+
+}
+
+#Departement{
+font-size: 20px;	
+}
+
+ #nom-dossier{
+	margin-bottom: 10px;
+}
+
+ #nom-departement{
+	margin-bottom: 10px;
+}
+ #nom-dossier div{
+	color: rgb(116,71,48);
+}

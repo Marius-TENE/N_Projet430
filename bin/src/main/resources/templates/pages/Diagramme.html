@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>AGPE: Portfolios </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="../css/miseenforme.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+     <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" id="entete-admin" style="margin-bottom: 0" >
+            <div class="navbar-header" id="titre">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                 <a class="navbar-brand" th:href="@{/admin}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+
+               <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw" id="icone"></i>
+                        <span class="badge badge-danger" id="icone2"><tr th:if="${nbre_notif != 0}" th:text="${nbre_notif} + '+'" ></tr></span>
+                    </a>
+                   <ul class="dropdown-menu dropdown-alerts">
+                    	<tr th:each="notif : ${notifications}">
+	                        <li class="divider" th:if="${nbre_notifs} !=0_"></li>
+	                        <li>
+	                            <a th:href="@{/notification_admin}">
+	                                <div>
+	                                    <i class="fa fa-bell fa-fw"></i><span>...</span> <span th:text="${notif.message}"></span>
+	                                    <span class="pull-right text-muted small" th:text="${notif.dateNotification}"></span>
+	                                </div>
+	                            </a>
+	                        </li>
+                       </tr>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw" id="icone"></i> <i class="fa fa-caret-down" id="icone"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Mon compte</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a th:href="@{/deconnexion}"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+             <div class="navbar-default sidebar" role="navigation" id="menu-admin">
+                 <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a th:href="@{/admin}"><i class="fa fa-dashboard fa-fw"></i> Acceuil</a>
+                        </li>
+                        <li>
+                             <a href="#"><i class="fa fa-folder-open-o fa-fw"></i> Portfolios<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level" id="sous-menu">
+                                <li>
+                                    <a th:href="@{/creation_nouveau_portfolio}"><i class="fa fa-edit fa-fw"></i> Creer portfolio</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/consultation_portfolios_enseignants}"><i class="fa fa-files-o fa-fw"></i> Tous les portfolios</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <h2>Ajouter un nouveau département<h2>
+                </div>
+                <!-- /.row -->
+			
+                <div class="col-lg-4 col-lg-offset-4">
+                    <form method="POST" action="" id="creerDepartementForm">
+                    	<div th:if="${error!=null}"  th:text="${error}" class="text-danger"></div>
+                        <div th:if="${succes!=null}" th:text="${succes}" class="text-success"></div>
+                        <div class="form-group">
+                            <label>Etablissement</label>
+                            <select class="form-control" name="idEtablissement" th:each="etab : ${etablissements}">
+                                <option th:value="${etab.idEtablissement}" th:text="${etab.nomEtablissement}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Nom du département<span class="error">*</span></label>
+                            <input type="text" name="nomDepartement" id="nom" class="form-control" required placeholder="Veuillez entrer le nom du département">
+                        </div>
+                        <input type="submit" name="creer" class="btn btn-info" value="Ajouter">
+                    </form> 
+                </div>
+			
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

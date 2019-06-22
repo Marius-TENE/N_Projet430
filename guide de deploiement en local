@@ -1,0 +1,30 @@
+*****************Liste des outils**************************************************
+- Spring Tool suite 4
+- java version 1.8 ou supérieur
+- Un navigateur supportant JAVASCRIPT
+- Une bonne connexion à internet
+- MySQL ou un autre SGBD
+
+******************  Etapes de deploiement *****************************************
+
+1. Télecharger, installer et configurer java dans le PATH
+2. Télecharger et installer Spring Tool suite 4
+3. Télecharger et installer MySQL ou un autre SGBD
+4. Créer une nouvelle base de données nommée dbegcee
+5. Créer un nouvelle utilisateur nommé  <<projet430>>, avec comme mot de passe <<groupe7>>, puis donner tous les droits sur la base de données <<projet430>> à cet utilisateur
+6. Cloner le projet depuis git en utilisant le lien suivant: https://github.com/Marius-TENE/N_Projet430.git
+7. Ouvrir, Spring Tool Suite, puis ouvrir le projet en faisant File>Open Project from File System
+
+******************************** Parametages pour la reception des sms ***************.
+
+8. Suivre le lien suivant https://www.twilio.com/login , puis se connecter en utilisant l'email :  egcee.uy1@gmail.com  et le mot de passe suivant :  egcee_projet430_groupe7
+9. Vérifiez votre numéro de téléphone en suivant le lien suivant : https://www.twilio.com/console/phone-numbers/verify/voice
+
+***************************** Exécution du projet ***********************************
+
+ 10. Retourner dans Spring Tool Suite et faites un clic droit sur le fichier  AgpeApplication.java qui se trouve dans le package agpe, puis faites  Run as> Java Application
+ 11. Une fois le serveur démarré, ouvrir un navigateur puis saisir localhost:8080/connexion
+ 12. Commencer par vous connecter en tant que admin en utilisant les informations suivantes :  Identifiant=admin  Mot de passe = admin
+ 13. Une fois connecté, pour  pouvoir accéder à l'espace enseignant, cliquez sur  Porfolio>Créer porfolio , puis remplissez le numéro de téléphone en utilisant le numéro vérifié précédemment pour pouvoir recevoir les sms. Sinon vous pouvez directement utiliser  les infomations suivantes pour vous connecter en tant qu'enseignant sans tre obligé de créer un nouveau portfolio: Identifiant=15y525   mot de passe=password (seul problème, vous ne recevrez pas de sms)
+ NB: par defaut lorsque l'admin crée un nouveau portfolio, l'identifiant de l'enseignant ainsi que son mot de passe de connexion sont son matricule.
+ 
