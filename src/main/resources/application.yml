@@ -1,13 +1,10 @@
 # ===============================
 #   twilio configurations
 # ===============================
-#+12024108908
-#sid:ACb2ce5ad7c7527e8383c2cc445a78a67d
-#token:1c45440d2f78c1a81588448c3f30b529
 twilio:
-  account_sid: ACda640b2aa5e6e522288613da6edd6304
-  auth_token: 89747f7af03de0ae69d6b3031d7fb76a
-  trial_number: +12565703396
+  account_sid: AC850c89c7e9e7bdade58d745e132f832e
+  auth_token: 3abc3c785840acdd207c0aa0bda814e8
+  trial_number: +17609894193
   
   
 # ===============================
@@ -15,7 +12,7 @@ twilio:
 # ===============================
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/dbprojet430
+    url: jdbc:mysql://localhost:3306/dbegcee
     username: projet430
     password: groupe7
 
@@ -40,8 +37,8 @@ spring:
     #password: secret
     #port: 587
     host: smtp.gmail.com
-    username: agpe.uy1.uninet@gmail.com
-    password: agpe_projet430_groupe7
+    username: egcee.uy1@gmail.com
+    password: egcee_projet430_groupe7
     port: 587
     properties:
       mail:

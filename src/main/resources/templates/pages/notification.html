@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AGPE: Portfolios </title>
+    <title>EGCEE: Portfolios </title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,49 +48,109 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" th:href="@{/enseignant}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+                <a class="navbar-brand" th:href="@{/enseignant}" >EGCEE <br/><h6>Espace de gestion des carrières des enseignants et d'échanges</h6></a>
 
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                
+            	<li><a th:href="@{'/nouveau_message_' + ${session.user.matricule}}" style="color:white; font-size:15px;">Nouveau Message</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope fa-fw" id="icone"></i>
+                        <span class="badge badge-danger" id="icone2" th:if="${nbre_messages} !=0" th:text="${nbre_messages} + '+'"></span>
+                        <span class="badge badge-danger" id="icone2" th:unless="${nbre_messages} !=0"></span>
+                    </a>
+                    
+                    
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                        	<span th:each="message : ${messages}">
+	                            <a th:if="${session.user.matricule} == ${message.recepteur.matricule}"  th:href="@{'/message/'+ ${message.expediteur.matricule}}">
+	                                <div >
+	                                    <strong th:if="${message.expediteur.prenom} == null" th:text="${message.expediteur.nom}"></strong>
+	                                    <strong th:unless="${message.expediteur.prenom} == null" th:text="${message.expediteur.prenom} + ' ' +${message.expediteur.nom}"></strong>
+	                                    <span class="pull-right text-muted">
+	                                        <em th:text="${message.dataEnvoi}"></em>
+	                                    </span>
+	                                </div>
+	                                <div th:text="${message.Message}"></div>
+	                            </a>
+	                            
+	                        </span> 
+                        </li>
+                        <li class="divider"></li>
+                    </ul>
+                    
+                    
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw" id="icone"></i>
+                        <span class="badge badge-danger" id="icone2"><tr th:if="${nbre_notif != 0}" th:text="${nbre_notif} + '+'" ></tr></span>
+                    </a>
+            
+                    <ul class="dropdown-menu dropdown-alerts">
+                    	<tr th:each="notif : ${notifications}">
+	                        <li class="divider" th:if="${nbre_notifs} !=0_"></li>
+	                        <li>
+	                            <a th:href="@{/notification}">
+	                                <div>
+	                                    <i class="fa fa-bell fa-fw"></i><span>...</span> <span th:text="${notif.message}"></span>
+	                                    <span class="pull-right text-muted small" th:text="${notif.dateNotification}"></span>
+	                                </div>
+	                            </a>
+	                        </li>
+                       </tr>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw" id="icone"></i> <i class="fa fa-caret-down" id="icone"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Mon compte</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Réglages</a>
+                        <li><a th:href="@{/modification_infos_connexion}"><i class="fa fa-user fa-fw"></i> Mon compte</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
+                        
+                        
+                        <li><a th:href="@{/deconnexion}"><i class="fa fa-sign-out fa-fw"></i> Deconnexion</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
+                <Br/>
+                <div class="user">
+                 	<li th:if="${session.prenom !=null}" th:text="${session.user.prenom + ' ' + session.user.nom}"></li>
+                	<li th:unless="${session.prenom != null}" th:text="${session.user.nom}"></li>
+                	<li th:text="${session.user.matricule}"><li>
+                </div>
+               
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
         </nav>
 
         <!-- Page Content -->
-        <div id="page-wrapper">
+         <div class="containerenseignant" >
             <div class="container-fluid">
-                <div class="row">
-                    <h2>Toutes mes notifications en attente</h2>
+                <div class="row" style="font-style:italic;">
+                    <h2>Toutes mes notifications </h2>
                 </div>
                 <!-- /.row -->
 
 
 
-            <div class="row">
+            <div class="row" >
                 <div class="col-lg-12">
                     <ul class="list-group">
                        <tr th:each="notif : ${notifications}">
-                        <a class="list-group-item list-group-item-info" href="#">
-                            <div> 
+                        <a id="notification" class="list-group-item list-group-item-info" href="#">
+                            <div > 
                                 <i class="fa fa-bell"></i>
                                 <strong th:if="${notif.idUtilisateur}==${notif.idDepositaire}" > Vous avez </strong>
                                 <strong th:unless="${notif.idUtilisateur}==${notif.idDepositaire}">L'admin a </strong>

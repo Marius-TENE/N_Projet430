@@ -12,7 +12,6 @@ import agpe.modeles.Categorie;
 import agpe.modeles.Departement;
 import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
-import agpe.sms.SmsRequest;
 
 @SpringBootApplication
 public class AgpeApplication implements CommandLineRunner{
@@ -28,52 +27,60 @@ public class AgpeApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
-		Etablissement etablissement = new Etablissement("ENS","Yaoundé-Melen","+237691103603","tefuncowm@yahoo.fr");
-		Etablissement etablissement1 = new Etablissement("ENSp","Yaoundé-Melen","+237691103603","tefuncowm@yahoo.fr");
-		agpeMetier.enregistrerEtablissement(etablissement);
-		//agpeMetier.envoyerSms(new SmsRequest("+237655925875","gggg"));
-		Departement depart = new Departement("informatique");
-		Departement depart1 = new Departement("Mathématique");
-		Departement depart3 = new Departement("Mathématique");
-		Departement depart4 = new Departement("Biologie");
-		depart.setEtablissement(etablissement);
-		depart1.setEtablissement(etablissement);
-		depart3.setEtablissement(etablissement1);
-		depart4.setEtablissement(etablissement1);
-		agpeMetier.enregistrerDepartement(depart); 
+		String nomEtab[] = {"ENSP","ENS","FS","FASLH","IUT","FMSB"};
+		Etablissement etab[] = new Etablissement[6];
+		for(int i=0;i<5;i++) {
+			etab[i]=new Etablissement(nomEtab[i],"Ydé Cameroun","+237691103603",nomEtab[i]+"@gmail.com");
+			agpeMetier.enregistrerEtablissement(etab[i]);
+		}
+		
+		Departement depart[]=new Departement[10];
+		String nomdepart[] = {"Informatique","Bioloie","Mathématique","Anglais","Histoire","Geographie","LMF","Anthropologie","Tourisme et Hôtellerie","Philosophie"};
+		int j=0,k=0;
+		for(int i=0;i<9;i++) {
+			if(j>1) {
+				j=0;
+				k=k+1;
+			}
+			depart[i]=new Departement(nomdepart[i],etab[k]);
+			agpeMetier.enregistrerDepartement(depart[i]);
+			j=j+1;
+		}
+		
+		
 		Categorie cat =new Categorie("Personnel"); 
 		agpeMetier.enregistrerCategorie(cat);
 		Categorie cat1 =new Categorie("Administratif"); 
 		agpeMetier.enregistrerCategorie(cat1);
+		Categorie cat3 =new Categorie("Missions"); 
+		agpeMetier.enregistrerCategorie(cat3);
+		Categorie cat4 =new Categorie("Distictions"); 
+		agpeMetier.enregistrerCategorie(cat4);
 
-
-
-		Utilisateur u = new Utilisateur("15Y511","TENE MBA","tefuncowm@gmail.com","15Y511", "groupe7","yde", "+237691103603", "dgf", 1, "Professeur", "Professeur", depart, "enseignant","M");
-		agpeMetier.enregistrerUtilisateur(u);
-		Utilisateur u1 = new Utilisateur("15y512","ZEKENG","M","zekeng@gmail.com","15y512","groupe7","Douala","+237691103603",new Date().toString(),1,"admin");
-		agpeMetier.enregistrerUtilisateur(u1);
-
-		/*
-		 * Utilisateur ut = new
-		 * Utilisateur("15Y511","TENE MBA","MARIUS","tefuncowm@gmail.com","15Y511",
-		 * "groupe7","yde","+237691103603","uhgk",1,1,"Prof","fkdn",depart);
-		 * 
-		 * agpeMetier.enregistrerUTilisateur(ut);
-		 */
-
-		/*
-		 * SmsRequest smsRequest = new
-		 * SmsRequest("+237691103603","welcome to agpe application.");
-		 * agpeMetier.envoyerSms(smsRequest);
-		 */
-
-		//		
-		//		MailRequest mailRequest = new MailRequest("tefuncowm@gmail.com","Welcome to agpe application","registration on agpe");
-		//		MailRequest mailRequest1 = new MailRequest("fredjordan288@gmail.com","Welcome to agpe application","registration on agpe");
-		//		
-		//		agpeMetier.envoyerMail(mailRequest);
-		//		agpeMetier.envoyerMail(mailRequest1);
-
+		//admin
+		Utilisateur admin = new Utilisateur("15y511","Marius TENE","M","tefuncowm@gmail.com","admin","admin","Yaoundé","+237691103603",new Date().toString(),1,"admin");
+		agpeMetier.enregistrerUtilisateur(admin);
+		
+		
+		Utilisateur user[] = new Utilisateur[40];
+		
+		k=0;
+		j=0;
+		String nom[]= {"TENE MBA","ABOUBAKAR","ZEKENG","AWONO","DOUNGUE","TIGOTSAP","BENGA","ARRIFORM","NKOLO","AMANA"
+				       ,"MAKOUBA","DJOMO","KAMTO","NGAFI","DJAMKOU","DJOUTIEU","NDONGO","JEUTSA","TCHIYA","MAFFOK"};
+		String prenom[]= {"Mariius","Fâtimah","Darryl","Pierrette","Modeste","Stéphane","Alice","Chouchou","Daniel","Falone"
+			       ,"Christelle","Mabelle","Ulrich","Goodlove","Ornela","Marlène","Chantale","Ines","Loriane","Jovanie"};
+		
+		for(int i=0;i<20;i++) {
+			if(j>1) {
+				k=k+1;
+				j=0;
+			}
+			user[i]=new Utilisateur("15Y52"+String.valueOf(i).toString(), nom[i], prenom[i],"tefuncowm@gmail.com","15Y52"+String.valueOf(i).toString(), "password","Ydé-Cameoun","+237691103603","18-02-1976",1,"Professeur","Fondamentale",null, depart[k],"enseignant","M");
+			agpeMetier.enregistrerUtilisateur(user[i]);
+			j=j+1;
+		}
+		
 	}
 
 }

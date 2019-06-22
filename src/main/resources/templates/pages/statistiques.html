@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmls:th="http://www.thymleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/Layout" >
 
 <head>
 
@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>EGCEE: RécupérationCompte </title>
+    <title>EGCEE: géolocalisation</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,12 +33,62 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+ <script type="text/javascript" th:inline="javascript">
+window.onload = function () {
+	
+	/*<![CDATA[*/
+ 
+    var labels = /*[[${labels}]]*/ ;
+    var y1 = /*[[${y}]]*/ ;
+	
+  /*]]>*/
+  	var dataP = [];
+	
+	var chart = new CanvasJS.Chart("chartContainer", {
+		title:{
+			text: ""            
+		},
+		axisX:{
+		       title: "Etablissement",
+		       titleFontColor: "blue",
+		       titleFontSize: 15,
+		       labelFontFamily: "tahoma",
+		       labelFontSize: 20
+		},
+		axisY:{
+			title: "Nombre de portfolios",
+		       titleFontColor: "blue",
+		       titleFontSize: 15,
+		       labelFontFamily: "tahoma",
+		       labelFontSize: 20
+		},
+		data: [              
+		{
+			// Change type to "doughnut", "line", "splineArea", etc.
+			type: "column",
+			color: "blue",
+			showInLegend: true,
+			legendText: "Nombre de portfolios par établissement",
+			dataPoints: dataP
+		}
+		]
+	});
+	
+	for(var i=0;i<labels.length;i++){
+		dataP.push({
+			label: labels[i],
+			y: y1[i]
+		});
+	}
+	
+	chart.render();
+}
+</script>
 </head>
 
 <body>
 
-   
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -53,48 +103,33 @@
                <a class="navbar-brand" th:href="@{/admin}" >EGCEE <br/><h6>Espace de gestion des carrières des enseignants et d'échanges</h6></a>
 
             </div>
-            <!-- /.navbar-header -->
-
-            
-            <!-- /.navbar-top-links -->
-
-           
         </nav>
 
         <!-- Page Content -->
 
     <div class="containerenseignant" >
+    <br>
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">Informations de Connexion</h1>
+               <div class="row">
+                <div class="col-md-8">
+
+                    <div class="panel  panel-green">
+                        <div class="panel-heading">
+                            <i class="fa fa-area-chart fa-fw"></i> Nombre de portfolios géré par établissement de l'UY1
+                        </div>
+                        <div class="panel-body">
+                            <div class="row" id="chartContainer" style="height:300px; width: 100%;">
+                    
+               				 </div>
+                        </div>
                     </div>
-                    <!-- /.col-lg-12 -->
+                    <!-- /.panel green -->
                 </div>
 
-                <div class="col-lg-4">
-
-                    <form method="POST" th:action="@{/restaurer-mot-passe}" th:object="${forgotPasswordForm}" id="inscriptionEnseignantsForm">
-                        <fieldset>
-                        	<label th:if="${echec!=null}" th:text="${echec}" class="text-warning"></label>
-                            <div class="form-group">
-                            <label>password <span class="error">*</span></label>
-                            <input type="password" th:if="${pass!=null}" th:value="${pass}" name="password" id="id" class="form-control" required>
-                            <input type="password" th:unless="${pass!=null}" name="password" id="id" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>confirmer password<span class="error">*</span></label>
-                            <input type="password" name="confpassword" id="password" class="form-control" required>
-                        </div>
-                        <input type="hidden" name="token" th:value="${token}"/>
-                        </fieldset>
-                        
-                        <input type="submit" name="" class="btn btn-info" value="Enregistrer">
-                    </form> 
-                </div>
+            </div>
             </div>
             <!-- /.container-fluid -->
-        </div>
+    </div>
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->

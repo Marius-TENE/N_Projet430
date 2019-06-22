@@ -19,7 +19,7 @@ public class MailSenderImplementation implements MailSender{
 	public void envoyerMail(MailRequest mailRequest) {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(mailRequest.getEmailRecepeteur());
-		mail.setFrom("agpe.uy1.uninet@gmail.com");
+		mail.setFrom("egcee.uy1@gmail.com");
 		mail.setSubject(mailRequest.getObjet());
 		mail.setText(mailRequest.getMessage());
 		javaMailSender.send(mail);

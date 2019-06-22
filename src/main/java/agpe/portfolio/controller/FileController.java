@@ -1,5 +1,7 @@
 package agpe.portfolio.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,9 +19,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import agpe.chat.modele.Chat;
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Utilisateur;
+import agpe.notification.modele.Notification;
 import agpe.portfolio.modele.Piece;
 
 @Controller
@@ -45,15 +50,41 @@ public class FileController {
     
     @Secured(value = {"ROLE_admin"})
     @PostMapping("/admin/uploadFile/{matricule}")
-    public String uploadFile_Admin(@RequestParam("file") MultipartFile file,String nom,String idCategorie,@PathVariable String matricule) {
-    	System.out.print("\n\nMatricule: "+matricule);
+    public ModelAndView uploadFile_Admin(@RequestParam("file") MultipartFile file,String nom,String idCategorie,@PathVariable String matricule,HttpSession httpSession) {
+    	//System.out.print("\n\nMatricule: "+matricule);
+    	ModelAndView mav = new ModelAndView();
+    	mav.clear();
+    	
     	Utilisateur user = agpeMetier.chercherUtiliateurAvecMatricule(matricule).get();
-    	Piece dbFile = agpeMetier.enregistrerPiece(file,user,agpeMetier.retournerCategorie(Integer.valueOf(idCategorie).intValue()).get(),nom,matricule);
-    	return "redirect:/admin/portfolio_"+matricule;
-		/*
-		 * return new UploadFileResponse(dbFile.getNomPiece(), fileDownloadUri,
-		 * file.getContentType(), file.getSize());
-		 */
+    	Utilisateur user1 = (Utilisateur) httpSession.getAttribute("user");
+    	Piece dbFile = agpeMetier.enregistrerPiece(file,user,agpeMetier.retournerCategorie(Integer.valueOf(idCategorie).intValue()).get(),nom,user.getMatricule());
+    	mav.setViewName("redirect:/admin/portfolio_"+matricule);
+    	
+    	ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user1);
+		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user1);
+		ArrayList<Chat> messageNonsLus = agpeMetier.listeMessageNonLu(user1);
+		ArrayList<Chat> dernierMessages = agpeMetier.cinqDernierMessages(user1);
+		int nbre_message_non_lus = messageNonsLus.size();
+		
+		int nbre_notification_non_lu = notificationNonLu.size();
+		System.out.print("ok \n\n" + nbre_notification_non_lu+"\n\n\n");
+		ArrayList<Notification> cinqdernieresNotification = new ArrayList<Notification>();
+		if(dernierenotification.size()>5) {
+			for(int i=0;i<5;i++) {
+				cinqdernieresNotification.add(dernierenotification.get(i));
+			}
+		}
+		else {
+			cinqdernieresNotification=dernierenotification;
+		}
+		mav.addObject("nbre_notifs", cinqdernieresNotification.size());
+		mav.addObject("notifications",cinqdernieresNotification);
+		mav.addObject("nbre_notif", nbre_notification_non_lu);
+		mav.addObject("messages", dernierMessages);
+		mav.addObject("user",user);
+		mav.addObject("nbre_messages", nbre_message_non_lus);
+		
+    	return mav;
     }
     
     @GetMapping("/telechargement/{fileId}")
@@ -73,6 +104,17 @@ public class FileController {
         Piece  dbFile = agpeMetier.chercherPiece(fileId);
         agpeMetier.deletePiece(dbFile,dbFile.getUtilisateur().getMatricule());
         return "redirect:/enseignant";
+    }
+    
+    @Secured(value = "ROLE_admin")
+    @GetMapping("/supprimerAdmin/{fileId}")
+    public ModelAndView supprimerPiece2(@PathVariable Long fileId) {
+    	ModelAndView mav = new ModelAndView();
+    	mav.clear();
+        Piece  dbFile = agpeMetier.chercherPiece(fileId);
+        mav.setViewName("redirect:/admin/portfolio_"+dbFile.getUtilisateur().getMatricule());
+        agpeMetier.deletePiece(dbFile,dbFile.getUtilisateur().getMatricule());
+        return mav;
     }
 
 }

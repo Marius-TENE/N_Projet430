@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AGPE: Portfolios </title>
+    <title>EGCEE: AjouterDépartement </title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                 <a class="navbar-brand" th:href="@{/admin}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+                  <a class="navbar-brand" th:href="@{/admin}" >EGCEE <br/><h6>Espace de gestion des carrières des enseignants et d'échanges</h6></a>
 
             </div>
             <!-- /.navbar-header -->
@@ -105,14 +105,17 @@
                 </div>
                 <!-- /.row -->
 			
-                <div class="col-lg-4 col-lg-offset-4">
-                    <form method="POST" action="" id="creerDepartementForm">
-                    	<div th:if="${error!=null}"  th:text="${error}" class="text-danger"></div>
-                        <div th:if="${succes!=null}" th:text="${succes}" class="text-success"></div>
+                <div class="col-lg-4 ">
+                    <form th:method="POST" th:action="@{/creerDepartement}" id="creerDepartementForm">
+                    	<label th:if="${error!=null}"  th:text="${error}" class="text-danger"></label>
+                        <label th:if="${succes!=null}" th:text="${succes}" class="text-success"></label>
                         <div class="form-group">
                             <label>Etablissement</label>
-                            <select class="form-control" name="idEtablissement" th:each="etab : ${etablissements}">
-                                <option th:value="${etab.idEtablissement}" th:text="${etab.nomEtablissement}"></option>
+                            <select class="form-control" name="idEtablissement" >
+                            <span th:each="etab : ${etablissements}">
+                            	<option th:value="${etab.idEtablissement}" th:text="${etab.nomEtablissement}"></option>
+                            </span>
+                                
                             </select>
                         </div>
                         <div class="form-group">

@@ -12,8 +12,6 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import agpe.authentification.model.Mail;
-import agpe.notification.modele.Notification;
-import agpe.sms.SmsRequest;
 
 @Service
 public class EmailService {

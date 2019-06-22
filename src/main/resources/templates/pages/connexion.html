@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AGPE: Accueil</title>
+    <title>EGCEE: Accueil</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,33 +38,32 @@
 <body>
     <div class="container" >
     <header id="header" class="page-header">
-        <h1>UY1</h1>
-        <p>Espace de gestion des carrières des enseignants et d'échange</p>
+        <p style="font-style:italic;"><img alt="UYI" src="img/logo.png" class="logo" />EGCEE : Espace de gestion des carrières des enseignants et d'échanges</p>
     </header>
     
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default"  id="connexion">
                     <div class="panel-heading">
-                        <h3 class="panel-title"" style="color: black; font-weight: bold;font-size: 20px; text-align:center>Se connecter</h3>
+                        <h3 class="panel-title" style="color: black;font-weight:bold;font-style:italic;font-size: 15px; text-align:center">Se connecter</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="POST" th:action="@{/connexion}" id="connexionForm">
                         	<div th:if="${echec!=null}" class="text-warning" th:text="${echec}"></div>
-                            <label>Identifiant</label>
+                            <label style="color: black;font-style:italic;font-size: 15px; text-align:center">Identifiant</label>
                             <div class="form-group input-group">
-                                <span class="input-group-addon" style="color: rgbrgb(37,63,51);"><i class="fa fa-user"></i></span>
+                                <span class="input-group-addon" style="color: rgb(102,56,112);"><i class="fa fa-user"></i></span>
                                 <input type="text" name="username" required id="id" class="form-control" placeholder="Entrer votre identifiant" autofocus>
                             </div>
-                            <label>Mot de passe</label>
+                            <label style="color: black;font-style:italic;font-size: 15px; text-align:center">Mot de passe</label>
                             <div class="form-group input-group">
-                                <span class="input-group-addon" style="color: rgb(37,63,51);"><i class="fa fa-lock"></i></span>
+                                <span class="input-group-addon" style="color: rgb(102,56,112);"><i class="fa fa-lock"></i></span>
                                 <input type="Password" name="password"  required id="Password" class="form-control" placeholder="Entrer le mot de passe">
                             </div>
                             <div class="">
-                                <a th:href="@{/motpasse-oublie}" style="color: black;">mot de passe oublié</a>
+                                <a th:href="@{/motpasse-oublie}" style="color: black;font-style:italic;font-weight:bold;font-size: 15px; text-align:center; margin-bottom:15px;">Mot de passe oublié</a>
                             </div>
-                            <input type="submit" name="" class="btn btn-lg btn-info btn-block"  style="background-color: rgb(37,63,51); color:white;" value="Connexion">
+                            <input type="submit" name="" class="btn btn-lg btn-info btn-block"  id="btnconnexion" value="Connexion">
                         </form> 
                     </div>
                 </div>

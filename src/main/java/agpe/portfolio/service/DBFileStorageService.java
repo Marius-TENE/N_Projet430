@@ -10,11 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import agpe.mail.MailRequest;
+import agpe.mail.MailSenderImplementation;
 import agpe.metier.AgpeMetier;
 import agpe.modeles.Categorie;
 import agpe.modeles.Utilisateur;
 import agpe.notification.modele.Notification;
-import agpe.notification.repository.NotificationRepository;
 import agpe.notification.service.NotificationServiceImplement;
 import agpe.portfolio.exception.FileStorageException;
 import agpe.portfolio.exception.MyFileNotFoundException;
@@ -27,6 +28,9 @@ public class DBFileStorageService {
 
     @Autowired
     private PieceRepository dbFileRepository;
+    
+    @Autowired
+	private MailSenderImplementation mls;
     
     @Autowired
     private AgpeMetier agpeMetier;
@@ -52,10 +56,12 @@ public class DBFileStorageService {
             dbFileRepository.save(dbFile);
             Notification notification = new Notification(user.getMatricule(), idDepositaire,new Date(),"Ajouté le fichier "+dbFile.getNomPiece(),0);
             if(user.getMatricule().compareTo(idDepositaire)==0) {
-            	//agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"Vous avez ajouté la pièce suivante à votre dossier.\nNom de la pièce: "+dbFile.getNomPiece()));
+            	agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"Vous avez ajouté la pièce suivante à votre dossier.\nNom de la pièce: "+dbFile.getNomPiece()));
+            	mls.envoyerMail(new MailRequest(user.getEmail(), "Vous avez ajouté la pièce suivante à votre dossier.\nNom de la pièce: "+dbFile.getNomPiece()));
             }
             else {
-            	//agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"la sspe a ajouté la pièce suivante à votre dossier.\nNom de la pièce: "+dbFile.getNomPiece()));
+            	agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"la sspe a ajouté la pièce suivante à votre dossier.\nNom de la pièce: "+dbFile.getNomPiece()));
+            	mls.envoyerMail(new MailRequest(user.getEmail(), "la sspe a ajouté la pièce suivante à votre dossier.\nNom de la pièce: "+dbFile.getNomPiece()));
             }
             
             notificationServ.enregistrerNotification(notification);
@@ -79,8 +85,8 @@ public class DBFileStorageService {
     	Notification notification = new Notification(piece.getUtilisateur().getMatricule(),idAuteur,new Date(),"Supprimé le fichier "+piece.getNomPiece(),0);
         notificationServ.enregistrerNotification(notification);
         Utilisateur user = agpeMetier.chercherUtilisateurAvecLogin(idAuteur);
-        //agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"La pièce suivante a été supprimée de votre dossier.\nNom de la pièce: "+piece.getNomPiece()+"\nAuteur: "+user.getPrenom()+" "+user.getNom()));
-        
+        agpeMetier.envoyerSms(new SmsRequest(user.getTel(),"La pièce suivante a été supprimée de votre dossier.\nNom de la pièce: "+piece.getNomPiece()+"\nAuteur: "+user.getPrenom()+" "+user.getNom()));
+        mls.envoyerMail(new MailRequest(user.getEmail(),"La pièce suivante a été supprimée de votre dossier.\nNom de la pièce: "+piece.getNomPiece()+"\nAuteur: "+user.getPrenom()+" "+user.getNom()));
     }
     
     public int nbrePiecesUtilisateurCategorie(Utilisateur user,Categorie categorie) {

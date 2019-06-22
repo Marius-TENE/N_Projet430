@@ -12,8 +12,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import agpe.modeles.Categorie;
 import agpe.modeles.Utilisateur;
 

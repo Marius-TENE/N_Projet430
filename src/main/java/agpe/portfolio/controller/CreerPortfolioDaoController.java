@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import agpe.metier.AgpeMetier;
+import agpe.modeles.Departement;
 import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
 import agpe.portfolio.modele.CreerPortfolioDao;
@@ -35,6 +35,8 @@ public class CreerPortfolioDaoController {
 		mav.clear();
 		mav.setViewName("pages/creer_portfolio");
 		ArrayList<Etablissement> etablissements = agpeMetier.listeEtablissement();
+		ArrayList<Departement> departements = agpeMetier.listerTousLesDepartements();
+		mav.addObject("departements", departements);
 		mav.addObject("etablissements", etablissements);
 		return mav;
 		
@@ -43,10 +45,14 @@ public class CreerPortfolioDaoController {
 	@PostMapping
 	@Transactional
 	public ModelAndView handlePassordReset(@ModelAttribute("creation_portfolioForm") CreerPortfolioDao form) {
-		ModelAndView model = new ModelAndView();
-		model.clear();
-		model.setViewName("pages/creer_portfolio");
-		if(agpeMetier.existanceUtilisateur(form.getMatricule())==false) {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/creer_portfolio");
+		ArrayList<Etablissement> etablissements = agpeMetier.listeEtablissement();
+		ArrayList<Departement> departements = agpeMetier.listerTousLesDepartements();
+		mav.addObject("departements", departements);
+		mav.addObject("etablissements", etablissements);
+		if(agpeMetier.existanteUtilisateur(form.getMatricule())==false) {
 			Utilisateur user = new Utilisateur();
 			user.setMatricule(form.getMatricule());
 			user.setNom(form.getNom());
@@ -60,22 +66,24 @@ public class CreerPortfolioDaoController {
 			user.setSexe(form.getSexe());
 			user.setActif(1);
 			user.setLogin(form.getMatricule());
-			user.setPassword(form.getEmail());
+			user.setPassword(form.getMatricule());
 			user.setRole("enseignant");
 			user.setDepartement(agpeMetier.chercherDepartementAvecId(form.getIdDepartement()));
+			String resultat="";
 			
 			try {
 				agpeMetier.enregistrerUtilisateur(user);
-				model.addObject("success","Nouveau portfolio crée avec succès !");
+				mav.addObject("success", "Nouveau portfolio crée avec succès.");
 			} catch (Exception e) {
-				model.addObject("echec","Echec lors de la création du nouveau portfolio. Verifiez les informations et réessayez !");
+				mav.addObject("echec","Echec lors de la création du nouveau portfolio. Verifiez les informations et réessayez !");
 				
 			}
 		}
 		else {
-			model.addObject("echec","Désolé, un portfolio existe déjà avec ce matricule !");
+			mav.addObject("echec", "Désolé, un portfolio existe déjà avec ce matricule !");
 		}
-		return model;
+		
+		return mav;
 	}	
 
 }

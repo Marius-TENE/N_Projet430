@@ -1,8 +1,6 @@
 body{
 
-	background-color: rgb(37,63,51);
-	/*background-color: rgb(220,250,218);*/
-	/*background-color: rgb(228,210,192);*/
+	background-color: rgb(102,56,112);
 	font-family: "Times New Roman";
 	color: black;
 
@@ -22,11 +20,53 @@ body{
 	height: 100%;
 
 }
+.user{
+	margin-left:55%;
+	font-size:14px;
+}
+#notification
+{
+	margin-top:20px;
+}
+#btnconnexion{
+	background-color: rgb(102,56,112); 
+	color:white;
+	margin-top: 15px;
+	border:none;
+}
 
+#btnconnexion:hover{
+	background-color: rgb(152,90,173); 
+	color:white;
+	margin-top: 15px;
+	border:none;
+}
+#btnconfirmer{
+	background-color: rgb(102,56,112); 
+	color:white;
+	margin-top: 15px;
+	border:none;
+	margin-left:43%;
+}
 
+#btnconfirmer:hover{
+	background-color: rgb(152,90,173); 
+	color:white;
+	margin-top: 15px;
+	border:none;
+	margin-left:43%;
+}
+.logo{
+	width:100px;
+	height:100px;
+}
+#mail
+{
+	font-size:20px;
+}
 #connexion{
-	margin-top: 5%;
-	font-size: 20px;
+	margin-top: 3%;
+	font-size: 15px;
 
 }
 #header{
@@ -36,23 +76,24 @@ body{
 }
 #footer{
 	margin-top:-40px;
-	background-color: rgb(37,63,51);
+	background-color: rgb(102,56,112);
 	color: white;
 }
 #menu-admin{
-	margin-top: 100px;
+	margin-top: 74px;
+	/*width:50px;*/
 }
 
 #menu-admin a{
 	color: white;
-	font-size: 20px;
-	background-color: rgb(55,94,89);	
+	font-size: 15px;
+	background-color: rgb(102,56,112);	
 
 }
 
 #menu-admin a:hover{
 	color: white;
-	background-color: rgb(92,156,150);
+	background-color: rgb(152,90,173);
 }
 
 #sous-menu{
@@ -69,8 +110,8 @@ body{
 #entete-admin{
 	color:white;
 	font-size: 20px;
-	background-color: rgb(37,63,51);
-	padding-bottom: 2%;
+	background-color: rgb(102,56,112);
+	padding-bottom: 1%;
 
 }
 
@@ -78,13 +119,13 @@ body{
 	color: white;
 	font-size: 40px;
 	
-	background-color: rgb(37,63,51);
-	padding-bottom: 60px;
+	background-color: rgb(102,56,112);
+
 }
 
 #icone {
-color: rgb(92,156,150);
-font-size: 25px;
+color: white;
+font-size: 15px;
 }
 
 

@@ -24,12 +24,10 @@ import agpe.modeles.Etablissement;
 import agpe.modeles.Utilisateur;
 import agpe.notification.modele.Notification;
 import agpe.portfolio.modele.Piece;
-import agpe.statistiques.model.Histogramme;
-import agpe.statistiques.model.Statistique;
 
 @Controller
 public class AgpeController {
-	
+
 	@Autowired
 	private AgpeMetier agpeMetier;
 	
@@ -41,7 +39,7 @@ public class AgpeController {
 		mav.addObject("echec","Echec de connexion ! Vérifiez vos informations de connexion");
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/determinerRole",method = RequestMethod.GET)
 	public String determinerRoleUtilisateur(HttpSession session) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -103,17 +101,6 @@ public class AgpeController {
 		ModelAndView mav = new ModelAndView();
 		mav.clear();
 		mav.setViewName("pages/admin");
-		ArrayList<ArrayList<String>> liste_finale = statNombrePortfolioParEtablissement();
-		ArrayList<String> labels = liste_finale.get(0);
-		ArrayList<String> y1 = liste_finale.get(1);
-		ArrayList<Integer> y = new ArrayList<Integer>();
-		int taille = y1.size();
-		
-		for(int i=0;i<taille;i++) {
-			y.add(Integer.valueOf(y1.get(i)));
-		}
-		mav.addObject("labels",labels);
-		mav.addObject("y",y);
 		
 		Utilisateur user = (Utilisateur) session.getAttribute("user");
 		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
@@ -133,10 +120,33 @@ public class AgpeController {
 		else {
 			cinqdernieresNotification=dernierenotification;
 		}
-		
+		mav.addObject("nbre_notifs", cinqdernieresNotification.size());
 		mav.addObject("notifications",cinqdernieresNotification);
 		mav.addObject("nbre_notif", nbre_notification_non_lu);
-		mav.addObject("nbre_notifs", cinqdernieresNotification.size());
+		mav.addObject("messages", dernierMessages);
+		mav.addObject("nbre_messages", nbre_message_non_lus);
+		
+		return mav;
+	}
+	
+	@Secured(value = "ROLE_admin")
+	@RequestMapping(value ="/statistiques", method = RequestMethod.GET)
+	public ModelAndView afficherStatistique() {
+		ModelAndView mav = new ModelAndView();
+		mav.clear();
+		mav.setViewName("pages/statistiques");
+		
+		ArrayList<ArrayList<String>> liste_finale = statNombrePortfolioParEtablissement();
+		ArrayList<String> labels = liste_finale.get(0);
+		ArrayList<String> y1 = liste_finale.get(1);
+		ArrayList<Integer> y = new ArrayList<Integer>();
+		int taille = y1.size();
+		
+		for(int i=0;i<taille;i++) {
+			y.add(Integer.valueOf(y1.get(i)));
+		}
+		mav.addObject("labels",labels);
+		mav.addObject("y",y);
 		
 		return mav;
 	}
@@ -164,17 +174,21 @@ public class AgpeController {
 		return mav;
 	}
 	
+	@Secured(value = "ROLE_admin")
 	@RequestMapping(value = "/creerDepartement",method = RequestMethod.POST)
-	public ModelAndView creationDepartement(HttpSession session,String idEtablissement,String nomDepartemnet) {
+	public ModelAndView creationDepartement(HttpSession session,String idEtablissement,String nomDepartement) {
 		ModelAndView mav = new ModelAndView();
 		mav.clear();
 		mav.setViewName("pages/creer_departement");
 		try {
-			agpeMetier.enregistrerDepartement(new Departement(nomDepartemnet,agpeMetier.chercherEtablissementAvecId(Integer.valueOf(idEtablissement)).get()));
+			ArrayList<Etablissement> etablissements = agpeMetier.listeEtablissement();
+			mav.addObject("etablissements", etablissements);
+			agpeMetier.enregistrerDepartement(new Departement(nomDepartement,agpeMetier.chercherEtablissementAvecId(Integer.valueOf(idEtablissement)).get()));
 			mav.addObject("succes","Departement enregistré avec succès !");
-		} catch (Exception e) {
-			mav.addObject("error","Echec de l'enregistrement. Vérifiez vos informations !");
+		}catch (Exception e) {
+			mav.addObject("echec", "echec d'enregistrement du département !");
 		}
+		
 		return mav;
 	}
 	
@@ -222,13 +236,13 @@ public class AgpeController {
 		else {
 			cinqdernieresNotification=dernierenotification;
 		}
+		mav.addObject("nbre_notifs", cinqdernieresNotification.size());
+		mav.addObject("notifications",cinqdernieresNotification);
+		mav.addObject("nbre_notif", nbre_notification_non_lu);
 		mav.addObject("messages", dernierMessages);
 		mav.addObject("nbre_messages", nbre_message_non_lus);
 		mav.addObject("nbre_pieces", agpeMetier.nbrePieceUtilisateur(user));
-		mav.addObject("notifications",cinqdernieresNotification);
-		mav.addObject("nbre_notif", nbre_notification_non_lu);
 		mav.addObject("categories",categories);
-		mav.addObject("nbre_notifs", cinqdernieresNotification.size());
 		mav.addObject("pieces",pieces);
 
 		return mav;
@@ -242,15 +256,14 @@ public class AgpeController {
 		mav.clear();
 		mav.setViewName("pages/afficher_portfolios");
 		ArrayList<Etablissement> etablissements = agpeMetier.listeEtablissement();
-		ArrayList<Departement> departements = agpeMetier.listerTousLesDepartements();
-		ArrayList<Utilisateur> portfolios = agpeMetier.listerTousLesPortfolios();
+		//ArrayList<Departement> departements = agpeMetier.listerTousLesDepartements();
+		//ArrayList<Utilisateur> portfolios = agpeMetier.listerTousLesPortfolios();
 		mav.addObject("etablissements", etablissements);
-		System.out.print("ok \n\n" + etablissements.get(0).toString()+"\n\n\n");
-		mav.addObject("departements", departements);
-		mav.addObject("portfolios", portfolios);
+
 		return mav;
 	}
 	
+	@Secured(value = {"ROLE_enseignant"})
 	@RequestMapping(value = "/notification",method = RequestMethod.GET)
 	public ModelAndView AfficherNotificationComplete(HttpSession httpSession) {
 		ModelAndView mav = new ModelAndView();
@@ -265,18 +278,16 @@ public class AgpeController {
 			notificationNonLu.get(i).setDateLecture(new Date());
 			agpeMetier.marquerCommeLu(notificationNonLu.get(i));
 		}
-		System.out.print("ok \n\n" + dernierenotification.get(0).toString()+"\n\n\n");
-		System.out.print("ok \n\n" + nbre+"\n\n\n");
 		mav.addObject("notifications",dernierenotification);
 		return mav;
 	}
 	
 	@Secured(value = "ROLE_admin")
-	@RequestMapping(value = "/notification_admin",method = RequestMethod.GET)
+	@RequestMapping(value = "/notificationAdmin",method = RequestMethod.GET)
 	public ModelAndView AfficherNotificationCompleteAdmin(HttpSession httpSession) {
 		ModelAndView mav = new ModelAndView();
 		mav.clear();
-		mav.setViewName("pages/notification_admin");
+		mav.setViewName("pages/notificaton_admin");
 		Utilisateur user = (Utilisateur) httpSession.getAttribute("user");
 		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
 		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user);
@@ -286,11 +297,11 @@ public class AgpeController {
 			notificationNonLu.get(i).setDateLecture(new Date());
 			agpeMetier.marquerCommeLu(notificationNonLu.get(i));
 		}
-		//System.out.print("ok \n\n" + dernierenotification.get(0).toString()+"\n\n\n");
-		//System.out.print("ok \n\n" + nbre+"\n\n\n");
 		mav.addObject("notifications",dernierenotification);
 		return mav;
 	}
+	
+	
 	
 	@RequestMapping(value = {"/connexion"},method = RequestMethod.GET)
 	public String index() {
@@ -302,6 +313,7 @@ public class AgpeController {
 		return "pages/nonAutorise";   
 	}
 	
+	@Secured(value = "ROLE_admin")
 	@GetMapping("/admin/portfolio_{matricule}")
     public ModelAndView accederPorfolioEnseignant(@PathVariable String matricule) {
       
@@ -315,6 +327,29 @@ public class AgpeController {
 		mav.addObject("categories",categories);
 		mav.addObject("user",user);
 		mav.addObject("pieces",pieces);
+
+		ArrayList<Notification> dernierenotification = agpeMetier.notificationsRecus(user);
+		ArrayList<Notification> notificationNonLu = agpeMetier.notificationsNonLus(user);
+		ArrayList<Chat> messageNonsLus = agpeMetier.listeMessageNonLu(user);
+		ArrayList<Chat> dernierMessages = agpeMetier.cinqDernierMessages(user);
+		int nbre_message_non_lus = messageNonsLus.size();
+		
+		int nbre_notification_non_lu = notificationNonLu.size();
+		System.out.print("ok \n\n" + nbre_notification_non_lu+"\n\n\n");
+		ArrayList<Notification> cinqdernieresNotification = new ArrayList<Notification>();
+		if(dernierenotification.size()>5) {
+			for(int i=0;i<5;i++) {
+				cinqdernieresNotification.add(dernierenotification.get(i));
+			}
+		}
+		else {
+			cinqdernieresNotification=dernierenotification;
+		}
+		mav.addObject("nbre_notifs", cinqdernieresNotification.size());
+		mav.addObject("notifications",cinqdernieresNotification);
+		mav.addObject("nbre_notif", nbre_notification_non_lu);
+		mav.addObject("messages", dernierMessages);
+		mav.addObject("nbre_messages", nbre_message_non_lus);
 		
         return mav;
     }

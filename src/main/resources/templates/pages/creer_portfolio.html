@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AGPE: Creation Porttfolio</title>
+    <title>EGCEE: Creation Porttfolio</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                 <a class="navbar-brand" th:href="@{/admin}" >AGPE SSPE <br/> <br/> <h6>Application de gestion des portfolios des enseignants de l'université de Yaoundé 1</h6></a>
+                  <a class="navbar-brand" th:href="@{/admin}" >EGCEE <br/><h6>Espace de gestion des carrières des enseignants et d'échanges</h6></a>
 
             </div>
             <!-- /.navbar-header -->
@@ -112,11 +112,11 @@
                     <h4>Completez le formulaire suivant pour créer un portfolio à un nouvel enseignant</h4>
                 </div>
                 <div class="col-lg-4">
-					
-                    <form method="POST" th:action="@{/creation_nouveau_portfolio}" th:object="${creation_portfolioForm}" id="inscriptionEnseignantsForm">
+
+                    <form th:method="POST" th:action="@{/creation_nouveau_portfolio}" th:object="${creation_portfolioForm}" id="inscriptionEnseignantsForm">
                         <fieldset>
-          					<label th:if="${echec!=null}" th:text="${echec}" class="text-warning"></label>
-                        <label th:if="${success!=null}" th:text="${success}" class="text-success"></label>
+                        <label th:if="${echec!=null}" th:text="${echec}" class="text-warning"></label>
+                            <label th:if="${success!=null}" th:text="${success}" class="text-success"></label>
                             <legend>Informations personnelles</legend>
                             <div class="form-group">
                             <label>Matricule <span class="error">*</span></label>

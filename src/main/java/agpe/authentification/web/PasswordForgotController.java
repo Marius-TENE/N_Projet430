@@ -50,7 +50,7 @@ public class PasswordForgotController {
 			agpeMetier.enregisterToken(token);
 			
 			Mail mail = new Mail();
-			mail.setFrom("agpe.uy1.uninet@gmail.com");
+			mail.setFrom("egcee.uy1@gmail.com");
 			mail.setTo(user.getEmail());
 			mail.setSubject("Requête de restauration de mot de passe");
 			
